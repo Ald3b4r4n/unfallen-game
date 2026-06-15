@@ -34,7 +34,7 @@ describe("GET /api/user/me - Authentication & Profile API", () => {
     (verifyIdToken as jest.Mock).mockRejectedValue(new Error("Token inválido"));
     const request = new Request("http://localhost/api/user/me", {
       headers: {
-        Authorization: "Bearer invalid-token",
+        Authorization: "Bearer test_invalid_firebase_id_token",
       },
     });
     const response = await GET(request);
