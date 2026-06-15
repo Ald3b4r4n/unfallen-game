@@ -3,12 +3,49 @@ import { eventBridge } from "@/lib/game/event-bridge";
 import { gameConfig } from "@/lib/game/config";
 import Phaser from "phaser";
 
-// Mock do Phaser para as cenas e config
+// Mock expandido do Phaser para cobrir GameObjects.Container, Input.Keyboard, etc.
 jest.mock("phaser", () => {
+  const ContainerMock = jest.fn().mockImplementation(function (this: any) {
+    this.add = jest.fn();
+    this.setPosition = jest.fn();
+    this.setDepth = jest.fn();
+    this.setVisible = jest.fn();
+    this.visible = true;
+  });
+
+  const RectangleMock = jest.fn().mockImplementation(function (this: any) {
+    this.setFillStyle = jest.fn();
+  });
+
+  const TextMock = jest.fn().mockImplementation(function (this: any) {
+    this.setOrigin = jest.fn().mockReturnThis();
+    this.setText = jest.fn().mockReturnThis();
+    this.setScrollFactor = jest.fn().mockReturnThis();
+    this.setVisible = jest.fn().mockReturnThis();
+    this.setDepth = jest.fn().mockReturnThis();
+  });
+
   return {
     AUTO: 0,
     HEADLESS: 1,
     Game: jest.fn(),
+    GameObjects: {
+      Container: ContainerMock,
+      Rectangle: RectangleMock,
+      Text: TextMock,
+    },
+    Input: {
+      Keyboard: {
+        KeyCodes: {
+          W: 87, A: 65, S: 83, D: 68,
+          SPACE: 32, E: 69, F: 70, Q: 81, ESC: 27, R: 82,
+        },
+        JustDown: jest.fn().mockReturnValue(false),
+      },
+    },
+    Math: {
+      Vector2: jest.fn().mockImplementation((x: number, y: number) => ({ x, y })),
+    },
     Events: {
       EventEmitter: jest.fn().mockImplementation(() => {
         const listeners: Record<string, Function[]> = {};

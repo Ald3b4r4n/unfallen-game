@@ -8,7 +8,7 @@ import GameWrapper from "@/components/game/GameWrapper";
 import Phaser from "phaser";
 import "@testing-library/jest-dom";
 
-// Mock do Phaser
+// Mock expandido do Phaser para cobrir GameObjects.Container usado em PlayerSprite/EnemySprite
 jest.mock("phaser", () => {
   const destroyMock = jest.fn();
   const gameMock = jest.fn().mockImplementation(() => {
@@ -17,9 +17,40 @@ jest.mock("phaser", () => {
     };
   });
 
+  const ContainerMock = jest.fn().mockImplementation(function (this: any) {
+    this.add = jest.fn();
+    this.setPosition = jest.fn();
+    this.setDepth = jest.fn();
+    this.setVisible = jest.fn();
+    this.visible = true;
+  });
+
   return {
     Game: gameMock,
-    __destroyMock: destroyMock, // Referência para verificação
+    __destroyMock: destroyMock,
+    GameObjects: {
+      Container: ContainerMock,
+      Rectangle: jest.fn(),
+      Text: jest.fn().mockImplementation(function (this: any) {
+        this.setOrigin = jest.fn().mockReturnThis();
+        this.setText = jest.fn().mockReturnThis();
+        this.setScrollFactor = jest.fn().mockReturnThis();
+        this.setVisible = jest.fn().mockReturnThis();
+        this.setDepth = jest.fn().mockReturnThis();
+      }),
+    },
+    Input: {
+      Keyboard: {
+        KeyCodes: {
+          W: 87, A: 65, S: 83, D: 68,
+          SPACE: 32, E: 69, F: 70, Q: 81, ESC: 27, R: 82,
+        },
+        JustDown: jest.fn().mockReturnValue(false),
+      },
+    },
+    Math: {
+      Vector2: jest.fn().mockImplementation((x: number, y: number) => ({ x, y })),
+    },
     Events: {
       EventEmitter: jest.fn().mockImplementation(() => {
         return {
