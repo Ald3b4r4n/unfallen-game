@@ -172,7 +172,7 @@ export default function AuthPanel() {
 
           <div style={{ marginBottom: "1rem" }}>
             <label style={{ display: "block", fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "0.5rem" }}>
-              E-mail corporativo
+              E-mail do sobrevivente
             </label>
             <input 
               type="email" 
