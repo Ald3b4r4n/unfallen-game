@@ -44,13 +44,13 @@ export default function Home() {
               Luísa em um cenário urbano tomado pelo surto infectado.
             </p>
             <div className="cta-container">
-              <button
+              <a
+                href="/play"
                 className="btn btn-primary"
                 id="btn-play-game"
-                onClick={() => alert("O runtime do Phaser está em fase de planejamento e será implementado nos próximos blocos.")}
               >
                 <span>📻</span> Jogar Demo
-              </button>
+              </a>
               <a
                 href="https://github.com"
                 className="btn btn-secondary"
