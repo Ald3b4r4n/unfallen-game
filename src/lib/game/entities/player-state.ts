@@ -45,12 +45,13 @@ export function isDead(state: PlayerStateData): boolean {
   return state.health <= 0;
 }
 
-export function respawn(state: PlayerStateData): PlayerStateData {
+export function respawn(state: PlayerStateData, spawnX?: number, spawnY?: number): PlayerStateData {
   return {
     ...state,
     health: state.maxHealth,
-    posX: PLAYER_DEFAULTS.spawnX,
-    posY: PLAYER_DEFAULTS.spawnY,
+    posX: spawnX !== undefined ? spawnX : PLAYER_DEFAULTS.spawnX,
+    posY: spawnY !== undefined ? spawnY : PLAYER_DEFAULTS.spawnY,
     // activeWeapon and inventory are intentionally preserved
   };
 }
+

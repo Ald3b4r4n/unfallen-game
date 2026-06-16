@@ -216,8 +216,8 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
   }
 
   /** Respawn do player. */
-  doRespawn() {
-    this.playerState = respawn(this.playerState);
+  doRespawn(spawnX?: number, spawnY?: number) {
+    this.playerState = respawn(this.playerState, spawnX, spawnY);
     this.staminaState = resetStamina(this.staminaState);
     // Inventário é preservado no respawn
     this.updateScreenPosition();

@@ -27,6 +27,11 @@ export default class UIScene extends Phaser.Scene {
   private inventoryLabel!: Phaser.GameObjects.Text;
   private weaponLabel!: Phaser.GameObjects.Text;
   private controlsLabel!: Phaser.GameObjects.Text;
+  private objectiveLabel!: Phaser.GameObjects.Text;
+  private dialogBg!: Phaser.GameObjects.Rectangle;
+  private dialogText!: Phaser.GameObjects.Text;
+  private dialogTimer?: Phaser.Time.TimerEvent;
+
   private currentState: HudState = {
     health: 100, maxHealth: 100,
     stamina: 100, maxStamina: 100,
@@ -71,6 +76,29 @@ export default class UIScene extends Phaser.Scene {
     this.weaponLabel = this.add.text(MARGIN, y, 'ARMA: ---', textStyle);
     y += 24;
 
+    // Objetivo no canto superior direito
+    this.objectiveLabel = this.add.text(this.scale.width - MARGIN, MARGIN, 'OBJETIVO: Saia da base policial', {
+      fontFamily: 'monospace',
+      fontSize: '12px',
+      color: '#fbbf24', // Golden yellow
+      backgroundColor: '#0f172acc', // Slate dark background
+      padding: { x: 10, y: 6 },
+    }).setOrigin(1, 0);
+
+    // Caixa de Diálogo (Rafael) na parte inferior central
+    this.dialogBg = this.add.rectangle(this.scale.width / 2, this.scale.height - 75, this.scale.width - 100, 50, 0x0f172a, 0.85)
+      .setStrokeStyle(1, 0x475569)
+      .setOrigin(0.5)
+      .setVisible(false);
+
+    this.dialogText = this.add.text(this.scale.width / 2, this.scale.height - 75, '', {
+      fontFamily: 'monospace',
+      fontSize: '11px',
+      color: '#f8fafc',
+      align: 'center',
+      wordWrap: { width: this.scale.width - 140 }
+    }).setOrigin(0.5).setVisible(false);
+
     this.controlsLabel = this.add.text(MARGIN, this.scale.height - 30,
       'WASD=Mover  SPC=Dash  F=Lanterna  E=Coletar  Q=Atacar  ESC=Pausa', {
       fontFamily: 'monospace',
@@ -79,10 +107,34 @@ export default class UIScene extends Phaser.Scene {
     });
 
     eventBridge.on('hud:update', this.onHudUpdate, this);
+    eventBridge.on('narrative:objective', this.onObjectiveUpdate, this);
+    eventBridge.on('narrative:dialog', this.showDialog, this);
   }
 
   private onHudUpdate(state: HudState) {
     this.currentState = state;
+  }
+
+  private onObjectiveUpdate(data: { objective: string }) {
+    if (this.objectiveLabel) {
+      this.objectiveLabel.setText(`OBJETIVO: ${data.objective}`);
+    }
+  }
+
+  private showDialog(data: { text: string }) {
+    if (!this.dialogBg || !this.dialogText) return;
+
+    if (this.dialogTimer) {
+      this.dialogTimer.remove();
+    }
+
+    this.dialogBg.setVisible(true);
+    this.dialogText.setText(data.text).setVisible(true);
+
+    this.dialogTimer = this.time.delayedCall(5000, () => {
+      this.dialogBg.setVisible(false);
+      this.dialogText.setVisible(false);
+    });
   }
 
   update() {
@@ -128,5 +180,7 @@ export default class UIScene extends Phaser.Scene {
 
   shutdown() {
     eventBridge.off('hud:update', this.onHudUpdate, this);
+    eventBridge.off('narrative:objective', this.onObjectiveUpdate, this);
+    eventBridge.off('narrative:dialog', this.showDialog, this);
   }
 }
