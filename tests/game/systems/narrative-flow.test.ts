@@ -78,41 +78,44 @@ describe('Narrative Flow (lógica pura)', () => {
     
     // Checkpoint 1
     let pos = getRespawnPosition(state);
-    expect(pos).toEqual({ posX: 4, posY: 4 });
+    expect(pos).toEqual({ posX: 6, posY: 6 });
 
     // Checkpoint 2
     state = activateCheckpoint(state, 2);
     pos = getRespawnPosition(state);
-    expect(pos).toEqual({ posX: 8, posY: 5 });
+    expect(pos).toEqual({ posX: 14, posY: 8 });
 
     // Checkpoint 3
     state = activateCheckpoint(state, 3);
     pos = getRespawnPosition(state);
-    expect(pos).toEqual({ posX: 22, posY: 18 });
+    expect(pos).toEqual({ posX: 48, posY: 41 });
   });
 
   test('Mapeia coordenadas de zonas isométricas corretamente', () => {
-    // Base: (2,2) a (6,6)
-    expect(checkZone(4, 4)).toBe('base');
-    expect(checkZone(2, 2)).toBe('base');
+    // Base: (3,3) a (10,10)
     expect(checkZone(6, 6)).toBe('base');
+    expect(checkZone(3, 3)).toBe('base');
+    expect(checkZone(10, 10)).toBe('base');
 
-    // Rua: (7,2) a (15,10)
-    expect(checkZone(8, 5)).toBe('rua');
-    expect(checkZone(7, 2)).toBe('rua');
-    expect(checkZone(15, 10)).toBe('rua');
+    // Rua: (11,4) a (24,15)
+    expect(checkZone(14, 8)).toBe('rua');
+    expect(checkZone(11, 4)).toBe('rua');
+    expect(checkZone(24, 15)).toBe('rua');
 
-    // Mercado: (16,2) a (22,8)
-    expect(checkZone(18, 5)).toBe('mercado');
+    // Mercado: (26,5) a (38,17)
+    expect(checkZone(32, 10)).toBe('mercado');
 
-    // Casa: (21,15) a (28,24)
-    expect(checkZone(22, 18)).toBe('casa');
+    // Caminho: (22,22) a (43,38)
+    expect(checkZone(32, 30)).toBe('caminho');
 
-    // Escola: (29,25) a (31,29)
-    expect(checkZone(30, 27)).toBe('escola');
+    // Casa: (43,34) a (55,49)
+    expect(checkZone(48, 41)).toBe('casa');
+
+    // Escola: (55,52) a (62,61)
+    expect(checkZone(58, 56)).toBe('escola');
 
     // Fora das zonas
     expect(checkZone(0, 0)).toBeNull();
-    expect(checkZone(31, 0)).toBeNull();
+    expect(checkZone(63, 0)).toBeNull();
   });
 });

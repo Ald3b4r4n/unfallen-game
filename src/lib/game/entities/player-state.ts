@@ -1,6 +1,7 @@
 /**
  * Estado lógico puro do Player — sem dependência de Phaser, DOM ou window.
  */
+import { INITIAL_SPAWN } from '../systems/spawn-points';
 
 export interface PlayerStateData {
   health: number;
@@ -12,8 +13,8 @@ export interface PlayerStateData {
 
 export const PLAYER_DEFAULTS = {
   maxHealth: 100,
-  spawnX: 2.5,
-  spawnY: 2.5,
+  spawnX: INITIAL_SPAWN.posX,
+  spawnY: INITIAL_SPAWN.posY,
   defaultWeapon: 'unarmed' as const,
 };
 
@@ -54,4 +55,3 @@ export function respawn(state: PlayerStateData, spawnX?: number, spawnY?: number
     // activeWeapon and inventory are intentionally preserved
   };
 }
-

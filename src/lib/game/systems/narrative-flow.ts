@@ -1,6 +1,8 @@
 /**
  * Sistema de Fluxo Narrativo e Checkpoints puro — sem dependência do Phaser.
  */
+import { checkZone as resolveZone, ZoneId } from '../config/zones';
+import { CHECKPOINTS, getSpawnPoint, SpawnPoint } from './spawn-points';
 
 export interface NarrativeState {
   currentObjectiveId: string;
@@ -9,17 +11,8 @@ export interface NarrativeState {
   collectedClues: string[];
 }
 
-export interface Checkpoint {
-  id: number;
-  posX: number;
-  posY: number;
-}
-
-export const CHECKPOINTS: Record<number, Checkpoint> = {
-  1: { id: 1, posX: 4, posY: 4 },       // Spawn Inicial (Base Policial)
-  2: { id: 2, posX: 8, posY: 5 },       // Saída da Base / Rua Externa
-  3: { id: 3, posX: 22, posY: 18 },     // Pátio da Casa de Rafael
-};
+export { CHECKPOINTS };
+export type Checkpoint = SpawnPoint;
 
 export const OBJECTIVES: Record<string, string> = {
   "saia_base": "Saia da base policial",
@@ -109,28 +102,13 @@ export function collectClue(state: NarrativeState, clueId: string): NarrativeSta
  * Retorna as coordenadas do checkpoint ativo.
  */
 export function getRespawnPosition(state: NarrativeState): { posX: number; posY: number } {
-  const cp = CHECKPOINTS[state.activeCheckpointId] || CHECKPOINTS[1];
+  const cp = getSpawnPoint(state.activeCheckpointId);
   return { posX: cp.posX, posY: cp.posY };
 }
 
 /**
- * Mapeia as zonas do grid 32x32 para as áreas da história.
+ * Mapeia as zonas do grid 64x64 para as áreas da história.
  */
-export function checkZone(posX: number, posY: number): string | null {
-  // Base Policial: x 2 a 6, y 2 a 6
-  if (posX >= 2 && posX <= 6 && posY >= 2 && posY <= 6) return "base";
-  
-  // Mercado: x 16 a 22, y 2 a 8
-  if (posX >= 16 && posX <= 22 && posY >= 2 && posY <= 8) return "mercado";
-  
-  // Casa de Rafael: x 21 a 28, y 15 a 24
-  if (posX >= 21 && posX <= 28 && posY >= 15 && posY <= 24) return "casa";
-  
-  // Acesso à Escola Municipal: x 29 a 31, y 25 a 29
-  if (posX >= 29 && posX <= 31 && posY >= 25 && posY <= 29) return "escola";
-  
-  // Rua Externa: x 7 a 15, y 2 a 10
-  if (posX >= 7 && posX <= 15 && posY >= 2 && posY <= 10) return "rua";
-
-  return null;
+export function checkZone(posX: number, posY: number): ZoneId | null {
+  return resolveZone(posX, posY);
 }

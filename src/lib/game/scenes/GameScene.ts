@@ -9,6 +9,8 @@ import EnemySprite from '../entities/EnemySprite';
 import InteractableSprite from '../entities/InteractableSprite';
 import { eventBridge } from '../event-bridge';
 import { GAME_ASSETS } from '../config/asset-keys';
+import { getCameraBounds, MAP_CONFIG, TILE_HEIGHT, TILE_WIDTH } from '../config/map-config';
+import { GAME_ZONES } from '../config/zones';
 import {
   NarrativeState,
   createNarrativeState,
@@ -19,10 +21,6 @@ import {
   checkZone,
   OBJECTIVES,
 } from '../systems/narrative-flow';
-
-const TILE_WIDTH = 64;
-const TILE_HEIGHT = 32;
-const GRID_SIZE = 32;
 
 interface EnvironmentArt {
   key: string;
@@ -39,23 +37,23 @@ interface EnvironmentArt {
 }
 
 const ENVIRONMENT_ART: EnvironmentArt[] = [
-  { key: GAME_ASSETS.buildings.policeBase.key, x: 3.6, y: 4.2, scale: 0.125, depth: -30, alpha: 0.88, originY: 0.78, footprintWidth: 230, footprintHeight: 76, footprintOffsetY: 16, footprintAlpha: 0.26 },
-  { key: GAME_ASSETS.buildings.exteriorStreet.key, x: 10.6, y: 6.7, scale: 0.105, depth: -32, alpha: 0.58, originY: 0.58, footprintWidth: 280, footprintHeight: 96, footprintOffsetY: 10, footprintAlpha: 0.18 },
-  { key: GAME_ASSETS.buildings.abandonedMarket.key, x: 18.5, y: 5.8, scale: 0.115, depth: -28, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 72, footprintOffsetY: 15, footprintAlpha: 0.24 },
-  { key: GAME_ASSETS.buildings.residencePath.key, x: 15.3, y: 16.2, scale: 0.105, depth: -31, alpha: 0.58, originY: 0.6, footprintWidth: 260, footprintHeight: 86, footprintOffsetY: 10, footprintAlpha: 0.17 },
-  { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 24.4, y: 19.4, scale: 0.118, depth: -27, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 76, footprintOffsetY: 15, footprintAlpha: 0.24 },
-  { key: GAME_ASSETS.buildings.schoolGate.key, x: 29.3, y: 26.7, scale: 0.098, depth: -26, alpha: 0.84, originY: 0.78, footprintWidth: 210, footprintHeight: 70, footprintOffsetY: 14, footprintAlpha: 0.22 },
-  { key: GAME_ASSETS.props.brokenStreetPole.key, x: 8.2, y: 4.4, scale: 0.115, depth: -22, alpha: 0.86, originY: 0.92 },
-  { key: GAME_ASSETS.props.streetSign.key, x: 11.4, y: 4.7, scale: 0.1, depth: -22, alpha: 0.86, originY: 0.92 },
-  { key: GAME_ASSETS.props.barricade.key, x: 8.4, y: 6.5, scale: 0.12, depth: -21, alpha: 0.88, originY: 0.76 },
-  { key: GAME_ASSETS.props.trashBags.key, x: 12.5, y: 7.7, scale: 0.12, depth: -20, alpha: 0.84, originY: 0.78 },
-  { key: GAME_ASSETS.props.marketCrates.key, x: 18.6, y: 6.4, scale: 0.11, depth: -20, alpha: 0.86, originY: 0.78 },
-  { key: GAME_ASSETS.props.brokenWall.key, x: 10.8, y: 8.0, scale: 0.105, depth: -21, alpha: 0.82, originY: 0.82 },
-  { key: GAME_ASSETS.props.rainPuddle.key, x: 10.2, y: 8.9, scale: 0.13, depth: -25, alpha: 0.5, originY: 0.5 },
-  { key: GAME_ASSETS.props.bloodPuddle.key, x: 14.4, y: 10.2, scale: 0.12, depth: -24, alpha: 0.5, originY: 0.5 },
-  { key: GAME_ASSETS.props.brokenDoor.key, x: 24.8, y: 18.8, scale: 0.095, depth: -20, alpha: 0.84, originY: 0.92 },
-  { key: GAME_ASSETS.props.brokenWindow.key, x: 25.8, y: 20.0, scale: 0.1, depth: -20, alpha: 0.84, originY: 0.82 },
-  { key: GAME_ASSETS.props.dragMark.key, x: 28.5, y: 26.2, scale: 0.11, depth: -24, alpha: 0.45, originY: 0.5 },
+  { key: GAME_ASSETS.buildings.policeBase.key, x: 6.4, y: 6.6, scale: 0.125, depth: -30, alpha: 0.88, originY: 0.78, footprintWidth: 230, footprintHeight: 76, footprintOffsetY: 16, footprintAlpha: 0.26 },
+  { key: GAME_ASSETS.buildings.exteriorStreet.key, x: 17.6, y: 10.2, scale: 0.105, depth: -32, alpha: 0.58, originY: 0.58, footprintWidth: 280, footprintHeight: 96, footprintOffsetY: 10, footprintAlpha: 0.18 },
+  { key: GAME_ASSETS.buildings.abandonedMarket.key, x: 31.8, y: 10.6, scale: 0.115, depth: -28, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 72, footprintOffsetY: 15, footprintAlpha: 0.24 },
+  { key: GAME_ASSETS.buildings.residencePath.key, x: 32.6, y: 29.6, scale: 0.105, depth: -31, alpha: 0.58, originY: 0.6, footprintWidth: 260, footprintHeight: 86, footprintOffsetY: 10, footprintAlpha: 0.17 },
+  { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 49.4, y: 41.6, scale: 0.118, depth: -27, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 76, footprintOffsetY: 15, footprintAlpha: 0.24 },
+  { key: GAME_ASSETS.buildings.schoolGate.key, x: 58.4, y: 56.6, scale: 0.098, depth: -26, alpha: 0.84, originY: 0.78, footprintWidth: 210, footprintHeight: 70, footprintOffsetY: 14, footprintAlpha: 0.22 },
+  { key: GAME_ASSETS.props.brokenStreetPole.key, x: 13.2, y: 7.4, scale: 0.115, depth: -22, alpha: 0.86, originY: 0.92 },
+  { key: GAME_ASSETS.props.streetSign.key, x: 19.4, y: 7.8, scale: 0.1, depth: -22, alpha: 0.86, originY: 0.92 },
+  { key: GAME_ASSETS.props.barricade.key, x: 14.8, y: 11.0, scale: 0.12, depth: -21, alpha: 0.88, originY: 0.76 },
+  { key: GAME_ASSETS.props.trashBags.key, x: 21.0, y: 12.2, scale: 0.12, depth: -20, alpha: 0.84, originY: 0.78 },
+  { key: GAME_ASSETS.props.marketCrates.key, x: 31.4, y: 12.4, scale: 0.11, depth: -20, alpha: 0.86, originY: 0.78 },
+  { key: GAME_ASSETS.props.brokenWall.key, x: 23.6, y: 22.8, scale: 0.105, depth: -21, alpha: 0.82, originY: 0.82 },
+  { key: GAME_ASSETS.props.rainPuddle.key, x: 27.2, y: 28.9, scale: 0.13, depth: -25, alpha: 0.5, originY: 0.5 },
+  { key: GAME_ASSETS.props.bloodPuddle.key, x: 37.4, y: 35.2, scale: 0.12, depth: -24, alpha: 0.5, originY: 0.5 },
+  { key: GAME_ASSETS.props.brokenDoor.key, x: 49.4, y: 40.0, scale: 0.095, depth: -20, alpha: 0.84, originY: 0.92 },
+  { key: GAME_ASSETS.props.brokenWindow.key, x: 51.2, y: 43.2, scale: 0.1, depth: -20, alpha: 0.84, originY: 0.82 },
+  { key: GAME_ASSETS.props.dragMark.key, x: 57.2, y: 55.0, scale: 0.11, depth: -24, alpha: 0.45, originY: 0.5 },
 ];
 
 const ENEMY_ASSET_KEYS = [
@@ -69,25 +67,6 @@ const ENEMY_ASSET_KEYS = [
   GAME_ASSETS.enemies.infectedNurse.key,
   GAME_ASSETS.enemies.infectedMechanic.key,
   GAME_ASSETS.enemies.infectedFictionalPoliceman.key,
-];
-
-interface VisualZone {
-  name: string;
-  id: string;
-  minX: number;
-  maxX: number;
-  minY: number;
-  maxY: number;
-  color: number;
-}
-
-const VISUAL_ZONES: VisualZone[] = [
-  { name: 'Base Policial', id: 'base', minX: 2, maxX: 6, minY: 2, maxY: 6, color: 0x3b82f6 },
-  { name: 'Rua Externa', id: 'rua', minX: 7, maxX: 15, minY: 2, maxY: 10, color: 0x64748b },
-  { name: 'Mercado Abandonado', id: 'mercado', minX: 16, maxX: 22, minY: 2, maxY: 8, color: 0xf59e0b },
-  { name: 'Caminho para Residência', id: 'caminho', minX: 10, maxX: 20, minY: 11, maxY: 20, color: 0x78350f },
-  { name: 'Casa de Rafael', id: 'casa', minX: 21, maxX: 28, minY: 15, maxY: 24, color: 0x10b981 },
-  { name: 'Escola Municipal (Portão)', id: 'escola', minX: 29, maxX: 31, minY: 25, maxY: 29, color: 0xef4444 },
 ];
 
 export default class GameScene extends Phaser.Scene {
@@ -130,33 +109,33 @@ export default class GameScene extends Phaser.Scene {
 
     // Criar inimigos patrulheiros distribuídos nas zonas de transição
     this.enemies = [
-      new EnemySprite(this, 'zombie-1', 9, 6, ENEMY_ASSET_KEYS[0]),                         // Rua externa
-      new EnemySprite(this, 'zombie-2', 15, 14, ENEMY_ASSET_KEYS[4], { alertRadius: 5 }),   // Caminho intermediário
-      new EnemySprite(this, 'zombie-3', 25, 20, ENEMY_ASSET_KEYS[8]),                       // Próximo à casa de Rafael
+      new EnemySprite(this, 'zombie-1', 17, 10, ENEMY_ASSET_KEYS[0]),                       // Rua externa
+      new EnemySprite(this, 'zombie-2', 32, 30, ENEMY_ASSET_KEYS[4], { alertRadius: 5 }),   // Caminho intermediário
+      new EnemySprite(this, 'zombie-3', 49, 42, ENEMY_ASSET_KEYS[8]),                       // Próximo à casa de Rafael
     ];
 
     // Criar itens e pistas da fase
     const itemDefs: InteractableData[] = [
       // Pista 1: Mochila de Luísa no Mercado Abandonado
       {
-        id: 'note-backpack', posX: 18, posY: 5, interactionRadius: 1.5,
+        id: 'note-backpack', posX: 32, posY: 10, interactionRadius: 1.5,
         item: { itemId: 'note-backpack', name: 'Mochila de Luísa', type: 'note', quantity: 1 },
         collected: false,
       },
       // Pista 2: Diário de Luísa na Casa de Rafael
       {
-        id: 'note-diary', posX: 24, posY: 18, interactionRadius: 1.5,
+        id: 'note-diary', posX: 49, posY: 41, interactionRadius: 1.5,
         item: { itemId: 'note-diary', name: 'Diário de Luísa', type: 'note', quantity: 1 },
         collected: false,
       },
       // Consumíveis de sobrevivência
       {
-        id: 'battery-1', posX: 19, posY: 3, interactionRadius: 1.5,
+        id: 'battery-1', posX: 34, posY: 8, interactionRadius: 1.5,
         item: { itemId: 'battery-1', name: 'Bateria', type: 'battery', quantity: 1 },
         collected: false,
       },
       {
-        id: 'heal-1', posX: 23, posY: 22, interactionRadius: 1.5,
+        id: 'heal-1', posX: 51, posY: 46, interactionRadius: 1.5,
         item: { itemId: 'heal-1', name: 'Kit Médico', type: 'healing', quantity: 1 },
         collected: false,
       },
@@ -165,7 +144,7 @@ export default class GameScene extends Phaser.Scene {
     this.interactables = itemDefs.map(d => new InteractableSprite(this, d));
 
     // Desenhar os textos físicos identificando as áreas
-    for (const zone of VISUAL_ZONES) {
+    for (const zone of GAME_ZONES) {
       const center = toScreen(
         { x: (zone.minX + zone.maxX) / 2, y: (zone.minY + zone.maxY) / 2, z: 0 },
         TILE_WIDTH,
@@ -181,6 +160,8 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Câmera acompanha o player
+    const cameraBounds = getCameraBounds();
+    this.cameras.main.setBounds(cameraBounds.x, cameraBounds.y, cameraBounds.width, cameraBounds.height);
     this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
 
     // Configurar telas de status overlays
@@ -258,7 +239,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Desenhar grid e contornos das zonas
     this.graphics.clear();
-    this.drawIsometricGrid(GRID_SIZE, GRID_SIZE);
+    this.drawIsometricGrid(MAP_CONFIG.gridWidth, MAP_CONFIG.gridHeight);
     this.drawVisualZones();
 
     // Depth sort
@@ -305,7 +286,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   private drawVisualZones() {
-    for (const zone of VISUAL_ZONES) {
+    for (const zone of GAME_ZONES) {
       // Coletar os quatro cantos isométricos
       const s1 = toScreen({ x: zone.minX, y: zone.minY, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
       const s2 = toScreen({ x: zone.maxX + 1, y: zone.minY, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
@@ -479,9 +460,9 @@ export default class GameScene extends Phaser.Scene {
 
     // Restaurar e reviver inimigos
     const enemySpawns: Record<string, { posX: number; posY: number }> = {
-      'zombie-1': { posX: 9, posY: 6 },
-      'zombie-2': { posX: 15, posY: 14 },
-      'zombie-3': { posX: 25, posY: 20 },
+      'zombie-1': { posX: 17, posY: 10 },
+      'zombie-2': { posX: 32, posY: 30 },
+      'zombie-3': { posX: 49, posY: 42 },
     };
 
     for (const enemy of this.enemies) {

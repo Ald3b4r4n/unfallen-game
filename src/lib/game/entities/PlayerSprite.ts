@@ -12,12 +12,11 @@ import { BatteryData, createBattery, toggleLantern, drainBattery } from '../syst
 import { InventoryData, createInventory, addItem, ItemSlot } from '../systems/inventory';
 import { eventBridge } from '../event-bridge';
 import { GAME_ASSETS } from '../config/asset-keys';
+import { clampToMapBounds, TILE_HEIGHT, TILE_WIDTH } from '../config/map-config';
 
 const PLAYER_SPEED = 2.5;  // unidades lógicas por segundo
 const DASH_SPEED_MULT = 3;
 const DASH_DURATION_MS = 200;
-const TILE_WIDTH = 64;
-const TILE_HEIGHT = 32;
 const PLAYER_SPRITE_SCALE = 0.08;
 
 export default class PlayerSprite extends Phaser.GameObjects.Container {
@@ -122,8 +121,13 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     }
 
     const speed = this.isDashing ? PLAYER_SPEED * DASH_SPEED_MULT : PLAYER_SPEED;
-    this.playerState.posX += dx * speed * dt;
-    this.playerState.posY += dy * speed * dt;
+    const nextPos = clampToMapBounds(
+      this.playerState.posX + dx * speed * dt,
+      this.playerState.posY + dy * speed * dt
+    );
+
+    this.playerState.posX = nextPos.posX;
+    this.playerState.posY = nextPos.posY;
   }
 
   private handleDash(dt: number) {
