@@ -144,6 +144,132 @@ Todos os assets abaixo foram aprovados em revisão temporária antes da integra�
 
 ---
 
+## BLOCO 08 — Characters and Infected Sprites
+
+Todos os assets abaixo foram aprovados em revisão temporária em `tmp/block-08-characters-infected-review/` antes da integração. As imagens foram geradas por IA via Codex/ferramenta de imagem e pós-processadas para alpha real. Brullov foi usado apenas como benchmark estético amplo de qualidade de pixel art, sem cópia, recorte, reconstrução ou derivação de assets. O gore permanece estilizado em pixel art, sem gore fotográfico ou extremo.
+
+### 1. `antonio-rafael.png`
+* **Nome do Arquivo**: `antonio-rafael.png`
+* **Caminho**: `public/assets/unfallen/game/characters/antonio-rafael.png`
+* **Origem**: Codex / ferramenta de imagem com referências humanas autorizadas
+* **Tipo**: Sprite original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Sprite jogável do protagonista Antônio Rafael no Phaser, com fallback para placeholder.
+* **Prompt Resumido**: Policial brasileiro sobrevivente, adulto robusto, óculos, cabelo curto, uniforme tático ficcional escuro, energia protetora e atmosfera survival horror.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não foi copiado, recortado, reconstruído ou derivado de assets pagos, fotos, Brullov, brasões oficiais ou marcas reais.
+
+### 2. `luisa.png`
+* **Nome do Arquivo**: `luisa.png`
+* **Caminho**: `public/assets/unfallen/game/portraits/luisa.png`
+* **Origem**: Codex / ferramenta de imagem com referências humanas autorizadas
+* **Tipo**: Sprite/retrato narrativo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Retrato narrativo, memória, interface futura e objetivo emocional. **Não deve ser usada como inimiga, entidade de combate ou gore**.
+* **Prompt Resumido**: Menina brasileira Luísa, cabelo longo e cacheado escuro, expressão doce, roupa simples em tons de vermelho/rosa e presença emocional.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não foi copiado, recortado, reconstruído ou derivado de assets pagos, fotos, Brullov, marcas reais ou arte de terceiros.
+
+### 3. `infectado-01-motorista-onibus.png`
+* **Nome do Arquivo**: `infectado-01-motorista-onibus.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-01-motorista-onibus.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-motorista de ônibus urbano brasileiro infectado, uniforme ficcional gasto, postura agressiva e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 4. `infectado-02-vendedora-rua.png`
+* **Nome do Arquivo**: `infectado-02-vendedora-rua.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-02-vendedora-rua.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-vendedora de rua brasileira infectada, avental rasgado, postura curvada agressiva e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 5. `infectado-03-professora.png`
+* **Nome do Arquivo**: `infectado-03-professora.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-03-professora.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-professora municipal brasileira infectada, cardigan rasgado, óculos quebrados e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 6. `infectado-04-academia.png`
+* **Nome do Arquivo**: `infectado-04-academia.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-04-academia.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-frequentador de academia brasileiro infectado, silhueta musculosa, roupa rasgada e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 7. `infectado-05-entregador.png`
+* **Nome do Arquivo**: `infectado-05-entregador.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-05-entregador.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-entregador de moto brasileiro infectado, capacete rachado, mochila sem marca e pose agressiva.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 8. `infectado-06-seguranca.png`
+* **Nome do Arquivo**: `infectado-06-seguranca.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-06-seguranca.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-segurança privado brasileiro infectado, uniforme genérico escuro, lanterna quebrada e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 9. `infectado-07-sobrevivente-urbano.png`
+* **Nome do Arquivo**: `infectado-07-sobrevivente-urbano.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-07-sobrevivente-urbano.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Sobrevivente urbano brasileiro infectado, roupas em camadas, mochila improvisada, postura curvada e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 10. `infectado-08-enfermeira.png`
+* **Nome do Arquivo**: `infectado-08-enfermeira.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-08-enfermeira.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-enfermeira de clínica brasileira infectada, uniforme médico genérico sem logos ou cruz vermelha e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 11. `infectado-09-mecanico.png`
+* **Nome do Arquivo**: `infectado-09-mecanico.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-09-mecanico.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-mecânico de bairro brasileiro infectado, macacão sujo de óleo, ferramentas genéricas e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; não usa marcas, símbolos oficiais, assets pagos, Brullov ou gore fotográfico.
+
+### 12. `infectado-10-policial-ficcional.png`
+* **Nome do Arquivo**: `infectado-10-policial-ficcional.png`
+* **Caminho**: `public/assets/unfallen/game/enemies/infectado-10-policial-ficcional.png`
+* **Origem**: Codex / ferramenta de imagem
+* **Tipo**: Sprite inimigo original em pixel art isométrica 2:1 com alpha real
+* **Uso no Projeto**: Variação visual de infectado no Phaser.
+* **Prompt Resumido**: Ex-policial de patrulha ficcional/genérico infectado, uniforme tático escuro sem brasão real, rádio quebrado e sangue pixelado moderado.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Asset original gerado por IA; policial infectado é ficcional/genérico, sem símbolo oficial detalhado, sem marcas reais, sem assets pagos, sem Brullov e sem gore fotográfico.
+
+---
+
 ## Termos de Governança e Integridade de Assets
 * **Uso de IA**: Todas as gerações foram efetuadas a partir de descrições textuais autorais próprias do universo de Unfallen, sem replicar sprites ou composições patenteadas de terceiros.
 * **Proibição de Assets Pagos sem Licença**: Confirma-se que **nenhum asset pago foi incorporado** à árvore do projeto Unfallen.

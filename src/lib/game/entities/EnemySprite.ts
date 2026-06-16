@@ -13,11 +13,13 @@ const TILE_WIDTH = 64;
 const TILE_HEIGHT = 32;
 const CONTACT_DAMAGE_RADIUS = 0.8;
 const CONTACT_DAMAGE_COOLDOWN_MS = 1000;
+const ENEMY_SPRITE_SCALE = 0.06;
 
 export default class EnemySprite extends Phaser.GameObjects.Container {
   public enemyState: EnemyStateData;
-  private bodyRect: Phaser.GameObjects.Rectangle;
+  private bodyRect?: Phaser.GameObjects.Rectangle;
   private stateLabel: Phaser.GameObjects.Text;
+  private hasSpriteAsset = false;
   private lastContactDamageTime = 0;
 
   constructor(
@@ -25,21 +27,33 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
     id: string,
     startX: number,
     startY: number,
+    assetKeyOrOverrides?: string | Partial<EnemyStateData>,
     overrides?: Partial<EnemyStateData>
   ) {
     super(scene, 0, 0);
 
-    this.enemyState = createEnemyState(id, startX, startY, overrides);
+    const assetKey = typeof assetKeyOrOverrides === 'string' ? assetKeyOrOverrides : undefined;
+    const enemyOverrides = typeof assetKeyOrOverrides === 'string' ? overrides : assetKeyOrOverrides;
 
-    // Retângulo placeholder vermelho
-    this.bodyRect = scene.add.rectangle(0, 0, 18, 24, 0xef4444);
-    this.add(this.bodyRect);
+    this.enemyState = createEnemyState(id, startX, startY, enemyOverrides);
+
+    if (assetKey && scene.textures.exists(assetKey)) {
+      const sprite = scene.add.image(0, 0, assetKey)
+        .setOrigin(0.5, 0.93)
+        .setScale(ENEMY_SPRITE_SCALE);
+      this.add(sprite);
+      this.hasSpriteAsset = true;
+    } else {
+      this.bodyRect = scene.add.rectangle(0, 0, 18, 24, 0xef4444);
+      this.add(this.bodyRect);
+    }
 
     this.stateLabel = scene.add.text(0, -18, 'Z', {
       fontFamily: 'monospace',
       fontSize: '10px',
       color: '#fca5a5',
     }).setOrigin(0.5);
+    this.stateLabel.setVisible(!this.hasSpriteAsset);
     this.add(this.stateLabel);
 
     scene.add.existing(this);
@@ -60,7 +74,8 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
 
     // Atualizar visual
     this.stateLabel.setText(this.enemyState.state === 'CHASING' ? '!' : 'Z');
-    this.bodyRect.setFillStyle(this.enemyState.state === 'CHASING' ? 0xdc2626 : 0xef4444);
+    this.stateLabel.setVisible(!this.hasSpriteAsset || this.enemyState.state === 'CHASING');
+    this.bodyRect?.setFillStyle(this.enemyState.state === 'CHASING' ? 0xdc2626 : 0xef4444);
 
     this.updateScreenPosition();
 

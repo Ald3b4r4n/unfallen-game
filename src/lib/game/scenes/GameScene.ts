@@ -44,6 +44,19 @@ const ENVIRONMENT_ART: EnvironmentArt[] = [
   { key: GAME_ASSETS.props.urbanExtras.key, x: 13, y: 9, scale: 0.1, depth: -24, alpha: 0.88, originY: 0.7 },
 ];
 
+const ENEMY_ASSET_KEYS = [
+  GAME_ASSETS.enemies.infectedBusDriver.key,
+  GAME_ASSETS.enemies.infectedStreetVendor.key,
+  GAME_ASSETS.enemies.infectedTeacher.key,
+  GAME_ASSETS.enemies.infectedGym.key,
+  GAME_ASSETS.enemies.infectedDelivery.key,
+  GAME_ASSETS.enemies.infectedSecurity.key,
+  GAME_ASSETS.enemies.infectedUrbanSurvivor.key,
+  GAME_ASSETS.enemies.infectedNurse.key,
+  GAME_ASSETS.enemies.infectedMechanic.key,
+  GAME_ASSETS.enemies.infectedFictionalPoliceman.key,
+];
+
 interface VisualZone {
   name: string;
   id: string;
@@ -103,9 +116,9 @@ export default class GameScene extends Phaser.Scene {
 
     // Criar inimigos patrulheiros distribuídos nas zonas de transição
     this.enemies = [
-      new EnemySprite(this, 'zombie-1', 9, 6),                     // Rua externa
-      new EnemySprite(this, 'zombie-2', 15, 14, { alertRadius: 5 }), // Caminho intermediário
-      new EnemySprite(this, 'zombie-3', 25, 20),                    // Próximo à casa de Rafael
+      new EnemySprite(this, 'zombie-1', 9, 6, ENEMY_ASSET_KEYS[0]),                         // Rua externa
+      new EnemySprite(this, 'zombie-2', 15, 14, ENEMY_ASSET_KEYS[4], { alertRadius: 5 }),   // Caminho intermediário
+      new EnemySprite(this, 'zombie-3', 25, 20, ENEMY_ASSET_KEYS[8]),                       // Próximo à casa de Rafael
     ];
 
     // Criar itens e pistas da fase

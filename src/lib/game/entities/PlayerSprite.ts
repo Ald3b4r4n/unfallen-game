@@ -11,12 +11,14 @@ import { StaminaData, createStamina, tryDash, regenerateStamina, resetStamina } 
 import { BatteryData, createBattery, toggleLantern, drainBattery } from '../systems/battery';
 import { InventoryData, createInventory, addItem, ItemSlot } from '../systems/inventory';
 import { eventBridge } from '../event-bridge';
+import { GAME_ASSETS } from '../config/asset-keys';
 
 const PLAYER_SPEED = 2.5;  // unidades lógicas por segundo
 const DASH_SPEED_MULT = 3;
 const DASH_DURATION_MS = 200;
 const TILE_WIDTH = 64;
 const TILE_HEIGHT = 32;
+const PLAYER_SPRITE_SCALE = 0.08;
 
 export default class PlayerSprite extends Phaser.GameObjects.Container {
   public playerState: PlayerStateData;
@@ -36,7 +38,7 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     ESC: Phaser.Input.Keyboard.Key;
   };
 
-  private bodyRect: Phaser.GameObjects.Rectangle;
+  private bodyRect?: Phaser.GameObjects.Rectangle;
   private isDashing = false;
   private dashTimer = 0;
 
@@ -50,17 +52,22 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     this.batteryState = createBattery();
     this.inventoryState = createInventory();
 
-    // Retângulo placeholder azul para o player
-    this.bodyRect = scene.add.rectangle(0, 0, 20, 30, 0x3b82f6);
-    this.add(this.bodyRect);
+    if (scene.textures.exists(GAME_ASSETS.characters.antonioRafael.key)) {
+      const sprite = scene.add.image(0, 0, GAME_ASSETS.characters.antonioRafael.key)
+        .setOrigin(0.5, 0.94)
+        .setScale(PLAYER_SPRITE_SCALE);
+      this.add(sprite);
+    } else {
+      this.bodyRect = scene.add.rectangle(0, 0, 20, 30, 0x3b82f6);
+      this.add(this.bodyRect);
 
-    // Label
-    const label = scene.add.text(0, -22, 'P', {
-      fontFamily: 'monospace',
-      fontSize: '12px',
-      color: '#93c5fd',
-    }).setOrigin(0.5);
-    this.add(label);
+      const label = scene.add.text(0, -22, 'P', {
+        fontFamily: 'monospace',
+        fontSize: '12px',
+        color: '#93c5fd',
+      }).setOrigin(0.5);
+      this.add(label);
+    }
 
     scene.add.existing(this);
 
