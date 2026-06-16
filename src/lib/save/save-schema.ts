@@ -1,3 +1,8 @@
+import {
+  MissionSaveState,
+  normalizeMissionSaveState,
+} from "../game/systems/mission-save";
+
 export interface SavePayload {
   slot: number;
   schemaVersion: number;
@@ -12,6 +17,7 @@ export interface SavePayload {
     checkpointsReached: string[];
     evacuationRadioHeard: boolean;
   };
+  mission: MissionSaveState;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,5 +86,6 @@ export function validateAndNormalizeSave(raw: any): SavePayload {
       checkpointsReached: (rawStats.checkpointsReached as unknown[]).map((cp) => String(cp)),
       evacuationRadioHeard: rawStats.evacuationRadioHeard,
     },
+    mission: normalizeMissionSaveState(raw.mission, raw.updatedAt),
   };
 }

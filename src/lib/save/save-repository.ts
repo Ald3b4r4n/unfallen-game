@@ -1,5 +1,5 @@
 import { getMongoClient } from "../mongodb/client";
-import { SavePayload } from "./save-schema";
+import { SavePayload, validateAndNormalizeSave } from "./save-schema";
 
 async function getSavesCollection() {
   const client = await getMongoClient();
@@ -16,14 +16,15 @@ export async function loadSaveRecord(uid: string, slot: number): Promise<SavePay
   const record = await collection.findOne({ uid, slot });
   if (!record) return null;
 
-  return {
+  return validateAndNormalizeSave({
     slot: record.slot,
     schemaVersion: record.schemaVersion,
     updatedAt: record.updatedAt,
     playerState: record.playerState,
     inventory: record.inventory,
     gameStats: record.gameStats,
-  } as SavePayload;
+    mission: record.mission,
+  });
 }
 
 export async function writeSaveRecord(uid: string, payload: SavePayload): Promise<boolean> {
@@ -40,6 +41,7 @@ export async function writeSaveRecord(uid: string, payload: SavePayload): Promis
         playerState: payload.playerState,
         inventory: payload.inventory,
         gameStats: payload.gameStats,
+        mission: payload.mission,
       },
     },
     { upsert: true }

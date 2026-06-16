@@ -15,6 +15,16 @@ describe("Save Payload Schema Validation", () => {
       checkpointsReached: ["checkpoint-1"],
       evacuationRadioHeard: false,
     },
+    mission: {
+      currentObjectiveId: "leave_police_base",
+      completedObjectiveIds: [],
+      collectedInteractionIds: [],
+      activeCheckpointId: 1,
+      playerPosition: { x: 6, y: 6 },
+      phaseComplete: false,
+      lastKnownZoneId: "base",
+      updatedAt: "2026-06-15T12:00:00.000Z",
+    },
   };
 
   it("deve aceitar um payload de save perfeitamente válido", () => {
@@ -58,5 +68,69 @@ describe("Save Payload Schema Validation", () => {
   it("deve rejeitar se o formato do updatedAt for inválido", () => {
     const invalid = { ...validSave, updatedAt: "not-a-date" };
     expect(() => validateAndNormalizeSave(invalid)).toThrow("updatedAt");
+  });
+
+  it("deve aceitar save antigo sem mission aplicando defaults seguros", () => {
+    const legacySave: Partial<typeof validSave> = { ...validSave };
+    delete legacySave.mission;
+
+    const result = validateAndNormalizeSave(legacySave);
+
+    expect(result.mission.currentObjectiveId).toBe("leave_police_base");
+    expect(result.mission.activeCheckpointId).toBe(1);
+    expect(result.mission.playerPosition).toEqual({ x: 6, y: 6 });
+    expect(result.mission.phaseComplete).toBe(false);
+  });
+
+  it("deve normalizar mission parcial/corrompida sem permitir pular etapas", () => {
+    const dirtySave = {
+      ...validSave,
+      mission: {
+        currentObjectiveId: "reach_school_gate",
+        completedObjectiveIds: ["leave_police_base", "search_rafael_house"],
+        collectedInteractionIds: ["note-diary", "unknown"],
+        activeCheckpointId: 6,
+        playerPosition: { x: 999, y: -999 },
+        phaseComplete: true,
+        lastKnownZoneId: "invalid-zone",
+        updatedAt: "invalid-date",
+      },
+    };
+
+    const result = validateAndNormalizeSave(dirtySave);
+
+    expect(result.mission.currentObjectiveId).toBe("investigate_market");
+    expect(result.mission.completedObjectiveIds).toEqual(["leave_police_base"]);
+    expect(result.mission.collectedInteractionIds).toEqual([]);
+    expect(result.mission.activeCheckpointId).toBe(2);
+    expect(result.mission.phaseComplete).toBe(false);
+    expect(result.mission.lastKnownZoneId).toBeUndefined();
+    expect(result.mission.updatedAt).toBe(validSave.updatedAt);
+  });
+
+  it("deve persistir phaseComplete quando todos os objetivos foram concluídos", () => {
+    const result = validateAndNormalizeSave({
+      ...validSave,
+      mission: {
+        ...validSave.mission,
+        currentObjectiveId: "reach_school_gate",
+        completedObjectiveIds: [
+          "leave_police_base",
+          "investigate_market",
+          "reach_residential_path",
+          "search_rafael_house",
+          "reach_school_gate",
+        ],
+        collectedInteractionIds: ["note-backpack", "note-diary"],
+        activeCheckpointId: 6,
+        playerPosition: { x: 58, y: 56 },
+        phaseComplete: true,
+        lastKnownZoneId: "escola",
+      },
+    });
+
+    expect(result.mission.phaseComplete).toBe(true);
+    expect(result.mission.activeCheckpointId).toBe(6);
+    expect(result.mission.lastKnownZoneId).toBe("escola");
   });
 });

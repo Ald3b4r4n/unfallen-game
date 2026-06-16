@@ -10,7 +10,7 @@ import InteractableSprite from '../entities/InteractableSprite';
 import { eventBridge } from '../event-bridge';
 import { GAME_ASSETS } from '../config/asset-keys';
 import { getCameraBounds, MAP_CONFIG, TILE_HEIGHT, TILE_WIDTH } from '../config/map-config';
-import { GAME_ZONES } from '../config/zones';
+import { GAME_ZONES, ZoneId } from '../config/zones';
 import {
   NarrativeState,
   createNarrativeState,
@@ -23,6 +23,12 @@ import {
   progressNarrativeByZone,
 } from '../systems/narrative-flow';
 import { MissionProgressResult } from '../systems/mission-objectives';
+import {
+  missionSaveToObjectiveState,
+  objectiveStateToMissionSave,
+} from '../systems/mission-save';
+import type { SavePayload } from '../../save/save-schema';
+import { deleteLocal, loadLocal, saveLocal } from '../../save/local-save';
 
 interface EnvironmentArt {
   key: string;
@@ -71,6 +77,8 @@ const ENEMY_ASSET_KEYS = [
   GAME_ASSETS.enemies.infectedFictionalPoliceman.key,
 ];
 
+const SAVE_SLOT = 1;
+
 export default class GameScene extends Phaser.Scene {
   private graphics!: Phaser.GameObjects.Graphics;
   private player!: PlayerSprite;
@@ -85,6 +93,8 @@ export default class GameScene extends Phaser.Scene {
 
   // Sistema narrativo
   private narrativeState!: NarrativeState;
+  private loadedSave: SavePayload | null = null;
+  private lastKnownZoneId: ZoneId | null = null;
 
   // Posição de referência para o grid (centro do canvas)
   private gridOffsetX = 0;
@@ -102,12 +112,17 @@ export default class GameScene extends Phaser.Scene {
     this.graphics = this.add.graphics();
     this.createEnvironmentArt();
 
-    // Inicializar o fluxo narrativo
-    this.narrativeState = createNarrativeState();
-    const spawnPos = getRespawnPosition(this.narrativeState);
+    // Inicializar o fluxo narrativo a partir do save local quando existir.
+    this.loadedSave = loadLocal(SAVE_SLOT);
+    this.narrativeState = this.loadedSave
+      ? missionSaveToObjectiveState(this.loadedSave.mission)
+      : createNarrativeState();
+    const spawnPos = this.getInitialPlayerPosition();
+    this.lastKnownZoneId = this.loadedSave?.mission.lastKnownZoneId ?? checkZone(spawnPos.posX, spawnPos.posY);
 
     // Criar player no spawn inicial
     this.player = new PlayerSprite(this, spawnPos.posX, spawnPos.posY);
+    this.hydratePlayerFromSave();
 
     // Criar inimigos patrulheiros distribuídos nas zonas de transição
     this.enemies = [
@@ -144,6 +159,7 @@ export default class GameScene extends Phaser.Scene {
     ];
 
     this.interactables = itemDefs.map(d => new InteractableSprite(this, d));
+    this.restoreCollectedInteractables(this.loadedSave?.mission.collectedInteractionIds ?? []);
 
     // Desenhar os textos físicos identificando as áreas
     for (const zone of GAME_ZONES) {
@@ -187,6 +203,10 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.input.keyboard) {
       this.restartKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+    }
+
+    if (this.narrativeState.phaseCompleted) {
+      this.showLevelCompleteOverlay();
     }
 
     // Escutar eventos do player
@@ -252,6 +272,9 @@ export default class GameScene extends Phaser.Scene {
 
   private checkNarrativeTriggers(px: number, py: number) {
     const currentZone = checkZone(px, py);
+    if (currentZone) {
+      this.lastKnownZoneId = currentZone;
+    }
     this.applyMissionProgress(progressNarrativeByZone(this.narrativeState, currentZone));
   }
 
@@ -392,6 +415,7 @@ export default class GameScene extends Phaser.Scene {
             ));
           } else {
             eventBridge.emit('narrative:dialog', { text: `Você coletou: ${sprite.interactableData.item.name}` });
+            this.persistMissionProgress();
           }
         }
         break;
@@ -418,6 +442,7 @@ export default class GameScene extends Phaser.Scene {
     if (!result.completedObjectiveId) return;
 
     this.narrativeState = result.state;
+    this.persistMissionProgress();
     eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
 
     if (result.message) {
@@ -425,13 +450,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (result.phaseCompleted) {
-      this.levelComplete = true;
-      this.player.setVisible(false);
-      this.levelCompleteText.setPosition(this.scale.width / 2, this.scale.height / 2);
-      this.levelCompleteText.setText(
-        "FASE CONCLUÍDA: PLANTÃO FINAL!\n\nRafael alcançou o portão da Escola Municipal.\nA busca por Luísa continua, mas esta etapa termina aqui.\n\n[BLOCO 10 MISSÃO CONCLUÍDA]\nPressione R para reiniciar a fase."
-      );
-      this.levelCompleteText.setVisible(true);
+      this.showLevelCompleteOverlay();
     }
   }
 
@@ -454,6 +473,7 @@ export default class GameScene extends Phaser.Scene {
     // Recuperar coordenada do checkpoint ativo
     const respawnPos = getRespawnPosition(this.narrativeState);
     this.player.doRespawn(respawnPos.posX, respawnPos.posY);
+    this.lastKnownZoneId = checkZone(respawnPos.posX, respawnPos.posY);
 
     // Restaurar e reviver inimigos
     const enemySpawns: Record<string, { posX: number; posY: number }> = {
@@ -473,9 +493,12 @@ export default class GameScene extends Phaser.Scene {
       };
       enemy.setVisible(true);
     }
+
+    this.persistMissionProgress();
   }
 
   private handleResetFull() {
+    deleteLocal(SAVE_SLOT);
     this.narrativeState = createNarrativeState();
     this.levelComplete = false;
     this.levelCompleteText.setVisible(false);
@@ -487,6 +510,118 @@ export default class GameScene extends Phaser.Scene {
   private handlePause() {
     this.scene.pause();
     this.scene.launch('PauseScene');
+  }
+
+  private getInitialPlayerPosition(): { posX: number; posY: number } {
+    if (this.loadedSave?.mission.playerPosition) {
+      return {
+        posX: this.loadedSave.mission.playerPosition.x,
+        posY: this.loadedSave.mission.playerPosition.y,
+      };
+    }
+
+    return getRespawnPosition(this.narrativeState);
+  }
+
+  private hydratePlayerFromSave() {
+    if (!this.loadedSave) return;
+
+    this.player.playerState = {
+      ...this.player.playerState,
+      health: Math.max(0, Math.min(this.loadedSave.playerState.health, this.player.playerState.maxHealth)),
+      posX: this.loadedSave.mission.playerPosition.x,
+      posY: this.loadedSave.mission.playerPosition.y,
+    };
+    this.player.staminaState = {
+      ...this.player.staminaState,
+      current: Math.max(0, Math.min(this.loadedSave.playerState.stamina, this.player.staminaState.max)),
+    };
+    this.player.inventoryState = {
+      ...this.player.inventoryState,
+      items: this.loadedSave.inventory.slice(0, this.player.inventoryState.maxSlots).map((itemId) => ({
+        itemId,
+        name: itemId,
+        type: this.getSavedItemType(itemId),
+        quantity: 1,
+      })),
+    };
+  }
+
+  private restoreCollectedInteractables(collectedInteractionIds: string[]) {
+    const collected = new Set(collectedInteractionIds);
+
+    for (const sprite of this.interactables) {
+      if (collected.has(sprite.interactableData.id)) {
+        sprite.markCollected();
+      }
+    }
+  }
+
+  private persistMissionProgress() {
+    if (!this.player) return;
+
+    const updatedAt = new Date().toISOString();
+    const currentZone = checkZone(this.player.playerState.posX, this.player.playerState.posY);
+    if (currentZone) {
+      this.lastKnownZoneId = currentZone;
+    }
+
+    const payload: SavePayload = {
+      slot: SAVE_SLOT,
+      schemaVersion: 1,
+      updatedAt,
+      playerState: {
+        health: this.player.playerState.health,
+        stamina: this.player.staminaState.current,
+        position: {
+          x: this.player.playerState.posX,
+          y: this.player.playerState.posY,
+        },
+      },
+      inventory: this.player.inventoryState.items.map((item) => item.itemId),
+      gameStats: {
+        checkpointsReached: Array.from(
+          { length: this.narrativeState.activeCheckpointId },
+          (_, index) => `checkpoint-${index + 1}`
+        ),
+        evacuationRadioHeard: this.narrativeState.phaseCompleted,
+      },
+      mission: objectiveStateToMissionSave(this.narrativeState, {
+        collectedInteractionIds: this.getCollectedInteractionIds(),
+        playerPosition: {
+          x: this.player.playerState.posX,
+          y: this.player.playerState.posY,
+        },
+        lastKnownZoneId: this.lastKnownZoneId,
+        updatedAt,
+      }),
+    };
+
+    saveLocal(SAVE_SLOT, payload);
+  }
+
+  private getCollectedInteractionIds(): string[] {
+    return this.interactables
+      .filter((sprite) => sprite.interactableData.collected)
+      .map((sprite) => sprite.interactableData.id);
+  }
+
+  private getSavedItemType(itemId: string): InteractableData['item']['type'] {
+    if (itemId.startsWith('battery')) return 'battery';
+    if (itemId.startsWith('heal')) return 'healing';
+    if (itemId.startsWith('key')) return 'key';
+    if (itemId.startsWith('ammo')) return 'ammo';
+    return 'note';
+  }
+
+  private showLevelCompleteOverlay() {
+    this.levelComplete = true;
+    this.player.setVisible(false);
+    this.levelCompleteText.setPosition(this.scale.width / 2, this.scale.height / 2);
+    this.levelCompleteText.setText(
+      "FASE CONCLUÍDA: PLANTÃO FINAL!\n\nRafael alcançou o portão da Escola Municipal.\nA busca por Luísa continua, mas esta etapa termina aqui.\n\n[BLOCO 11 MISSÃO RESTAURADA]\nPressione R para reiniciar a fase."
+    );
+    this.levelCompleteText.setVisible(true);
   }
 
   shutdown() {
