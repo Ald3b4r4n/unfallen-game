@@ -27,6 +27,7 @@ import {
   missionSaveToObjectiveState,
   objectiveStateToMissionSave,
 } from '../systems/mission-save';
+import { HazardPosition, resolveSafeRestorePosition } from '../systems/safe-restore';
 import type { SavePayload } from '../../save/save-schema';
 import { deleteLocal, loadLocal, saveLocal } from '../../save/local-save';
 
@@ -79,6 +80,12 @@ const ENEMY_ASSET_KEYS = [
 
 const SAVE_SLOT = 1;
 
+const ENEMY_SPAWNS: Record<string, HazardPosition> = {
+  'zombie-1': { id: 'zombie-1', posX: 17, posY: 10 },
+  'zombie-2': { id: 'zombie-2', posX: 32, posY: 30 },
+  'zombie-3': { id: 'zombie-3', posX: 49, posY: 42 },
+};
+
 export default class GameScene extends Phaser.Scene {
   private graphics!: Phaser.GameObjects.Graphics;
   private player!: PlayerSprite;
@@ -126,9 +133,9 @@ export default class GameScene extends Phaser.Scene {
 
     // Criar inimigos patrulheiros distribuídos nas zonas de transição
     this.enemies = [
-      new EnemySprite(this, 'zombie-1', 17, 10, ENEMY_ASSET_KEYS[0]),                       // Rua externa
-      new EnemySprite(this, 'zombie-2', 32, 30, ENEMY_ASSET_KEYS[4], { alertRadius: 5 }),   // Caminho intermediário
-      new EnemySprite(this, 'zombie-3', 49, 42, ENEMY_ASSET_KEYS[8]),                       // Próximo à casa de Rafael
+      new EnemySprite(this, 'zombie-1', ENEMY_SPAWNS['zombie-1'].posX, ENEMY_SPAWNS['zombie-1'].posY, ENEMY_ASSET_KEYS[0]),                       // Rua externa
+      new EnemySprite(this, 'zombie-2', ENEMY_SPAWNS['zombie-2'].posX, ENEMY_SPAWNS['zombie-2'].posY, ENEMY_ASSET_KEYS[4], { alertRadius: 5 }),   // Caminho intermediário
+      new EnemySprite(this, 'zombie-3', ENEMY_SPAWNS['zombie-3'].posX, ENEMY_SPAWNS['zombie-3'].posY, ENEMY_ASSET_KEYS[8]),                       // Próximo à casa de Rafael
     ];
 
     // Criar itens e pistas da fase
@@ -445,9 +452,12 @@ export default class GameScene extends Phaser.Scene {
     this.persistMissionProgress();
     eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
 
-    if (result.message) {
-      eventBridge.emit('narrative:dialog', { text: result.message });
-    }
+    const progressFeedback = result.phaseCompleted
+      ? 'Fase concluída: o caminho até a Escola Municipal está aberto.'
+      : `Objetivo atualizado: ${OBJECTIVES[this.narrativeState.currentObjectiveId]}`;
+    eventBridge.emit('narrative:dialog', {
+      text: result.message ? `${result.message}\n${progressFeedback}` : progressFeedback,
+    });
 
     if (result.phaseCompleted) {
       this.showLevelCompleteOverlay();
@@ -476,14 +486,8 @@ export default class GameScene extends Phaser.Scene {
     this.lastKnownZoneId = checkZone(respawnPos.posX, respawnPos.posY);
 
     // Restaurar e reviver inimigos
-    const enemySpawns: Record<string, { posX: number; posY: number }> = {
-      'zombie-1': { posX: 17, posY: 10 },
-      'zombie-2': { posX: 32, posY: 30 },
-      'zombie-3': { posX: 49, posY: 42 },
-    };
-
     for (const enemy of this.enemies) {
-      const spawn = enemySpawns[enemy.enemyState.id] || { posX: 15, posY: 15 };
+      const spawn = ENEMY_SPAWNS[enemy.enemyState.id] || { posX: 15, posY: 15 };
       enemy.enemyState = {
         ...enemy.enemyState,
         health: enemy.enemyState.maxHealth,
@@ -514,10 +518,14 @@ export default class GameScene extends Phaser.Scene {
 
   private getInitialPlayerPosition(): { posX: number; posY: number } {
     if (this.loadedSave?.mission.playerPosition) {
-      return {
-        posX: this.loadedSave.mission.playerPosition.x,
-        posY: this.loadedSave.mission.playerPosition.y,
-      };
+      return resolveSafeRestorePosition({
+        savedPosition: {
+          posX: this.loadedSave.mission.playerPosition.x,
+          posY: this.loadedSave.mission.playerPosition.y,
+        },
+        activeCheckpointId: this.loadedSave.mission.activeCheckpointId,
+        hazards: Object.values(ENEMY_SPAWNS),
+      });
     }
 
     return getRespawnPosition(this.narrativeState);
@@ -529,8 +537,8 @@ export default class GameScene extends Phaser.Scene {
     this.player.playerState = {
       ...this.player.playerState,
       health: Math.max(0, Math.min(this.loadedSave.playerState.health, this.player.playerState.maxHealth)),
-      posX: this.loadedSave.mission.playerPosition.x,
-      posY: this.loadedSave.mission.playerPosition.y,
+      posX: this.player.playerState.posX,
+      posY: this.player.playerState.posY,
     };
     this.player.staminaState = {
       ...this.player.staminaState,
@@ -619,7 +627,7 @@ export default class GameScene extends Phaser.Scene {
     this.player.setVisible(false);
     this.levelCompleteText.setPosition(this.scale.width / 2, this.scale.height / 2);
     this.levelCompleteText.setText(
-      "FASE CONCLUÍDA: PLANTÃO FINAL!\n\nRafael alcançou o portão da Escola Municipal.\nA busca por Luísa continua, mas esta etapa termina aqui.\n\n[BLOCO 11 MISSÃO RESTAURADA]\nPressione R para reiniciar a fase."
+      "FASE CONCLUÍDA: PLANTÃO FINAL!\n\nO caminho até a Escola Municipal está aberto.\nRafael preservou as pistas de Luísa e chegou ao próximo ponto de evacuação.\n\nProgresso salvo. Pressione R para reiniciar a fase."
     );
     this.levelCompleteText.setVisible(true);
   }

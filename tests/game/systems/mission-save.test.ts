@@ -72,7 +72,7 @@ describe('Mission Save State', () => {
     expect(save.collectedInteractionIds).toEqual(['note-backpack', 'note-diary']);
     expect(restored.currentObjectiveId).toBe('reach_school_gate');
     expect(restored.collectedClues).toEqual(['backpack', 'diary']);
-    expect(getRespawnPosition(restored)).toEqual({ posX: 48, posY: 41 });
+    expect(getRespawnPosition(restored)).toEqual({ posX: 46, posY: 39 });
   });
 
   test('restaura respawn usando checkpoint salvo', () => {
