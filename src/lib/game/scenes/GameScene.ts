@@ -32,16 +32,20 @@ interface EnvironmentArt {
   depth: number;
   alpha?: number;
   originY?: number;
+  footprintWidth?: number;
+  footprintHeight?: number;
+  footprintOffsetY?: number;
+  footprintAlpha?: number;
 }
 
 const ENVIRONMENT_ART: EnvironmentArt[] = [
-  { key: GAME_ASSETS.buildings.policeBase.key, x: 4, y: 4, scale: 0.16, depth: -30, alpha: 0.92, originY: 0.78 },
-  { key: GAME_ASSETS.buildings.exteriorStreet.key, x: 11, y: 6, scale: 0.18, depth: -32, alpha: 0.72, originY: 0.55 },
-  { key: GAME_ASSETS.buildings.abandonedMarket.key, x: 19, y: 5, scale: 0.15, depth: -28, alpha: 0.9, originY: 0.78 },
-  { key: GAME_ASSETS.buildings.residencePath.key, x: 15, y: 16, scale: 0.16, depth: -31, alpha: 0.78, originY: 0.58 },
-  { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 24.5, y: 19.5, scale: 0.15, depth: -27, alpha: 0.9, originY: 0.78 },
-  { key: GAME_ASSETS.buildings.schoolGate.key, x: 30, y: 27, scale: 0.14, depth: -26, alpha: 0.9, originY: 0.78 },
-  { key: GAME_ASSETS.props.urbanExtras.key, x: 13, y: 9, scale: 0.1, depth: -24, alpha: 0.88, originY: 0.7 },
+  { key: GAME_ASSETS.buildings.policeBase.key, x: 3.6, y: 4.2, scale: 0.125, depth: -30, alpha: 0.88, originY: 0.78, footprintWidth: 230, footprintHeight: 76, footprintOffsetY: 16, footprintAlpha: 0.26 },
+  { key: GAME_ASSETS.buildings.exteriorStreet.key, x: 10.6, y: 6.7, scale: 0.105, depth: -32, alpha: 0.58, originY: 0.58, footprintWidth: 280, footprintHeight: 96, footprintOffsetY: 10, footprintAlpha: 0.18 },
+  { key: GAME_ASSETS.buildings.abandonedMarket.key, x: 18.5, y: 5.8, scale: 0.115, depth: -28, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 72, footprintOffsetY: 15, footprintAlpha: 0.24 },
+  { key: GAME_ASSETS.buildings.residencePath.key, x: 15.3, y: 16.2, scale: 0.105, depth: -31, alpha: 0.58, originY: 0.6, footprintWidth: 260, footprintHeight: 86, footprintOffsetY: 10, footprintAlpha: 0.17 },
+  { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 24.4, y: 19.4, scale: 0.118, depth: -27, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 76, footprintOffsetY: 15, footprintAlpha: 0.24 },
+  { key: GAME_ASSETS.buildings.schoolGate.key, x: 29.3, y: 26.7, scale: 0.098, depth: -26, alpha: 0.84, originY: 0.78, footprintWidth: 210, footprintHeight: 70, footprintOffsetY: 14, footprintAlpha: 0.22 },
+  { key: GAME_ASSETS.props.urbanExtras.key, x: 12.8, y: 8.8, scale: 0.075, depth: -24, alpha: 0.72, originY: 0.7 },
 ];
 
 const ENEMY_ASSET_KEYS = [
@@ -86,7 +90,7 @@ export default class GameScene extends Phaser.Scene {
   private gameOverText!: Phaser.GameObjects.Text;
   private levelCompleteText!: Phaser.GameObjects.Text;
   private restartKey!: Phaser.Input.Keyboard.Key;
-  private environmentSprites: Phaser.GameObjects.Image[] = [];
+  private environmentSprites: Phaser.GameObjects.GameObject[] = [];
 
   // Sistema narrativo
   private narrativeState!: NarrativeState;
@@ -298,7 +302,7 @@ export default class GameScene extends Phaser.Scene {
       const s3 = toScreen({ x: zone.maxX + 1, y: zone.maxY + 1, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
       const s4 = toScreen({ x: zone.minX, y: zone.maxY + 1, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
 
-      this.graphics.lineStyle(2, zone.color, 0.75);
+      this.graphics.lineStyle(1, zone.color, 0.42);
       this.graphics.lineBetween(s1.x, s1.y, s2.x, s2.y);
       this.graphics.lineBetween(s2.x, s2.y, s3.x, s3.y);
       this.graphics.lineBetween(s3.x, s3.y, s4.x, s4.y);
@@ -313,6 +317,23 @@ export default class GameScene extends Phaser.Scene {
       if (!this.textures.exists(art.key)) continue;
 
       const screen = toScreen({ x: art.x, y: art.y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      if (art.footprintWidth && art.footprintHeight) {
+        const footprint = this.add.polygon(
+          screen.x,
+          screen.y + (art.footprintOffsetY ?? 0),
+          [
+            0, -art.footprintHeight / 2,
+            art.footprintWidth / 2, 0,
+            0, art.footprintHeight / 2,
+            -art.footprintWidth / 2, 0,
+          ],
+          0x020617,
+          art.footprintAlpha ?? 0.2
+        ).setDepth(art.depth - 1);
+
+        this.environmentSprites.push(footprint);
+      }
+
       const sprite = this.add.image(screen.x, screen.y, art.key)
         .setOrigin(0.5, art.originY ?? 0.75)
         .setScale(art.scale)
@@ -324,7 +345,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   private drawIsometricGrid(sizeX: number, sizeY: number) {
-    this.graphics.lineStyle(1, 0x2d3748, 0.35);
+    this.graphics.lineStyle(1, 0x2d3748, 0.18);
 
     for (let x = 0; x <= sizeX; x++) {
       const pStart = toScreen({ x, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT);

@@ -142,6 +142,21 @@ Todos os assets abaixo foram aprovados em revisão temporária antes da integra�
 * **Data de Integração**: 16 de junho de 2026
 * **Declaração de Originalidade**: Asset original gerado por IA; não foi copiado, recortado, reconstruído ou derivado de assets pagos, arte de terceiros, brasões oficiais ou marcas reais.
 
+### 8. Derivados `*-composed.png`
+* **Nome dos Arquivos**:
+  * `base-policial-composed.png`
+  * `rua-externa-base-composed.png`
+  * `mercado-abandonado-composed.png`
+  * `caminho-residencia-composed.png`
+  * `casa-rafael-composed.png`
+  * `portao-escola-municipal-composed.png`
+* **Caminho**: `public/assets/unfallen/game/buildings/composed/`
+* **Origem**: Processamento local dos assets ambientais próprios já integrados no BLOCO 08.
+* **Tipo**: Derivados técnicos com alpha suave nas bordas para composição visual no Phaser.
+* **Uso no Projeto**: Versões carregadas pelo runtime de gameplay para reduzir a aparência de cartões retangulares sobre o grid, preservando os originais como fonte rastreável.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Derivados criados exclusivamente a partir dos assets originais já registrados nesta seção, sem geração de nova arte, busca externa, download, cópia de terceiros ou alteração narrativa.
+
 ---
 
 ## BLOCO 08 — Characters and Infected Sprites

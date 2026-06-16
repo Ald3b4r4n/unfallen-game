@@ -58,27 +58,27 @@ export const GAME_ASSETS = {
   buildings: {
     policeBase: {
       key: 'building:police-base',
-      path: `${GAME_ASSET_BASE_PATH}/buildings/base-policial.png`,
+      path: `${GAME_ASSET_BASE_PATH}/buildings/composed/base-policial-composed.png`,
     },
     exteriorStreet: {
       key: 'building:exterior-street',
-      path: `${GAME_ASSET_BASE_PATH}/buildings/rua-externa-base.png`,
+      path: `${GAME_ASSET_BASE_PATH}/buildings/composed/rua-externa-base-composed.png`,
     },
     abandonedMarket: {
       key: 'building:abandoned-market',
-      path: `${GAME_ASSET_BASE_PATH}/buildings/mercado-abandonado.png`,
+      path: `${GAME_ASSET_BASE_PATH}/buildings/composed/mercado-abandonado-composed.png`,
     },
     residencePath: {
       key: 'building:residence-path',
-      path: `${GAME_ASSET_BASE_PATH}/buildings/caminho-residencia.png`,
+      path: `${GAME_ASSET_BASE_PATH}/buildings/composed/caminho-residencia-composed.png`,
     },
     rafaelHouse: {
       key: 'building:rafael-house',
-      path: `${GAME_ASSET_BASE_PATH}/buildings/casa-rafael.png`,
+      path: `${GAME_ASSET_BASE_PATH}/buildings/composed/casa-rafael-composed.png`,
     },
     schoolGate: {
       key: 'building:school-gate',
-      path: `${GAME_ASSET_BASE_PATH}/buildings/portao-escola-municipal.png`,
+      path: `${GAME_ASSET_BASE_PATH}/buildings/composed/portao-escola-municipal-composed.png`,
     },
   },
   props: {
