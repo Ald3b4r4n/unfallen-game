@@ -1,30 +1,31 @@
 import {
   createNarrativeState,
-  completeObjective,
   activateCheckpoint,
   collectClue,
   getRespawnPosition,
   checkZone,
+  progressNarrativeByInteraction,
+  progressNarrativeByZone,
 } from '@/lib/game/systems/narrative-flow';
 
 describe('Narrative Flow (lógica pura)', () => {
   test('Inicializa estado narrativo corretamente', () => {
     const state = createNarrativeState();
-    expect(state.currentObjectiveId).toBe('saia_base');
+    expect(state.currentObjectiveId).toBe('leave_police_base');
     expect(state.activeCheckpointId).toBe(1);
-    expect(state.completedObjectives).toEqual([]);
+    expect(state.completedObjectiveIds).toEqual([]);
     expect(state.collectedClues).toEqual([]);
   });
 
   test('Avança objetivo na ordem sequencial', () => {
     let state = createNarrativeState();
-    state = completeObjective(state, 'saia_base');
-    expect(state.currentObjectiveId).toBe('ir_mercado');
-    expect(state.completedObjectives).toContain('saia_base');
+    state = progressNarrativeByZone(state, 'rua').state;
+    expect(state.currentObjectiveId).toBe('investigate_market');
+    expect(state.completedObjectiveIds).toContain('leave_police_base');
 
-    state = completeObjective(state, 'ir_mercado');
-    expect(state.currentObjectiveId).toBe('pista_mercado');
-    expect(state.completedObjectives).toContain('ir_mercado');
+    state = progressNarrativeByInteraction(state, 'note-backpack').state;
+    expect(state.currentObjectiveId).toBe('reach_residential_path');
+    expect(state.completedObjectiveIds).toContain('investigate_market');
   });
 
   test('Não altera estado com objetivo inválido ou já completo', () => {
@@ -32,13 +33,13 @@ describe('Narrative Flow (lógica pura)', () => {
     const before = { ...state };
     
     // Inválido
-    state = completeObjective(state, 'objetivo_inexistente');
+    state = progressNarrativeByInteraction(state, 'objetivo_inexistente').state;
     expect(state).toEqual(before);
 
     // Repetido
-    state = completeObjective(state, 'saia_base');
+    state = progressNarrativeByZone(state, 'rua').state;
     const firstComplete = { ...state };
-    state = completeObjective(state, 'saia_base');
+    state = progressNarrativeByZone(state, 'rua').state;
     expect(state).toEqual(firstComplete);
   });
 
@@ -88,7 +89,7 @@ describe('Narrative Flow (lógica pura)', () => {
     // Checkpoint 3
     state = activateCheckpoint(state, 3);
     pos = getRespawnPosition(state);
-    expect(pos).toEqual({ posX: 48, posY: 41 });
+    expect(pos).toEqual({ posX: 32, posY: 10 });
   });
 
   test('Mapeia coordenadas de zonas isométricas corretamente', () => {

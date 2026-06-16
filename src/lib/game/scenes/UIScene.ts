@@ -90,7 +90,7 @@ export default class UIScene extends Phaser.Scene {
 
     // Objetivo no canto superior direito
     this.createHudIcon(this.scale.width - MARGIN - 232, MARGIN + 14, GAME_ASSETS.ui.objective.key);
-    this.objectiveLabel = this.add.text(this.scale.width - MARGIN, MARGIN, 'OBJETIVO: Saia da base policial', {
+    this.objectiveLabel = this.add.text(this.scale.width - MARGIN, MARGIN, 'OBJETIVO: Saia da Base Policial e alcance a Rua Externa.', {
       fontFamily: 'monospace',
       fontSize: '12px',
       color: '#fbbf24', // Golden yellow

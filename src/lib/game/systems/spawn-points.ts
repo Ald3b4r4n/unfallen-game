@@ -8,7 +8,10 @@ export interface SpawnPoint {
 export const CHECKPOINTS: Record<number, SpawnPoint> = {
   1: { id: 1, label: 'Base Policial', posX: 6, posY: 6 },
   2: { id: 2, label: 'Saída da Base', posX: 14, posY: 8 },
-  3: { id: 3, label: 'Pátio da Casa de Rafael', posX: 48, posY: 41 },
+  3: { id: 3, label: 'Mercado Abandonado', posX: 32, posY: 10 },
+  4: { id: 4, label: 'Caminho para Residência', posX: 32, posY: 30 },
+  5: { id: 5, label: 'Pátio da Casa de Rafael', posX: 48, posY: 41 },
+  6: { id: 6, label: 'Portão da Escola Municipal', posX: 58, posY: 56 },
 };
 
 export const INITIAL_SPAWN = CHECKPOINTS[1];

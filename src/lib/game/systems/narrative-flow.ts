@@ -3,74 +3,52 @@
  */
 import { checkZone as resolveZone, ZoneId } from '../config/zones';
 import { CHECKPOINTS, getSpawnPoint, SpawnPoint } from './spawn-points';
+import {
+  MissionObjectiveId,
+  MissionObjectiveState,
+  MissionProgressResult,
+  advanceMissionByInteraction,
+  advanceMissionByZone,
+  canCompleteMissionInteraction,
+  createMissionObjectiveState,
+  getMissionObjective,
+  getMissionObjectiveText,
+} from './mission-objectives';
 
-export interface NarrativeState {
-  currentObjectiveId: string;
-  activeCheckpointId: number;
-  completedObjectives: string[];
-  collectedClues: string[];
-}
+export type NarrativeState = MissionObjectiveState;
 
 export { CHECKPOINTS };
 export type Checkpoint = SpawnPoint;
 
-export const OBJECTIVES: Record<string, string> = {
-  "saia_base": "Saia da base policial",
-  "ir_mercado": "Investigue o Mercado Abandonado",
-  "pista_mercado": "Encontre pistas sobre Luísa no Mercado",
-  "ir_casa": "Siga para a residência de Rafael",
-  "pista_casa": "Busque por pistas na casa de Rafael",
-  "ir_escola": "Vá até o portão da Escola Municipal",
-  "fim": "Fase concluída"
+export const OBJECTIVES: Record<MissionObjectiveId, string> = {
+  leave_police_base: getMissionObjective('leave_police_base').description,
+  investigate_market: getMissionObjective('investigate_market').description,
+  reach_residential_path: getMissionObjective('reach_residential_path').description,
+  search_rafael_house: getMissionObjective('search_rafael_house').description,
+  reach_school_gate: getMissionObjective('reach_school_gate').description,
 };
 
 export const OBJECTIVE_ORDER = [
-  "saia_base",
-  "ir_mercado",
-  "pista_mercado",
-  "ir_casa",
-  "pista_casa",
-  "ir_escola",
-  "fim"
-];
+  'leave_police_base',
+  'investigate_market',
+  'reach_residential_path',
+  'search_rafael_house',
+  'reach_school_gate',
+] as const;
 
 /**
  * Cria o estado inicial do fluxo narrativo.
  */
 export function createNarrativeState(): NarrativeState {
-  return {
-    currentObjectiveId: "saia_base",
-    activeCheckpointId: 1,
-    completedObjectives: [],
-    collectedClues: [],
-  };
+  return createMissionObjectiveState();
 }
 
 /**
  * Avança o objetivo atual na ordem sequencial, se válido.
  */
-export function completeObjective(state: NarrativeState, objectiveId: string): NarrativeState {
-  if (!OBJECTIVES[objectiveId]) return state; // Objetivo inválido
-  if (state.completedObjectives.includes(objectiveId)) return state; // Já completo
-
-  const completed = [...state.completedObjectives, objectiveId];
-  
-  // Encontrar o próximo objetivo na ordem
-  const currentIndex = OBJECTIVE_ORDER.indexOf(objectiveId);
-  let nextObjectiveId = state.currentObjectiveId;
-  
-  if (currentIndex !== -1 && currentIndex < OBJECTIVE_ORDER.length - 1) {
-    // Se completou o objetivo ativo ou anterior, o novo ativo é o próximo da fila
-    if (state.currentObjectiveId === objectiveId) {
-      nextObjectiveId = OBJECTIVE_ORDER[currentIndex + 1];
-    }
-  }
-
-  return {
-    ...state,
-    completedObjectives: completed,
-    currentObjectiveId: nextObjectiveId,
-  };
+export function completeObjective(state: NarrativeState, objectiveId: MissionObjectiveId): NarrativeState {
+  if (state.currentObjectiveId !== objectiveId) return state;
+  return advanceMissionByZone(state, getMissionObjective(objectiveId).targetZoneId).state;
 }
 
 /**
@@ -111,4 +89,23 @@ export function getRespawnPosition(state: NarrativeState): { posX: number; posY:
  */
 export function checkZone(posX: number, posY: number): ZoneId | null {
   return resolveZone(posX, posY);
+}
+
+export function getCurrentObjectiveText(state: NarrativeState): string {
+  return getMissionObjectiveText(state);
+}
+
+export function progressNarrativeByZone(state: NarrativeState, zoneId: ZoneId | null): MissionProgressResult {
+  return advanceMissionByZone(state, zoneId);
+}
+
+export function progressNarrativeByInteraction(
+  state: NarrativeState,
+  interactionId: string
+): MissionProgressResult {
+  return advanceMissionByInteraction(state, interactionId);
+}
+
+export function canProgressNarrativeInteraction(state: NarrativeState, interactionId: string): boolean {
+  return canCompleteMissionInteraction(state, interactionId);
 }

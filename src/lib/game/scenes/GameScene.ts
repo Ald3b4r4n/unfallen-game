@@ -14,13 +14,15 @@ import { GAME_ZONES } from '../config/zones';
 import {
   NarrativeState,
   createNarrativeState,
-  completeObjective,
-  activateCheckpoint,
-  collectClue,
   getRespawnPosition,
   checkZone,
   OBJECTIVES,
+  canProgressNarrativeInteraction,
+  getCurrentObjectiveText,
+  progressNarrativeByInteraction,
+  progressNarrativeByZone,
 } from '../systems/narrative-flow';
+import { MissionProgressResult } from '../systems/mission-objectives';
 
 interface EnvironmentArt {
   key: string;
@@ -197,7 +199,9 @@ export default class GameScene extends Phaser.Scene {
     this.scene.launch('UIScene');
 
     // Mandar objetivo inicial para a HUD
-    eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
+    this.time.delayedCall(0, () => {
+      eventBridge.emit('narrative:objective', { objective: getCurrentObjectiveText(this.narrativeState) });
+    });
 
     // Mensagem de rádio/diálogo de introdução
     this.time.delayedCall(1000, () => {
@@ -248,41 +252,7 @@ export default class GameScene extends Phaser.Scene {
 
   private checkNarrativeTriggers(px: number, py: number) {
     const currentZone = checkZone(px, py);
-
-    if (currentZone === 'rua' && this.narrativeState.currentObjectiveId === 'saia_base') {
-      this.narrativeState = completeObjective(this.narrativeState, 'saia_base');
-      this.narrativeState = activateCheckpoint(this.narrativeState, 2);
-      eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
-      eventBridge.emit('narrative:dialog', { text: "Rafael: 'A rua está bloqueada. Devem ter evacuado as pessoas para a praça ou o mercado...'" });
-    }
-
-    if (currentZone === 'mercado' && this.narrativeState.currentObjectiveId === 'ir_mercado') {
-      this.narrativeState = completeObjective(this.narrativeState, 'ir_mercado');
-      eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
-      eventBridge.emit('narrative:dialog', { text: "Rafael: 'O mercado está destruído... Talvez haja alguma pista na entrada.'" });
-    }
-
-    if (currentZone === 'casa' && this.narrativeState.currentObjectiveId === 'ir_casa') {
-      this.narrativeState = completeObjective(this.narrativeState, 'ir_casa');
-      this.narrativeState = activateCheckpoint(this.narrativeState, 3);
-      eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
-      eventBridge.emit('narrative:dialog', { text: "Rafael: 'Cheguei no pátio de casa. Luísa... por favor, esteja bem...'" });
-    }
-
-    if (currentZone === 'escola' && this.narrativeState.currentObjectiveId === 'ir_escola') {
-      this.narrativeState = completeObjective(this.narrativeState, 'ir_escola');
-      this.narrativeState = completeObjective(this.narrativeState, 'fim');
-      this.levelComplete = true;
-
-      // Desativar movimento do player
-      this.player.setVisible(false);
-
-      this.levelCompleteText.setPosition(this.scale.width / 2, this.scale.height / 2);
-      this.levelCompleteText.setText(
-        "FASE CONCLUÍDA: PLANTÃO FINAL!\n\nRafael alcançou o portão da Escola Municipal.\nAqui as marcas indicam uma fuga desesperada.\n\n[BLOCO 07 MVP APROVADO]\nPressione R para reiniciar a fase."
-      );
-      this.levelCompleteText.setVisible(true);
-    }
+    this.applyMissionProgress(progressNarrativeByZone(this.narrativeState, currentZone));
   }
 
   private drawVisualZones() {
@@ -403,21 +373,23 @@ export default class GameScene extends Phaser.Scene {
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist <= sprite.interactableData.interactionRadius) {
+        if (
+          this.isMissionInteraction(sprite.interactableData.id) &&
+          !canProgressNarrativeInteraction(this.narrativeState, sprite.interactableData.id)
+        ) {
+          eventBridge.emit('narrative:dialog', { text: "Rafael: 'Ainda preciso seguir o plano antes de mexer nisso.'" });
+          break;
+        }
+
         const collected = this.player.collectItem(sprite.interactableData.item);
         if (collected) {
           sprite.markCollected();
 
-          // Lógica de diálogos e objetivos com base na pista coletada
-          if (sprite.interactableData.id === 'note-backpack') {
-            this.narrativeState = collectClue(this.narrativeState, 'backpack');
-            this.narrativeState = completeObjective(this.narrativeState, 'pista_mercado');
-            eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
-            eventBridge.emit('narrative:dialog', { text: "Rafael: 'A mochila da Luísa! Ela estava no mercado... preciso ir para casa agora para ver se ela voltou.'" });
-          } else if (sprite.interactableData.id === 'note-diary') {
-            this.narrativeState = collectClue(this.narrativeState, 'diary');
-            this.narrativeState = completeObjective(this.narrativeState, 'pista_casa');
-            eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
-            eventBridge.emit('narrative:dialog', { text: "Rafael: 'O diário dela... a última anotação diz: evacuação para a Escola Municipal do bairro. É lá que vou!'" });
+          if (this.isMissionInteraction(sprite.interactableData.id)) {
+            this.applyMissionProgress(progressNarrativeByInteraction(
+              this.narrativeState,
+              sprite.interactableData.id
+            ));
           } else {
             eventBridge.emit('narrative:dialog', { text: `Você coletou: ${sprite.interactableData.item.name}` });
           }
@@ -440,6 +412,31 @@ export default class GameScene extends Phaser.Scene {
         break;
       }
     }
+  }
+
+  private applyMissionProgress(result: MissionProgressResult) {
+    if (!result.completedObjectiveId) return;
+
+    this.narrativeState = result.state;
+    eventBridge.emit('narrative:objective', { objective: OBJECTIVES[this.narrativeState.currentObjectiveId] });
+
+    if (result.message) {
+      eventBridge.emit('narrative:dialog', { text: result.message });
+    }
+
+    if (result.phaseCompleted) {
+      this.levelComplete = true;
+      this.player.setVisible(false);
+      this.levelCompleteText.setPosition(this.scale.width / 2, this.scale.height / 2);
+      this.levelCompleteText.setText(
+        "FASE CONCLUÍDA: PLANTÃO FINAL!\n\nRafael alcançou o portão da Escola Municipal.\nA busca por Luísa continua, mas esta etapa termina aqui.\n\n[BLOCO 10 MISSÃO CONCLUÍDA]\nPressione R para reiniciar a fase."
+      );
+      this.levelCompleteText.setVisible(true);
+    }
+  }
+
+  private isMissionInteraction(interactionId: string) {
+    return interactionId === 'note-backpack' || interactionId === 'note-diary';
   }
 
   private handlePlayerDead() {
