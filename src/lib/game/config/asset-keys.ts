@@ -13,6 +13,32 @@ export const GAME_ASSETS = {
       path: `${GAME_ASSET_BASE_PATH}/portraits/luisa.png`,
     },
   },
+  ui: {
+    health: {
+      key: 'ui:health',
+      path: `${GAME_ASSET_BASE_PATH}/ui/icon-health.png`,
+    },
+    stamina: {
+      key: 'ui:stamina',
+      path: `${GAME_ASSET_BASE_PATH}/ui/icon-stamina.png`,
+    },
+    battery: {
+      key: 'ui:battery',
+      path: `${GAME_ASSET_BASE_PATH}/ui/icon-battery.png`,
+    },
+    inventory: {
+      key: 'ui:inventory',
+      path: `${GAME_ASSET_BASE_PATH}/ui/icon-inventory.png`,
+    },
+    objective: {
+      key: 'ui:objective',
+      path: `${GAME_ASSET_BASE_PATH}/ui/icon-objective.png`,
+    },
+    weapon: {
+      key: 'ui:weapon',
+      path: `${GAME_ASSET_BASE_PATH}/ui/icon-weapon.png`,
+    },
+  },
   enemies: {
     infectedBusDriver: {
       key: 'enemy:infected-bus-driver',
@@ -86,12 +112,57 @@ export const GAME_ASSETS = {
       key: 'props:urban-extras',
       path: `${GAME_ASSET_BASE_PATH}/props/props-urbanos-extras.png`,
     },
+    brokenStreetPole: {
+      key: 'props:broken-street-pole',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/broken-street-pole.png`,
+    },
+    streetSign: {
+      key: 'props:street-sign',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/street-sign.png`,
+    },
+    barricade: {
+      key: 'props:barricade',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/barricade.png`,
+    },
+    trashBags: {
+      key: 'props:trash-bags',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/trash-bags.png`,
+    },
+    marketCrates: {
+      key: 'props:market-crates',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/market-crates.png`,
+    },
+    brokenWall: {
+      key: 'props:broken-wall',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/broken-wall.png`,
+    },
+    rainPuddle: {
+      key: 'props:rain-puddle',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/rain-puddle.png`,
+    },
+    bloodPuddle: {
+      key: 'props:blood-puddle',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/blood-puddle.png`,
+    },
+    brokenDoor: {
+      key: 'props:broken-door',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/broken-door.png`,
+    },
+    brokenWindow: {
+      key: 'props:broken-window',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/broken-window.png`,
+    },
+    dragMark: {
+      key: 'props:drag-mark',
+      path: `${GAME_ASSET_BASE_PATH}/props/cut/drag-mark.png`,
+    },
   },
 } as const;
 
 export const PRELOAD_GAME_ASSETS = [
   ...Object.values(GAME_ASSETS.characters),
   ...Object.values(GAME_ASSETS.portraits),
+  ...Object.values(GAME_ASSETS.ui),
   ...Object.values(GAME_ASSETS.enemies),
   ...Object.values(GAME_ASSETS.buildings),
   ...Object.values(GAME_ASSETS.props),

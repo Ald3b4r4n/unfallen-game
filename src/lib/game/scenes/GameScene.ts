@@ -45,7 +45,17 @@ const ENVIRONMENT_ART: EnvironmentArt[] = [
   { key: GAME_ASSETS.buildings.residencePath.key, x: 15.3, y: 16.2, scale: 0.105, depth: -31, alpha: 0.58, originY: 0.6, footprintWidth: 260, footprintHeight: 86, footprintOffsetY: 10, footprintAlpha: 0.17 },
   { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 24.4, y: 19.4, scale: 0.118, depth: -27, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 76, footprintOffsetY: 15, footprintAlpha: 0.24 },
   { key: GAME_ASSETS.buildings.schoolGate.key, x: 29.3, y: 26.7, scale: 0.098, depth: -26, alpha: 0.84, originY: 0.78, footprintWidth: 210, footprintHeight: 70, footprintOffsetY: 14, footprintAlpha: 0.22 },
-  { key: GAME_ASSETS.props.urbanExtras.key, x: 12.8, y: 8.8, scale: 0.075, depth: -24, alpha: 0.72, originY: 0.7 },
+  { key: GAME_ASSETS.props.brokenStreetPole.key, x: 8.2, y: 4.4, scale: 0.115, depth: -22, alpha: 0.86, originY: 0.92 },
+  { key: GAME_ASSETS.props.streetSign.key, x: 11.4, y: 4.7, scale: 0.1, depth: -22, alpha: 0.86, originY: 0.92 },
+  { key: GAME_ASSETS.props.barricade.key, x: 8.4, y: 6.5, scale: 0.12, depth: -21, alpha: 0.88, originY: 0.76 },
+  { key: GAME_ASSETS.props.trashBags.key, x: 12.5, y: 7.7, scale: 0.12, depth: -20, alpha: 0.84, originY: 0.78 },
+  { key: GAME_ASSETS.props.marketCrates.key, x: 18.6, y: 6.4, scale: 0.11, depth: -20, alpha: 0.86, originY: 0.78 },
+  { key: GAME_ASSETS.props.brokenWall.key, x: 10.8, y: 8.0, scale: 0.105, depth: -21, alpha: 0.82, originY: 0.82 },
+  { key: GAME_ASSETS.props.rainPuddle.key, x: 10.2, y: 8.9, scale: 0.13, depth: -25, alpha: 0.5, originY: 0.5 },
+  { key: GAME_ASSETS.props.bloodPuddle.key, x: 14.4, y: 10.2, scale: 0.12, depth: -24, alpha: 0.5, originY: 0.5 },
+  { key: GAME_ASSETS.props.brokenDoor.key, x: 24.8, y: 18.8, scale: 0.095, depth: -20, alpha: 0.84, originY: 0.92 },
+  { key: GAME_ASSETS.props.brokenWindow.key, x: 25.8, y: 20.0, scale: 0.1, depth: -20, alpha: 0.84, originY: 0.82 },
+  { key: GAME_ASSETS.props.dragMark.key, x: 28.5, y: 26.2, scale: 0.11, depth: -24, alpha: 0.45, originY: 0.5 },
 ];
 
 const ENEMY_ASSET_KEYS = [

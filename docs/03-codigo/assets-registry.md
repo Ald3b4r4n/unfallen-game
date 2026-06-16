@@ -157,6 +157,41 @@ Todos os assets abaixo foram aprovados em revisão temporária antes da integra�
 * **Data de Integração**: 16 de junho de 2026
 * **Declaração de Originalidade**: Derivados criados exclusivamente a partir dos assets originais já registrados nesta seção, sem geração de nova arte, busca externa, download, cópia de terceiros ou alteração narrativa.
 
+### 9. Ícones HUD — BLOCO 08.3
+* **Nome dos Arquivos**:
+  * `icon-health.png`
+  * `icon-stamina.png`
+  * `icon-battery.png`
+  * `icon-inventory.png`
+  * `icon-objective.png`
+  * `icon-weapon.png`
+* **Caminho**: `public/assets/unfallen/game/ui/`
+* **Origem**: Autoria local programática em pixel art 24x24 com alpha real.
+* **Tipo**: Ícones de interface originais para HUD in-game.
+* **Uso no Projeto**: Indicadores visuais de vida, estamina, bateria/lanterna, inventário, objetivo e arma no `UIScene`.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Ícones criados especificamente para Unfallen, sem uso de packs externos, marcas reais, símbolos oficiais, Brullov ou assets comerciais.
+
+### 10. Props recortados — BLOCO 08.3
+* **Nome dos Arquivos**:
+  * `broken-street-pole.png`
+  * `street-sign.png`
+  * `barricade.png`
+  * `trash-bags.png`
+  * `market-crates.png`
+  * `broken-wall.png`
+  * `rain-puddle.png`
+  * `blood-puddle.png`
+  * `broken-door.png`
+  * `broken-window.png`
+  * `drag-mark.png`
+* **Caminho**: `public/assets/unfallen/game/props/cut/`
+* **Origem**: Recortes locais derivados exclusivamente de `public/assets/unfallen/game/props/props-urbanos-extras.png`.
+* **Tipo**: Props ambientais individuais com alpha real.
+* **Uso no Projeto**: Elementos decorativos no Phaser para substituir a renderização do sheet bruto e melhorar legibilidade/composição do cenário atual.
+* **Data de Integração**: 16 de junho de 2026
+* **Declaração de Originalidade**: Derivados criados somente a partir do asset próprio já registrado, sem busca externa, download, cópia de terceiros, Brullov, packs comerciais ou alteração de gameplay.
+
 ---
 
 ## BLOCO 08 — Characters and Infected Sprites

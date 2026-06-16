@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { eventBridge } from '../event-bridge';
+import { GAME_ASSETS } from '../config/asset-keys';
 
 interface HudState {
   health: number;
@@ -18,6 +19,12 @@ const BAR_WIDTH = 120;
 const BAR_HEIGHT = 14;
 const MARGIN = 16;
 const GAP = 6;
+const ICON_SIZE = 16;
+const LABEL_X = MARGIN + ICON_SIZE + 8;
+const PANEL_X = 8;
+const PANEL_Y = 8;
+const PANEL_WIDTH = 178;
+const PANEL_HEIGHT = 132;
 
 export default class UIScene extends Phaser.Scene {
   private graphics!: Phaser.GameObjects.Graphics;
@@ -56,27 +63,33 @@ export default class UIScene extends Phaser.Scene {
 
     let y = MARGIN;
 
-    this.healthLabel = this.add.text(MARGIN, y, 'VIDA', textStyle);
+    this.createHudIcon(MARGIN + ICON_SIZE / 2, y + 7, GAME_ASSETS.ui.health.key);
+    this.healthLabel = this.add.text(LABEL_X, y, 'VIDA', textStyle);
     y += 16;
 
     // Espaço para a barra de vida
     y += BAR_HEIGHT + GAP;
 
-    this.staminaLabel = this.add.text(MARGIN, y, 'ESTAMINA', textStyle);
+    this.createHudIcon(MARGIN + ICON_SIZE / 2, y + 7, GAME_ASSETS.ui.stamina.key);
+    this.staminaLabel = this.add.text(LABEL_X, y, 'ESTAMINA', textStyle);
     y += 16;
     y += BAR_HEIGHT + GAP;
 
-    this.batteryLabel = this.add.text(MARGIN, y, 'BATERIA', textStyle);
+    this.createHudIcon(MARGIN + ICON_SIZE / 2, y + 7, GAME_ASSETS.ui.battery.key);
+    this.batteryLabel = this.add.text(LABEL_X, y, 'BATERIA', textStyle);
     y += 16;
     y += BAR_HEIGHT + GAP;
 
-    this.inventoryLabel = this.add.text(MARGIN, y, 'INV: 0/12', textStyle);
+    this.createHudIcon(MARGIN + ICON_SIZE / 2, y + 6, GAME_ASSETS.ui.inventory.key);
+    this.inventoryLabel = this.add.text(LABEL_X, y, 'INV: 0/12', textStyle);
     y += 18;
 
-    this.weaponLabel = this.add.text(MARGIN, y, 'ARMA: ---', textStyle);
+    this.createHudIcon(MARGIN + ICON_SIZE / 2, y + 6, GAME_ASSETS.ui.weapon.key);
+    this.weaponLabel = this.add.text(LABEL_X, y, 'ARMA: ---', textStyle);
     y += 24;
 
     // Objetivo no canto superior direito
+    this.createHudIcon(this.scale.width - MARGIN - 232, MARGIN + 14, GAME_ASSETS.ui.objective.key);
     this.objectiveLabel = this.add.text(this.scale.width - MARGIN, MARGIN, 'OBJETIVO: Saia da base policial', {
       fontFamily: 'monospace',
       fontSize: '12px',
@@ -142,25 +155,42 @@ export default class UIScene extends Phaser.Scene {
 
     const s = this.currentState;
 
+    this.drawHudPanel();
+
     // Barra de Vida
-    this.drawBar(MARGIN, MARGIN + 16, s.health, s.maxHealth, 0xef4444, 0x7f1d1d);
+    this.drawBar(LABEL_X, MARGIN + 16, s.health, s.maxHealth, 0xef4444, 0x7f1d1d);
     this.healthLabel.setText(`VIDA ${Math.ceil(s.health)}/${s.maxHealth}`);
 
     // Barra de Estamina
     const staminaY = MARGIN + 16 + BAR_HEIGHT + GAP;
-    this.drawBar(MARGIN, staminaY + 16, s.stamina, s.maxStamina, 0xeab308, 0x713f12);
+    this.drawBar(LABEL_X, staminaY + 16, s.stamina, s.maxStamina, 0xeab308, 0x713f12);
     this.staminaLabel.setText(`ESTAMINA ${Math.ceil(s.stamina)}/${s.maxStamina}`);
 
     // Barra de Bateria
     const batteryY = staminaY + 16 + BAR_HEIGHT + GAP;
     const batteryColor = s.lanternActive ? 0x3b82f6 : 0x475569;
-    this.drawBar(MARGIN, batteryY + 16, s.battery, s.maxBattery, batteryColor, 0x1e293b);
+    this.drawBar(LABEL_X, batteryY + 16, s.battery, s.maxBattery, batteryColor, 0x1e293b);
     const lanternStatus = s.lanternActive ? ' [ON]' : ' [OFF]';
     this.batteryLabel.setText(`BATERIA ${Math.ceil(s.battery)}/${s.maxBattery}${lanternStatus}`);
 
     // Inventário e Arma
     this.inventoryLabel.setText(`INV: ${s.inventoryCount}/${s.inventoryMax}`);
     this.weaponLabel.setText(`ARMA: ${s.weapon.toUpperCase()}`);
+  }
+
+  private createHudIcon(x: number, y: number, key: string) {
+    if (!this.textures.exists(key)) return;
+
+    this.add.image(x, y, key)
+      .setDisplaySize(ICON_SIZE, ICON_SIZE)
+      .setOrigin(0.5);
+  }
+
+  private drawHudPanel() {
+    this.graphics.fillStyle(0x020617, 0.66);
+    this.graphics.fillRect(PANEL_X, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT);
+    this.graphics.lineStyle(1, 0x334155, 0.7);
+    this.graphics.strokeRect(PANEL_X, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT);
   }
 
   private drawBar(x: number, y: number, current: number, max: number, fgColor: number, bgColor: number) {
