@@ -8,6 +8,7 @@ import PlayerSprite from '../entities/PlayerSprite';
 import EnemySprite from '../entities/EnemySprite';
 import InteractableSprite from '../entities/InteractableSprite';
 import { eventBridge } from '../event-bridge';
+import { GAME_ASSETS } from '../config/asset-keys';
 import {
   NarrativeState,
   createNarrativeState,
@@ -22,6 +23,26 @@ import {
 const TILE_WIDTH = 64;
 const TILE_HEIGHT = 32;
 const GRID_SIZE = 32;
+
+interface EnvironmentArt {
+  key: string;
+  x: number;
+  y: number;
+  scale: number;
+  depth: number;
+  alpha?: number;
+  originY?: number;
+}
+
+const ENVIRONMENT_ART: EnvironmentArt[] = [
+  { key: GAME_ASSETS.buildings.policeBase.key, x: 4, y: 4, scale: 0.16, depth: -30, alpha: 0.92, originY: 0.78 },
+  { key: GAME_ASSETS.buildings.exteriorStreet.key, x: 11, y: 6, scale: 0.18, depth: -32, alpha: 0.72, originY: 0.55 },
+  { key: GAME_ASSETS.buildings.abandonedMarket.key, x: 19, y: 5, scale: 0.15, depth: -28, alpha: 0.9, originY: 0.78 },
+  { key: GAME_ASSETS.buildings.residencePath.key, x: 15, y: 16, scale: 0.16, depth: -31, alpha: 0.78, originY: 0.58 },
+  { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 24.5, y: 19.5, scale: 0.15, depth: -27, alpha: 0.9, originY: 0.78 },
+  { key: GAME_ASSETS.buildings.schoolGate.key, x: 30, y: 27, scale: 0.14, depth: -26, alpha: 0.9, originY: 0.78 },
+  { key: GAME_ASSETS.props.urbanExtras.key, x: 13, y: 9, scale: 0.1, depth: -24, alpha: 0.88, originY: 0.7 },
+];
 
 interface VisualZone {
   name: string;
@@ -52,6 +73,7 @@ export default class GameScene extends Phaser.Scene {
   private gameOverText!: Phaser.GameObjects.Text;
   private levelCompleteText!: Phaser.GameObjects.Text;
   private restartKey!: Phaser.Input.Keyboard.Key;
+  private environmentSprites: Phaser.GameObjects.Image[] = [];
 
   // Sistema narrativo
   private narrativeState!: NarrativeState;
@@ -70,6 +92,7 @@ export default class GameScene extends Phaser.Scene {
     this.gridOffsetY = height / 3;
 
     this.graphics = this.add.graphics();
+    this.createEnvironmentArt();
 
     // Inicializar o fluxo narrativo
     this.narrativeState = createNarrativeState();
@@ -267,6 +290,23 @@ export default class GameScene extends Phaser.Scene {
       this.graphics.lineBetween(s2.x, s2.y, s3.x, s3.y);
       this.graphics.lineBetween(s3.x, s3.y, s4.x, s4.y);
       this.graphics.lineBetween(s4.x, s4.y, s1.x, s1.y);
+    }
+  }
+
+  private createEnvironmentArt() {
+    this.environmentSprites = [];
+
+    for (const art of ENVIRONMENT_ART) {
+      if (!this.textures.exists(art.key)) continue;
+
+      const screen = toScreen({ x: art.x, y: art.y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const sprite = this.add.image(screen.x, screen.y, art.key)
+        .setOrigin(0.5, art.originY ?? 0.75)
+        .setScale(art.scale)
+        .setAlpha(art.alpha ?? 1)
+        .setDepth(art.depth);
+
+      this.environmentSprites.push(sprite);
     }
   }
 

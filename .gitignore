@@ -11,6 +11,9 @@ build/
 dist/
 coverage/
 
+# Local temporary review artifacts
+tmp/
+
 # API keys and environment variables
 .env
 .env.local

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { PRELOAD_GAME_ASSETS } from "../config/asset-keys";
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -6,7 +7,9 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    // Assets placeholders podem ser carregados futuramente aqui
+    for (const asset of PRELOAD_GAME_ASSETS) {
+      this.load.image(asset.key, asset.path);
+    }
   }
 
   create() {
