@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { eventBridge } from '../event-bridge';
 import { GAME_ASSETS } from '../config/asset-keys';
+import type { MissionFeedbackEvent, MissionFeedbackTone } from '../systems/mission-feedback';
 
 interface HudState {
   health: number;
@@ -25,6 +26,16 @@ const PANEL_X = 8;
 const PANEL_Y = 8;
 const PANEL_WIDTH = 178;
 const PANEL_HEIGHT = 132;
+const TOAST_WIDTH = 360;
+const TOAST_HEIGHT = 74;
+const TOAST_DURATION_MS = 2800;
+
+const TOAST_COLORS: Record<MissionFeedbackTone, number> = {
+  objective: 0xfbbf24,
+  clue: 0xa78bfa,
+  checkpoint: 0x38bdf8,
+  phase: 0x34d399,
+};
 
 export default class UIScene extends Phaser.Scene {
   private graphics!: Phaser.GameObjects.Graphics;
@@ -38,6 +49,13 @@ export default class UIScene extends Phaser.Scene {
   private dialogBg!: Phaser.GameObjects.Rectangle;
   private dialogText!: Phaser.GameObjects.Text;
   private dialogTimer?: Phaser.Time.TimerEvent;
+  private toastBg!: Phaser.GameObjects.Rectangle;
+  private toastAccent!: Phaser.GameObjects.Rectangle;
+  private toastTitle!: Phaser.GameObjects.Text;
+  private toastMessage!: Phaser.GameObjects.Text;
+  private toastTimer?: Phaser.Time.TimerEvent;
+  private toastQueue: MissionFeedbackEvent[] = [];
+  private toastActive = false;
 
   private currentState: HudState = {
     health: 100, maxHealth: 100,
@@ -90,21 +108,25 @@ export default class UIScene extends Phaser.Scene {
 
     // Objetivo no canto superior direito
     this.createHudIcon(this.scale.width - MARGIN - 232, MARGIN + 14, GAME_ASSETS.ui.objective.key);
-    this.objectiveLabel = this.add.text(this.scale.width - MARGIN, MARGIN, 'OBJETIVO: Saia da Base Policial e alcance a Rua Externa.', {
+    this.objectiveLabel = this.add.text(this.scale.width - MARGIN, MARGIN, 'OBJETIVO ATUAL\nSaia da Base Policial e alcance a Rua Externa.', {
       fontFamily: 'monospace',
       fontSize: '12px',
       color: '#fbbf24', // Golden yellow
       backgroundColor: '#0f172acc', // Slate dark background
+      align: 'right',
+      wordWrap: { width: 286 },
       padding: { x: 10, y: 6 },
     }).setOrigin(1, 0);
 
+    this.createToast();
+
     // Caixa de Diálogo (Rafael) na parte inferior central
-    this.dialogBg = this.add.rectangle(this.scale.width / 2, this.scale.height - 75, this.scale.width - 100, 50, 0x0f172a, 0.85)
+    this.dialogBg = this.add.rectangle(this.scale.width / 2, this.scale.height - 82, this.scale.width - 100, 64, 0x0f172a, 0.85)
       .setStrokeStyle(1, 0x475569)
       .setOrigin(0.5)
       .setVisible(false);
 
-    this.dialogText = this.add.text(this.scale.width / 2, this.scale.height - 75, '', {
+    this.dialogText = this.add.text(this.scale.width / 2, this.scale.height - 82, '', {
       fontFamily: 'monospace',
       fontSize: '11px',
       color: '#f8fafc',
@@ -122,6 +144,7 @@ export default class UIScene extends Phaser.Scene {
     eventBridge.on('hud:update', this.onHudUpdate, this);
     eventBridge.on('narrative:objective', this.onObjectiveUpdate, this);
     eventBridge.on('narrative:dialog', this.showDialog, this);
+    eventBridge.on('narrative:toast', this.queueToast, this);
   }
 
   private onHudUpdate(state: HudState) {
@@ -130,8 +153,80 @@ export default class UIScene extends Phaser.Scene {
 
   private onObjectiveUpdate(data: { objective: string }) {
     if (this.objectiveLabel) {
-      this.objectiveLabel.setText(`OBJETIVO: ${data.objective}`);
+      this.objectiveLabel.setText(`OBJETIVO ATUAL\n${data.objective}`);
     }
+  }
+
+  private createToast() {
+    const width = Math.min(TOAST_WIDTH, this.scale.width - 48);
+    const x = this.scale.width / 2;
+    const y = MARGIN + 56;
+
+    this.toastBg = this.add.rectangle(x, y, width, TOAST_HEIGHT, 0x020617, 0.92)
+      .setStrokeStyle(1, 0x475569, 0.9)
+      .setOrigin(0.5)
+      .setDepth(80)
+      .setVisible(false);
+
+    this.toastAccent = this.add.rectangle(x - width / 2 + 4, y, 6, TOAST_HEIGHT - 12, 0xfbbf24, 1)
+      .setOrigin(0.5)
+      .setDepth(81)
+      .setVisible(false);
+
+    this.toastTitle = this.add.text(x - width / 2 + 18, y - 24, '', {
+      fontFamily: 'monospace',
+      fontSize: '12px',
+      color: '#f8fafc',
+      fontStyle: 'bold',
+    }).setOrigin(0, 0.5).setDepth(82).setVisible(false);
+
+    this.toastMessage = this.add.text(x - width / 2 + 18, y + 6, '', {
+      fontFamily: 'monospace',
+      fontSize: '11px',
+      color: '#cbd5e1',
+      wordWrap: { width: width - 38 },
+    }).setOrigin(0, 0.5).setDepth(82).setVisible(false);
+  }
+
+  private queueToast(feedback: MissionFeedbackEvent) {
+    this.toastQueue.push(feedback);
+
+    if (!this.toastActive) {
+      this.showNextToast();
+    }
+  }
+
+  private showNextToast() {
+    const feedback = this.toastQueue.shift();
+    if (!feedback) {
+      this.toastActive = false;
+      return;
+    }
+
+    if (this.toastTimer) {
+      this.toastTimer.remove();
+    }
+
+    this.toastActive = true;
+    this.toastBg.setVisible(true);
+    this.toastAccent
+      .setFillStyle(TOAST_COLORS[feedback.tone], 1)
+      .setVisible(true);
+    this.toastTitle
+      .setText(feedback.title)
+      .setColor(`#${TOAST_COLORS[feedback.tone].toString(16).padStart(6, '0')}`)
+      .setVisible(true);
+    this.toastMessage
+      .setText(feedback.message)
+      .setVisible(true);
+
+    this.toastTimer = this.time.delayedCall(TOAST_DURATION_MS, () => {
+      this.toastBg.setVisible(false);
+      this.toastAccent.setVisible(false);
+      this.toastTitle.setVisible(false);
+      this.toastMessage.setVisible(false);
+      this.showNextToast();
+    });
   }
 
   private showDialog(data: { text: string }) {
@@ -212,5 +307,6 @@ export default class UIScene extends Phaser.Scene {
     eventBridge.off('hud:update', this.onHudUpdate, this);
     eventBridge.off('narrative:objective', this.onObjectiveUpdate, this);
     eventBridge.off('narrative:dialog', this.showDialog, this);
+    eventBridge.off('narrative:toast', this.queueToast, this);
   }
 }

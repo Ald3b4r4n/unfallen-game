@@ -27,6 +27,7 @@ import {
   missionSaveToObjectiveState,
   objectiveStateToMissionSave,
 } from '../systems/mission-save';
+import { buildMissionFeedbackEvents } from '../systems/mission-feedback';
 import { HazardPosition, resolveSafeRestorePosition } from '../systems/safe-restore';
 import type { SavePayload } from '../../save/save-schema';
 import { deleteLocal, loadLocal, saveLocal } from '../../save/local-save';
@@ -458,6 +459,9 @@ export default class GameScene extends Phaser.Scene {
     eventBridge.emit('narrative:dialog', {
       text: result.message ? `${result.message}\n${progressFeedback}` : progressFeedback,
     });
+    for (const feedback of buildMissionFeedbackEvents(result, OBJECTIVES[this.narrativeState.currentObjectiveId])) {
+      eventBridge.emit('narrative:toast', feedback);
+    }
 
     if (result.phaseCompleted) {
       this.showLevelCompleteOverlay();
