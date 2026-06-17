@@ -18,6 +18,7 @@ const PLAYER_SPEED = 2.5;  // unidades lógicas por segundo
 const DASH_SPEED_MULT = 3;
 const DASH_DURATION_MS = 200;
 const PLAYER_SPRITE_SCALE = 0.08;
+const WEAPON_KEYS = ['unarmed', 'pistol', 'knife', 'machete', 'sword'] as const;
 
 type MovementResolver = (
   current: { posX: number; posY: number },
@@ -40,13 +41,22 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     F: Phaser.Input.Keyboard.Key;
     Q: Phaser.Input.Keyboard.Key;
     ESC: Phaser.Input.Keyboard.Key;
+    ONE: Phaser.Input.Keyboard.Key;
+    TWO: Phaser.Input.Keyboard.Key;
+    THREE: Phaser.Input.Keyboard.Key;
+    FOUR: Phaser.Input.Keyboard.Key;
+    FIVE: Phaser.Input.Keyboard.Key;
   };
 
   private bodyRect?: Phaser.GameObjects.Rectangle;
   private visualBody?: Phaser.GameObjects.Image | Phaser.GameObjects.Rectangle;
+  private weaponGraphics!: Phaser.GameObjects.Graphics;
+  private attackGraphics!: Phaser.GameObjects.Graphics;
   private isDashing = false;
   private dashTimer = 0;
   private movementResolver?: MovementResolver;
+  private facingX = 1;
+  private facingY = 0;
 
   constructor(scene: Phaser.Scene, startX: number, startY: number) {
     super(scene, 0, 0);
@@ -80,6 +90,12 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
       this.add(label);
     }
 
+    this.weaponGraphics = scene.add.graphics();
+    this.attackGraphics = scene.add.graphics();
+    this.add(this.weaponGraphics);
+    this.add(this.attackGraphics);
+    this.drawWeapon();
+
     scene.add.existing(this);
 
     // Registrar teclas
@@ -94,6 +110,11 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
         F: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F),
         Q: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
         ESC: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC),
+        ONE: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE),
+        TWO: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO),
+        THREE: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE),
+        FOUR: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR),
+        FIVE: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE),
       };
     }
 
@@ -131,6 +152,12 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
       const mag = Math.sqrt(dx * dx + dy * dy);
       dx /= mag;
       dy /= mag;
+    }
+
+    if (dx !== 0 || dy !== 0) {
+      this.facingX = dx;
+      this.facingY = dy;
+      this.drawWeapon();
     }
 
     const speed = this.isDashing ? PLAYER_SPEED * DASH_SPEED_MULT : PLAYER_SPEED;
@@ -172,6 +199,8 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
   private handleInputActions() {
     if (!this.keys) return;
 
+    this.handleWeaponSelection();
+
     if (Phaser.Input.Keyboard.JustDown(this.keys.F)) {
       this.batteryState = toggleLantern(this.batteryState);
     }
@@ -184,14 +213,38 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.keys.Q)) {
+      this.playAttackAnimation();
       eventBridge.emit('player:attack', {
         posX: this.playerState.posX,
         posY: this.playerState.posY,
+        weapon: this.playerState.activeWeapon,
+        facingX: this.facingX,
+        facingY: this.facingY,
       });
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.keys.ESC)) {
       eventBridge.emit('game:pause');
+    }
+  }
+
+  private handleWeaponSelection() {
+    const bindings = [
+      this.keys.ONE,
+      this.keys.TWO,
+      this.keys.THREE,
+      this.keys.FOUR,
+      this.keys.FIVE,
+    ];
+
+    for (let index = 0; index < bindings.length; index += 1) {
+      if (Phaser.Input.Keyboard.JustDown(bindings[index])) {
+        this.playerState = {
+          ...this.playerState,
+          activeWeapon: WEAPON_KEYS[index],
+        };
+        this.drawWeapon();
+      }
     }
   }
 
@@ -217,10 +270,71 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
   private updateIdleMotion(time: number) {
     if (!this.visualBody) return;
     this.visualBody.y = Math.sin(time / 260) * 0.8;
+    this.weaponGraphics.y = this.visualBody.y;
   }
 
   setMovementResolver(resolver: MovementResolver) {
     this.movementResolver = resolver;
+  }
+
+  private drawWeapon() {
+    if (!this.weaponGraphics) return;
+
+    this.weaponGraphics.clear();
+    const direction = this.facingX < -0.2 ? -1 : 1;
+    const handX = 7 * direction;
+    const handY = -10;
+
+    switch (this.playerState.activeWeapon) {
+      case 'pistol':
+        this.weaponGraphics.fillStyle(0x1f2937, 1);
+        this.weaponGraphics.fillRect(handX, handY, 10 * direction, 3);
+        this.weaponGraphics.fillStyle(0x94a3b8, 1);
+        this.weaponGraphics.fillRect(handX + 2 * direction, handY + 3, 3 * direction, 5);
+        break;
+      case 'knife':
+        this.weaponGraphics.lineStyle(2, 0xdbeafe, 1);
+        this.weaponGraphics.lineBetween(handX, handY, handX + 10 * direction, handY - 3);
+        break;
+      case 'machete':
+        this.weaponGraphics.lineStyle(3, 0xcbd5e1, 1);
+        this.weaponGraphics.lineBetween(handX, handY, handX + 14 * direction, handY - 5);
+        this.weaponGraphics.lineStyle(1, 0x334155, 1);
+        this.weaponGraphics.lineBetween(handX + 2 * direction, handY + 1, handX + 15 * direction, handY - 4);
+        break;
+      case 'sword':
+        this.weaponGraphics.lineStyle(2, 0xe5e7eb, 1);
+        this.weaponGraphics.lineBetween(handX, handY, handX + 18 * direction, handY - 9);
+        this.weaponGraphics.lineStyle(2, 0x64748b, 1);
+        this.weaponGraphics.lineBetween(handX - 3 * direction, handY + 2, handX + 4 * direction, handY - 2);
+        break;
+      case 'unarmed':
+      default:
+        break;
+    }
+  }
+
+  private playAttackAnimation() {
+    if (!this.attackGraphics) return;
+
+    const direction = this.facingX < -0.2 ? -1 : 1;
+    this.attackGraphics.clear();
+
+    if (this.playerState.activeWeapon === 'pistol') {
+      this.attackGraphics.fillStyle(0xfbbf24, 0.95);
+      this.attackGraphics.fillTriangle(12 * direction, -12, 30 * direction, -16, 30 * direction, -8);
+      this.attackGraphics.lineStyle(1, 0xfef3c7, 0.45);
+      this.attackGraphics.lineBetween(14 * direction, -12, 55 * direction, -20);
+    } else {
+      this.attackGraphics.lineStyle(3, 0xf8fafc, 0.65);
+      this.attackGraphics.beginPath();
+      this.attackGraphics.arc(6 * direction, -10, 18, -0.8, 0.7, false);
+      this.attackGraphics.strokePath();
+    }
+
+    this.scene.time.delayedCall(110, () => {
+      this.attackGraphics.clear();
+    });
   }
 
   private emitStateUpdate() {

@@ -19,9 +19,10 @@ describe('Weather Effects', () => {
     expect(streaks.every((streak) => streak.length <= DEFAULT_RAIN_CONFIG.maxLength)).toBe(true);
     expect(streaks.every((streak) => streak.speed >= DEFAULT_RAIN_CONFIG.minSpeed)).toBe(true);
     expect(streaks.every((streak) => streak.speed <= DEFAULT_RAIN_CONFIG.maxSpeed)).toBe(true);
+    expect(streaks.some((streak) => streak.width === 2)).toBe(true);
   });
 
   test('rejeita chuva excessiva para evitar custo visual desnecessario', () => {
-    expect(isRainConfigSafe({ ...DEFAULT_RAIN_CONFIG, count: 220 })).toBe(false);
+    expect(isRainConfigSafe({ ...DEFAULT_RAIN_CONFIG, count: 260 })).toBe(false);
   });
 });

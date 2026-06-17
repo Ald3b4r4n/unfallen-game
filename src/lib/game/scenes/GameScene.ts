@@ -9,7 +9,7 @@ import EnemySprite from '../entities/EnemySprite';
 import InteractableSprite from '../entities/InteractableSprite';
 import { eventBridge } from '../event-bridge';
 import { GAME_ASSETS } from '../config/asset-keys';
-import { getCameraBounds, MAP_CONFIG, TILE_HEIGHT, TILE_WIDTH } from '../config/map-config';
+import { getCameraBounds, TILE_HEIGHT, TILE_WIDTH } from '../config/map-config';
 import { GAME_ZONES, ZoneId } from '../config/zones';
 import {
   NarrativeState,
@@ -41,6 +41,11 @@ import {
 } from '../systems/lighting-effects';
 import { HazardPosition, resolveSafeRestorePosition } from '../systems/safe-restore';
 import { resolveMovementAgainstStaticObstacles } from '../systems/static-collision';
+import {
+  PHASE_ONE_URBAN_DECORATIONS,
+  PHASE_ONE_URBAN_SURFACES,
+  getEnterableBuildingAtPosition,
+} from '../systems/urban-layout';
 import type { SavePayload } from '../../save/save-schema';
 import { deleteLocal, loadLocal, saveLocal } from '../../save/local-save';
 
@@ -67,6 +72,7 @@ const ENEMY_SPAWNS: Record<string, HazardPosition> = {
 
 export default class GameScene extends Phaser.Scene {
   private graphics!: Phaser.GameObjects.Graphics;
+  private groundGraphics!: Phaser.GameObjects.Graphics;
   private player!: PlayerSprite;
   private enemies: EnemySprite[] = [];
   private interactables: InteractableSprite[] = [];
@@ -80,6 +86,11 @@ export default class GameScene extends Phaser.Scene {
   private phaseEndingFooter!: Phaser.GameObjects.Text;
   private restartKey!: Phaser.Input.Keyboard.Key;
   private environmentSprites: Phaser.GameObjects.GameObject[] = [];
+  private buildingSprites: Array<{
+    interiorId: string;
+    sprite: Phaser.GameObjects.Image;
+    defaultAlpha: number;
+  }> = [];
   private rainGraphics!: Phaser.GameObjects.Graphics;
   private rainStreaks: RainStreak[] = [];
   private rainElapsed = 0;
@@ -103,6 +114,8 @@ export default class GameScene extends Phaser.Scene {
     this.gridOffsetY = height / 3;
 
     this.graphics = this.add.graphics();
+    this.graphics.setVisible(false);
+    this.createUrbanGround();
     this.createEnvironmentArt();
     this.createAtmosphere();
     this.createWeatherEffects();
@@ -251,6 +264,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Verificar triggers narrativos geográficos baseados na posição do player
     this.checkNarrativeTriggers(px, py);
+    this.updateBuildingTransparency(px, py);
 
     // Atualizar inimigos e verificar dano de contato
     for (const enemy of this.enemies) {
@@ -260,13 +274,72 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    // Desenhar grid e contornos das zonas
-    this.graphics.clear();
-    this.drawIsometricGrid(MAP_CONFIG.gridWidth, MAP_CONFIG.gridHeight);
-    this.drawVisualZones();
-
     // Depth sort
     this.depthSortAll();
+  }
+
+  private createUrbanGround() {
+    this.groundGraphics = this.add.graphics().setDepth(-50);
+
+    for (const surface of PHASE_ONE_URBAN_SURFACES) {
+      const s1 = toScreen({ x: surface.minX, y: surface.minY, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const s2 = toScreen({ x: surface.maxX + 1, y: surface.minY, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const s3 = toScreen({ x: surface.maxX + 1, y: surface.maxY + 1, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const s4 = toScreen({ x: surface.minX, y: surface.maxY + 1, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const points = [s1, s2, s3, s4].map((point) =>
+        new Phaser.Math.Vector2(point.x, point.y)
+      );
+
+      this.groundGraphics.fillStyle(surface.color, surface.alpha);
+      this.groundGraphics.fillPoints(points, true);
+
+      if (surface.borderColor) {
+        this.groundGraphics.lineStyle(1, surface.borderColor, surface.borderAlpha ?? 0.18);
+        this.groundGraphics.strokePoints(points, true);
+      }
+    }
+
+    this.drawRoadMarkings();
+    this.drawUrbanDecorations();
+  }
+
+  private drawRoadMarkings() {
+    const markings = [
+      { x1: 10, y1: 9, x2: 24, y2: 9 },
+      { x1: 24, y1: 12, x2: 38, y2: 12 },
+      { x1: 26, y1: 22, x2: 42, y2: 32 },
+      { x1: 42, y1: 40, x2: 55, y2: 44 },
+      { x1: 53, y1: 51, x2: 62, y2: 58 },
+    ];
+
+    this.groundGraphics.lineStyle(1, 0x94a3b8, 0.18);
+    for (const marking of markings) {
+      const start = toScreen({ x: marking.x1, y: marking.y1, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const end = toScreen({ x: marking.x2, y: marking.y2, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      this.groundGraphics.lineBetween(start.x, start.y, end.x, end.y);
+    }
+  }
+
+  private drawUrbanDecorations() {
+    for (const decoration of PHASE_ONE_URBAN_DECORATIONS) {
+      const screen = toScreen({ x: decoration.x, y: decoration.y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+
+      if (decoration.kind === 'tree') {
+        const trunk = this.add.rectangle(screen.x, screen.y + 4, 6 * decoration.scale, 16 * decoration.scale, 0x4b2e1f, decoration.alpha)
+          .setDepth(decoration.depth);
+        const canopy = this.add.ellipse(screen.x, screen.y - 8, 22 * decoration.scale, 18 * decoration.scale, decoration.color, decoration.alpha)
+          .setDepth(decoration.depth + 1)
+          .setBlendMode(Phaser.BlendModes.MULTIPLY);
+        this.environmentSprites.push(trunk, canopy);
+      } else {
+        const pole = this.add.rectangle(screen.x, screen.y - 2, 3, 20 * decoration.scale, decoration.color, decoration.alpha)
+          .setDepth(decoration.depth);
+        const lamp = this.add.ellipse(screen.x, screen.y - 14 * decoration.scale, 7, 7, 0xf8fafc, decoration.alpha * 0.9)
+          .setDepth(decoration.depth + 1)
+          .setBlendMode(Phaser.BlendModes.ADD);
+        this.environmentSprites.push(pole, lamp);
+      }
+    }
   }
 
   private checkNarrativeTriggers(px: number, py: number) {
@@ -325,6 +398,27 @@ export default class GameScene extends Phaser.Scene {
         .setDepth(art.depth);
 
       this.environmentSprites.push(sprite);
+      if (art.interiorId) {
+        this.buildingSprites.push({
+          interiorId: art.interiorId,
+          sprite,
+          defaultAlpha: art.alpha ?? 1,
+        });
+      }
+    }
+  }
+
+  private updateBuildingTransparency(posX: number, posY: number) {
+    const activeInterior = getEnterableBuildingAtPosition(posX, posY);
+
+    for (const building of this.buildingSprites) {
+      const targetAlpha = activeInterior?.id === building.interiorId
+        ? Math.min(0.42, building.defaultAlpha)
+        : building.defaultAlpha;
+
+      if (Math.abs(building.sprite.alpha - targetAlpha) > 0.01) {
+        building.sprite.setAlpha(targetAlpha);
+      }
     }
   }
 
@@ -411,17 +505,23 @@ export default class GameScene extends Phaser.Scene {
     this.rainGraphics.clear();
 
     for (const streak of this.rainStreaks) {
+      const sway = Math.sin(this.rainElapsed * 2 + streak.phase) * 2;
       const y = (streak.y + this.rainElapsed * streak.speed) % (height + 80) - 40;
-      const wind = (this.rainElapsed * DEFAULT_RAIN_CONFIG.slant * 3) % 80;
+      const wind = (this.rainElapsed * DEFAULT_RAIN_CONFIG.slant * 2.2 + sway) % 80;
       const x = (streak.x + wind + width + 40) % (width + 80) - 40;
 
-      this.rainGraphics.lineStyle(1, 0x93c5fd, streak.alpha);
+      this.rainGraphics.lineStyle(streak.width, 0x93c5fd, streak.alpha);
       this.rainGraphics.lineBetween(
         x,
         y,
         x + DEFAULT_RAIN_CONFIG.slant,
         y + streak.length
       );
+
+      if (streak.width > 1 && y > height * 0.78) {
+        this.rainGraphics.lineStyle(1, 0xbfdbfe, streak.alpha * 0.55);
+        this.rainGraphics.lineBetween(x - 3, y + streak.length, x + 3, y + streak.length + 1);
+      }
     }
   }
 

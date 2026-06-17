@@ -8,7 +8,7 @@ export interface PlayerStateData {
   maxHealth: number;
   posX: number;
   posY: number;
-  activeWeapon: 'unarmed' | 'baton' | 'pistol';
+  activeWeapon: 'unarmed' | 'pistol' | 'knife' | 'machete' | 'sword';
 }
 
 export const PLAYER_DEFAULTS = {

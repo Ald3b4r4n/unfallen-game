@@ -15,14 +15,15 @@ export interface EnvironmentArtDefinition {
   footprintHeight?: number;
   footprintOffsetY?: number;
   footprintAlpha?: number;
+  interiorId?: string;
 }
 
 export const PHASE_ONE_ENVIRONMENT_ART: EnvironmentArtDefinition[] = [
-  { key: GAME_ASSETS.buildings.policeBase.key, x: 6.4, y: 6.6, scale: 0.125, depth: -30, zoneId: 'base', alpha: 0.9, originY: 0.78, footprintWidth: 260, footprintHeight: 92, footprintOffsetY: 18, footprintAlpha: 0.36 },
+  { key: GAME_ASSETS.buildings.policeBase.key, x: 6.4, y: 6.6, scale: 0.125, depth: -30, zoneId: 'base', alpha: 0.9, originY: 0.78, footprintWidth: 260, footprintHeight: 92, footprintOffsetY: 18, footprintAlpha: 0.36, interiorId: 'police-base' },
   { key: GAME_ASSETS.buildings.exteriorStreet.key, x: 17.6, y: 10.2, scale: 0.108, depth: -32, zoneId: 'rua', alpha: 0.66, originY: 0.58, footprintWidth: 310, footprintHeight: 112, footprintOffsetY: 11, footprintAlpha: 0.26 },
-  { key: GAME_ASSETS.buildings.abandonedMarket.key, x: 31.8, y: 10.6, scale: 0.116, depth: -28, zoneId: 'mercado', alpha: 0.88, originY: 0.78, footprintWidth: 250, footprintHeight: 88, footprintOffsetY: 17, footprintAlpha: 0.34 },
+  { key: GAME_ASSETS.buildings.abandonedMarket.key, x: 31.8, y: 10.6, scale: 0.116, depth: -28, zoneId: 'mercado', alpha: 0.88, originY: 0.78, footprintWidth: 250, footprintHeight: 88, footprintOffsetY: 17, footprintAlpha: 0.34, interiorId: 'abandoned-market' },
   { key: GAME_ASSETS.buildings.residencePath.key, x: 32.6, y: 29.6, scale: 0.108, depth: -31, zoneId: 'caminho', alpha: 0.66, originY: 0.6, footprintWidth: 300, footprintHeight: 104, footprintOffsetY: 11, footprintAlpha: 0.25 },
-  { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 49.4, y: 41.6, scale: 0.12, depth: -27, zoneId: 'casa', alpha: 0.88, originY: 0.78, footprintWidth: 250, footprintHeight: 90, footprintOffsetY: 16, footprintAlpha: 0.35 },
+  { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 49.4, y: 41.6, scale: 0.12, depth: -27, zoneId: 'casa', alpha: 0.88, originY: 0.78, footprintWidth: 250, footprintHeight: 90, footprintOffsetY: 16, footprintAlpha: 0.35, interiorId: 'rafael-house' },
   { key: GAME_ASSETS.buildings.schoolGate.key, x: 58.4, y: 56.6, scale: 0.1, depth: -26, zoneId: 'escola', alpha: 0.88, originY: 0.78, footprintWidth: 240, footprintHeight: 84, footprintOffsetY: 15, footprintAlpha: 0.34 },
 
   { key: GAME_ASSETS.props.brokenStreetPole.key, x: 8.8, y: 8.6, scale: 0.095, depth: -22, zoneId: 'base', alpha: 0.78, originY: 0.92 },

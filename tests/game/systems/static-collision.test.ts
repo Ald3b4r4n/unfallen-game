@@ -5,9 +5,10 @@ import {
 } from '@/lib/game/systems/static-collision';
 
 describe('Static Collision', () => {
-  test('bloqueia predios e obstaculos principais da fase 1', () => {
-    expect(PHASE_ONE_STATIC_OBSTACLES.length).toBeGreaterThanOrEqual(8);
-    expect(isPositionBlockedByStaticObstacle(6, 5)).toBe(true);
+  test('bloqueia obstaculos urbanos sem impedir predios entraveis', () => {
+    expect(PHASE_ONE_STATIC_OBSTACLES.length).toBeGreaterThanOrEqual(6);
+    expect(isPositionBlockedByStaticObstacle(10.8, 7.1)).toBe(true);
+    expect(isPositionBlockedByStaticObstacle(6, 5)).toBe(false);
     expect(isPositionBlockedByStaticObstacle(7, 8)).toBe(false);
   });
 
@@ -22,19 +23,19 @@ describe('Static Collision', () => {
 
   test('impede entrada direta em obstaculo', () => {
     const next = resolveMovementAgainstStaticObstacles(
-      { posX: 7, posY: 8 },
-      { posX: 6, posY: 5 }
+      { posX: 10.8, posY: 6.4 },
+      { posX: 10.8, posY: 7.1 }
     );
 
-    expect(next).toEqual({ posX: 6, posY: 8 });
+    expect(next).toEqual({ posX: 10.8, posY: 6.4 });
   });
 
   test('permite deslizar em um eixo quando o outro esta bloqueado', () => {
     const next = resolveMovementAgainstStaticObstacles(
-      { posX: 4, posY: 4 },
-      { posX: 6, posY: 5 }
+      { posX: 10, posY: 8 },
+      { posX: 10.8, posY: 7.1 }
     );
 
-    expect(next).toEqual({ posX: 6, posY: 4 });
+    expect(next).toEqual({ posX: 10.8, posY: 8 });
   });
 });
