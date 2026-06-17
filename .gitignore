@@ -13,6 +13,7 @@ coverage/
 
 # Local temporary review artifacts
 tmp/
+public/assets comprados/
 
 # API keys and environment variables
 .env

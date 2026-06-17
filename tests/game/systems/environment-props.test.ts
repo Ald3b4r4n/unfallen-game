@@ -24,4 +24,16 @@ describe('Environment Props', () => {
 
     expect(decorativeInfected).toHaveLength(0);
   });
+
+  test('usa assets comprados licenciados para preencher ruas e props urbanos', () => {
+    const purchasedArt = PHASE_ONE_ENVIRONMENT_ART.filter((art) =>
+      art.key.startsWith('purchased:')
+    );
+    const purchasedFloorArt = purchasedArt.filter((art) => art.depth <= -48);
+    const purchasedInteriorArt = purchasedArt.filter((art) => art.interiorId);
+
+    expect(purchasedArt.length).toBeGreaterThanOrEqual(30);
+    expect(purchasedFloorArt.length).toBeGreaterThanOrEqual(10);
+    expect(purchasedInteriorArt.length).toBeGreaterThanOrEqual(6);
+  });
 });

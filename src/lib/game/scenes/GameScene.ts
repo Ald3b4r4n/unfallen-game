@@ -300,7 +300,36 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.drawRoadMarkings();
+    this.createPurchasedGroundTiles();
     this.drawUrbanDecorations();
+  }
+
+  private createPurchasedGroundTiles() {
+    const tileKeys = [
+      GAME_ASSETS.purchased.asphaltCrackedA.key,
+      GAME_ASSETS.purchased.asphaltRoadLineA.key,
+      GAME_ASSETS.purchased.asphaltCrosswalkA.key,
+    ];
+
+    if (!tileKeys.every((key) => this.textures.exists(key))) return;
+
+    for (const surface of PHASE_ONE_URBAN_SURFACES) {
+      let index = 0;
+      for (let x = surface.minX + 1; x <= surface.maxX; x += 3.1) {
+        for (let y = surface.minY + 1; y <= surface.maxY; y += 3.1) {
+          const screen = toScreen({ x, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+          const key = tileKeys[(index + Math.floor(x) + Math.floor(y)) % tileKeys.length];
+          const tile = this.add.image(screen.x, screen.y, key)
+            .setOrigin(0.5, 0.52)
+            .setScale(0.31)
+            .setAlpha(surface.id.includes('yard') ? 0.5 : 0.62)
+            .setDepth(-48.8);
+
+          this.environmentSprites.push(tile);
+          index += 1;
+        }
+      }
+    }
   }
 
   private drawRoadMarkings() {
@@ -325,12 +354,17 @@ export default class GameScene extends Phaser.Scene {
       const screen = toScreen({ x: decoration.x, y: decoration.y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
 
       if (decoration.kind === 'tree') {
-        const trunk = this.add.rectangle(screen.x, screen.y + 4, 6 * decoration.scale, 16 * decoration.scale, 0x4b2e1f, decoration.alpha)
+        const tree = this.add.graphics()
           .setDepth(decoration.depth);
-        const canopy = this.add.ellipse(screen.x, screen.y - 8, 22 * decoration.scale, 18 * decoration.scale, decoration.color, decoration.alpha)
-          .setDepth(decoration.depth + 1)
-          .setBlendMode(Phaser.BlendModes.MULTIPLY);
-        this.environmentSprites.push(trunk, canopy);
+        tree.lineStyle(2, 0x5b4636, decoration.alpha);
+        tree.lineBetween(screen.x, screen.y + 7 * decoration.scale, screen.x, screen.y - 13 * decoration.scale);
+        tree.lineStyle(1, 0x7f6047, decoration.alpha * 0.82);
+        tree.lineBetween(screen.x, screen.y - 5 * decoration.scale, screen.x - 10 * decoration.scale, screen.y - 15 * decoration.scale);
+        tree.lineBetween(screen.x, screen.y - 7 * decoration.scale, screen.x + 9 * decoration.scale, screen.y - 17 * decoration.scale);
+        tree.lineBetween(screen.x, screen.y - 10 * decoration.scale, screen.x - 5 * decoration.scale, screen.y - 21 * decoration.scale);
+        tree.fillStyle(0x1f2937, decoration.alpha * 0.35);
+        tree.fillEllipse(screen.x, screen.y + 8 * decoration.scale, 16 * decoration.scale, 6 * decoration.scale);
+        this.environmentSprites.push(tree);
       } else {
         const pole = this.add.rectangle(screen.x, screen.y - 2, 3, 20 * decoration.scale, decoration.color, decoration.alpha)
           .setDepth(decoration.depth);
@@ -487,7 +521,72 @@ export default class GameScene extends Phaser.Scene {
       .setScrollFactor(0)
       .setDepth(57);
 
+    this.createPurchasedWeatherOverlays(width, height);
     this.environmentSprites.push(darkness, fog, vignetteTop, vignetteBottom);
+  }
+
+  private createPurchasedWeatherOverlays(width: number, height: number) {
+    const overlays = [
+      {
+        key: GAME_ASSETS.purchased.weatherStormOverlayA.key,
+        x: width * 0.5,
+        y: height * 0.48,
+        scaleX: 5.9,
+        scaleY: 4.7,
+        alpha: 0.16,
+        depth: 58,
+      },
+      {
+        key: GAME_ASSETS.purchased.weatherRainCurtainA.key,
+        x: width * 0.32,
+        y: height * 0.48,
+        scaleX: 4.6,
+        scaleY: 4.8,
+        alpha: 0.18,
+        depth: 70,
+      },
+      {
+        key: GAME_ASSETS.purchased.weatherMistyHazeA.key,
+        x: width * 0.55,
+        y: height * 0.62,
+        scaleX: 4.5,
+        scaleY: 2.8,
+        alpha: 0.14,
+        depth: 59,
+      },
+      {
+        key: GAME_ASSETS.purchased.fogGroundLowA.key,
+        x: width * 0.42,
+        y: height * 0.72,
+        scaleX: 2.8,
+        scaleY: 1.8,
+        alpha: 0.18,
+        depth: 60,
+      },
+      {
+        key: GAME_ASSETS.purchased.fogWhiteLowA.key,
+        x: width * 0.68,
+        y: height * 0.78,
+        scaleX: 2.7,
+        scaleY: 1.7,
+        alpha: 0.12,
+        depth: 60,
+      },
+    ];
+
+    for (const overlay of overlays) {
+      if (!this.textures.exists(overlay.key)) continue;
+
+      const sprite = this.add.image(overlay.x, overlay.y, overlay.key)
+        .setOrigin(0.5)
+        .setScale(overlay.scaleX, overlay.scaleY)
+        .setAlpha(overlay.alpha)
+        .setScrollFactor(0)
+        .setDepth(overlay.depth)
+        .setBlendMode(Phaser.BlendModes.ADD);
+
+      this.environmentSprites.push(sprite);
+    }
   }
 
   private createWeatherEffects() {

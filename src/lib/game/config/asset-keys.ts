@@ -157,6 +157,144 @@ export const GAME_ASSETS = {
       path: `${GAME_ASSET_BASE_PATH}/props/cut/drag-mark.png`,
     },
   },
+  purchased: {
+    asphaltCrackedA: {
+      key: 'purchased:asphalt-cracked-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/asphalt-cracked-a.png`,
+    },
+    asphaltRoadLineA: {
+      key: 'purchased:asphalt-road-line-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/asphalt-road-line-a.png`,
+    },
+    asphaltCrosswalkA: {
+      key: 'purchased:asphalt-crosswalk-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/asphalt-crosswalk-a.png`,
+    },
+    wallBrokenWideA: {
+      key: 'purchased:wall-broken-wide-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/wall-broken-wide-a.png`,
+    },
+    wallDoorWindowA: {
+      key: 'purchased:wall-door-window-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/wall-door-window-a.png`,
+    },
+    weaponPistolA: {
+      key: 'purchased:weapon-pistol-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/weapon-pistol-a.png`,
+    },
+    weaponKnifeA: {
+      key: 'purchased:weapon-knife-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/weapon-knife-a.png`,
+    },
+    weaponBatA: {
+      key: 'purchased:weapon-bat-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/weapon-bat-a.png`,
+    },
+    weaponShotgunA: {
+      key: 'purchased:weapon-shotgun-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/weapon-shotgun-a.png`,
+    },
+    streetStopSignA: {
+      key: 'purchased:street-stop-sign-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/street-stop-sign-a.png`,
+    },
+    streetLampA: {
+      key: 'purchased:street-lamp-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/street-lamp-a.png`,
+    },
+    streetRoadClosedA: {
+      key: 'purchased:street-road-closed-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/street-road-closed-a.png`,
+    },
+    streetBarricadeA: {
+      key: 'purchased:street-barricade-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/street-barricade-a.png`,
+    },
+    streetFenceA: {
+      key: 'purchased:street-fence-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/street-fence-a.png`,
+    },
+    streetBenchA: {
+      key: 'purchased:street-bench-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/street-bench-a.png`,
+    },
+    streetManholeA: {
+      key: 'purchased:street-manhole-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/street-manhole-a.png`,
+    },
+    deadTreeA: {
+      key: 'purchased:dead-tree-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/dead-tree-a.png`,
+    },
+    deadTreeB: {
+      key: 'purchased:dead-tree-b',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/dead-tree-b.png`,
+    },
+    deadBushA: {
+      key: 'purchased:dead-bush-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/dead-bush-a.png`,
+    },
+    interiorTableA: {
+      key: 'purchased:interior-table-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/interior-table-a.png`,
+    },
+    interiorCabinetA: {
+      key: 'purchased:interior-cabinet-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/interior-cabinet-a.png`,
+    },
+    emergencyLightA: {
+      key: 'purchased:emergency-light-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/emergency-light-a.png`,
+    },
+    weatherStormOverlayA: {
+      key: 'purchased:weather-storm-overlay-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/weather-storm-overlay-a.png`,
+    },
+    weatherRainCurtainA: {
+      key: 'purchased:weather-rain-curtain-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/weather-rain-curtain-a.png`,
+    },
+    weatherMistyHazeA: {
+      key: 'purchased:weather-misty-haze-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/weather-misty-haze-a.png`,
+    },
+    fogGroundLowA: {
+      key: 'purchased:fog-ground-low-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/fog-ground-low-a.png`,
+    },
+    fogWhiteLowA: {
+      key: 'purchased:fog-white-low-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/fog-white-low-a.png`,
+    },
+    fogColdMistA: {
+      key: 'purchased:fog-cold-mist-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/fog-cold-mist-a.png`,
+    },
+    treePineGreenA: {
+      key: 'purchased:tree-pine-green-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/tree-pine-green-a.png`,
+    },
+    treePineGreenB: {
+      key: 'purchased:tree-pine-green-b',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/tree-pine-green-b.png`,
+    },
+    treeDeadLargeA: {
+      key: 'purchased:tree-dead-large-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/tree-dead-large-a.png`,
+    },
+    treeDeadLargeB: {
+      key: 'purchased:tree-dead-large-b',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/tree-dead-large-b.png`,
+    },
+    treeStumpA: {
+      key: 'purchased:tree-stump-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/tree-stump-a.png`,
+    },
+    treeBushGreenA: {
+      key: 'purchased:tree-bush-green-a',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/cut/tree-bush-green-a.png`,
+    },
+  },
 } as const;
 
 export const PRELOAD_GAME_ASSETS = [
@@ -166,4 +304,5 @@ export const PRELOAD_GAME_ASSETS = [
   ...Object.values(GAME_ASSETS.enemies),
   ...Object.values(GAME_ASSETS.buildings),
   ...Object.values(GAME_ASSETS.props),
+  ...Object.values(GAME_ASSETS.purchased),
 ];

@@ -50,6 +50,7 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
 
   private bodyRect?: Phaser.GameObjects.Rectangle;
   private visualBody?: Phaser.GameObjects.Image | Phaser.GameObjects.Rectangle;
+  private weaponImage?: Phaser.GameObjects.Image;
   private weaponGraphics!: Phaser.GameObjects.Graphics;
   private attackGraphics!: Phaser.GameObjects.Graphics;
   private isDashing = false;
@@ -92,6 +93,12 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
 
     this.weaponGraphics = scene.add.graphics();
     this.attackGraphics = scene.add.graphics();
+    if (scene.textures.exists(GAME_ASSETS.purchased.weaponPistolA.key)) {
+      this.weaponImage = scene.add.image(0, 0, GAME_ASSETS.purchased.weaponPistolA.key)
+        .setOrigin(0.16, 0.62)
+        .setVisible(false);
+      this.add(this.weaponImage);
+    }
     this.add(this.weaponGraphics);
     this.add(this.attackGraphics);
     this.drawWeapon();
@@ -244,6 +251,7 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
           activeWeapon: WEAPON_KEYS[index],
         };
         this.drawWeapon();
+        this.emitStateUpdate();
       }
     }
   }
@@ -269,8 +277,13 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
 
   private updateIdleMotion(time: number) {
     if (!this.visualBody) return;
-    this.visualBody.y = Math.sin(time / 260) * 0.8;
-    this.weaponGraphics.y = this.visualBody.y;
+    const idleOffset = Math.sin(time / 260) * 0.8;
+    this.visualBody.y = idleOffset;
+    this.weaponGraphics.y = idleOffset;
+    if (this.weaponImage) {
+      this.weaponImage.y += idleOffset - (this.weaponImage.getData('idleOffset') ?? 0);
+      this.weaponImage.setData('idleOffset', idleOffset);
+    }
   }
 
   setMovementResolver(resolver: MovementResolver) {
@@ -281,9 +294,24 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     if (!this.weaponGraphics) return;
 
     this.weaponGraphics.clear();
+    this.weaponImage?.setVisible(false);
     const direction = this.facingX < -0.2 ? -1 : 1;
     const handX = 7 * direction;
     const handY = -10;
+    const imageWeapon = this.getWeaponImageConfig(direction, handX, handY);
+
+    if (imageWeapon && this.weaponImage && this.scene.textures.exists(imageWeapon.key)) {
+      this.weaponImage
+        .setTexture(imageWeapon.key)
+        .setPosition(imageWeapon.x, imageWeapon.y)
+        .setScale(imageWeapon.scale)
+        .setFlipX(direction < 0)
+        .setAngle(imageWeapon.angle)
+        .setAlpha(0.95)
+        .setVisible(true);
+      this.weaponImage.setData('idleOffset', 0);
+      return;
+    }
 
     switch (this.playerState.activeWeapon) {
       case 'pistol':
@@ -311,6 +339,46 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
       case 'unarmed':
       default:
         break;
+    }
+  }
+
+  private getWeaponImageConfig(direction: number, handX: number, handY: number) {
+    switch (this.playerState.activeWeapon) {
+      case 'pistol':
+        return {
+          key: GAME_ASSETS.purchased.weaponPistolA.key,
+          x: handX + 1 * direction,
+          y: handY - 2,
+          scale: 0.1,
+          angle: direction < 0 ? -10 : 10,
+        };
+      case 'knife':
+        return {
+          key: GAME_ASSETS.purchased.weaponKnifeA.key,
+          x: handX + 1 * direction,
+          y: handY - 3,
+          scale: 0.085,
+          angle: direction < 0 ? -48 : 48,
+        };
+      case 'machete':
+        return {
+          key: GAME_ASSETS.purchased.weaponKnifeA.key,
+          x: handX + 1 * direction,
+          y: handY - 4,
+          scale: 0.12,
+          angle: direction < 0 ? -54 : 54,
+        };
+      case 'sword':
+        return {
+          key: GAME_ASSETS.purchased.weaponBatA.key,
+          x: handX + 1 * direction,
+          y: handY - 6,
+          scale: 0.1,
+          angle: direction < 0 ? -46 : 46,
+        };
+      case 'unarmed':
+      default:
+        return null;
     }
   }
 
