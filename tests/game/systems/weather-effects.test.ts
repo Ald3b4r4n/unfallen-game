@@ -7,7 +7,7 @@ import {
 describe('Weather Effects', () => {
   test('mantem configuracao padrao de chuva dentro de limites seguros', () => {
     expect(isRainConfigSafe(DEFAULT_RAIN_CONFIG)).toBe(true);
-    expect(DEFAULT_RAIN_CONFIG.count).toBe(220);
+    expect(DEFAULT_RAIN_CONFIG.count).toBe(320);
     expect(DEFAULT_RAIN_CONFIG.alpha).toBeGreaterThanOrEqual(0.3);
   });
 
@@ -25,6 +25,6 @@ describe('Weather Effects', () => {
   });
 
   test('rejeita chuva excessiva para evitar custo visual desnecessario', () => {
-    expect(isRainConfigSafe({ ...DEFAULT_RAIN_CONFIG, count: 260 })).toBe(false);
+    expect(isRainConfigSafe({ ...DEFAULT_RAIN_CONFIG, count: 450 })).toBe(false);
   });
 });

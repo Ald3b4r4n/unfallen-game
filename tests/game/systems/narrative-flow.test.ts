@@ -79,44 +79,44 @@ describe('Narrative Flow (lógica pura)', () => {
     
     // Checkpoint 1
     let pos = getRespawnPosition(state);
-    expect(pos).toEqual({ posX: 7, posY: 8 });
+    expect(pos).toEqual({ posX: 5, posY: 6 });
 
     // Checkpoint 2
     state = activateCheckpoint(state, 2);
     pos = getRespawnPosition(state);
-    expect(pos).toEqual({ posX: 13, posY: 7 });
+    expect(pos).toEqual({ posX: 9, posY: 6 });
 
     // Checkpoint 3
     state = activateCheckpoint(state, 3);
     pos = getRespawnPosition(state);
-    expect(pos).toEqual({ posX: 32, posY: 10 });
+    expect(pos).toEqual({ posX: 20, posY: 7 });
   });
 
   test('Mapeia coordenadas de zonas isométricas corretamente', () => {
-    // Base: (3,3) a (10,10)
+    // Base: (2,2) a (8,8)
     expect(checkZone(6, 6)).toBe('base');
     expect(checkZone(3, 3)).toBe('base');
-    expect(checkZone(10, 10)).toBe('base');
+    expect(checkZone(8, 8)).toBe('base');
 
-    // Rua: (11,4) a (24,15)
-    expect(checkZone(14, 8)).toBe('rua');
-    expect(checkZone(11, 4)).toBe('rua');
-    expect(checkZone(24, 15)).toBe('rua');
+    // Rua: (8,3) a (16,10)
+    expect(checkZone(10, 6)).toBe('rua');
+    expect(checkZone(9, 3)).toBe('rua');
+    expect(checkZone(16, 10)).toBe('rua');
 
-    // Mercado: (26,5) a (38,17)
-    expect(checkZone(32, 10)).toBe('mercado');
+    // Mercado: (16,3) a (24,12)
+    expect(checkZone(20, 7)).toBe('mercado');
 
-    // Caminho: (22,22) a (43,38)
-    expect(checkZone(32, 30)).toBe('caminho');
+    // Caminho: (12,12) a (22,22)
+    expect(checkZone(17, 17)).toBe('caminho');
 
-    // Casa: (43,34) a (55,49)
-    expect(checkZone(48, 41)).toBe('casa');
+    // Casa: (22,14) a (30,24)
+    expect(checkZone(25, 18)).toBe('casa');
 
-    // Escola: (55,52) a (62,61)
-    expect(checkZone(58, 56)).toBe('escola');
+    // Escola: (24,24) a (30,30)
+    expect(checkZone(27, 27)).toBe('escola');
 
     // Fora das zonas
     expect(checkZone(0, 0)).toBeNull();
-    expect(checkZone(63, 0)).toBeNull();
+    expect(checkZone(31, 31)).toBeNull();
   });
 });

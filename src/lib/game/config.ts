@@ -11,6 +11,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   width: 1120,
   height: 640,
   parent: "game-container",
+  pixelArt: true,
   scene: [BootScene, PreloadScene, MenuScene, GameScene, UIScene, PauseScene],
   physics: {
     default: "arcade",

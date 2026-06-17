@@ -33,6 +33,7 @@ import {
   getPhaseOneFinalState,
   shouldStartPhaseOneEndingSequence,
 } from '../systems/phase-ending';
+import { INITIAL_SPAWN } from '../systems/spawn-points';
 import { PHASE_ONE_ENVIRONMENT_ART } from '../systems/environment-props';
 import { DEFAULT_RAIN_CONFIG, RainStreak, createRainStreaks } from '../systems/weather-effects';
 import {
@@ -64,10 +65,11 @@ const ENEMY_ASSET_KEYS = [
 
 const SAVE_SLOT = 1;
 
+// Enemy spawns repositioned for compacted 32x32 grid
 const ENEMY_SPAWNS: Record<string, HazardPosition> = {
-  'zombie-1': { id: 'zombie-1', posX: 17, posY: 10 },
-  'zombie-2': { id: 'zombie-2', posX: 32, posY: 30 },
-  'zombie-3': { id: 'zombie-3', posX: 49, posY: 42 },
+  'zombie-1': { id: 'zombie-1', posX: 11, posY: 7 },
+  'zombie-2': { id: 'zombie-2', posX: 18, posY: 18 },
+  'zombie-3': { id: 'zombie-3', posX: 26, posY: 20 },
 };
 
 export default class GameScene extends Phaser.Scene {
@@ -90,6 +92,7 @@ export default class GameScene extends Phaser.Scene {
     interiorId: string;
     sprite: Phaser.GameObjects.Image;
     defaultAlpha: number;
+    isInterior: boolean;
   }> = [];
   private rainGraphics!: Phaser.GameObjects.Graphics;
   private rainStreaks: RainStreak[] = [];
@@ -140,28 +143,28 @@ export default class GameScene extends Phaser.Scene {
       new EnemySprite(this, 'zombie-3', ENEMY_SPAWNS['zombie-3'].posX, ENEMY_SPAWNS['zombie-3'].posY, ENEMY_ASSET_KEYS[8]),                       // Próximo à casa de Rafael
     ];
 
-    // Criar itens e pistas da fase
+    // Criar itens e pistas da fase — positions adjusted for 32x32 grid
     const itemDefs: InteractableData[] = [
       // Pista 1: Mochila de Luísa no Mercado Abandonado
       {
-        id: 'note-backpack', posX: 32, posY: 10, interactionRadius: 1.5,
+        id: 'note-backpack', posX: 20, posY: 7, interactionRadius: 1.5,
         item: { itemId: 'note-backpack', name: 'Mochila de Luísa', type: 'note', quantity: 1 },
         collected: false,
       },
       // Pista 2: Diário de Luísa na Casa de Rafael
       {
-        id: 'note-diary', posX: 49, posY: 41, interactionRadius: 1.5,
+        id: 'note-diary', posX: 26, posY: 19, interactionRadius: 1.5,
         item: { itemId: 'note-diary', name: 'Diário de Luísa', type: 'note', quantity: 1 },
         collected: false,
       },
       // Consumíveis de sobrevivência
       {
-        id: 'battery-1', posX: 34, posY: 8, interactionRadius: 1.5,
+        id: 'battery-1', posX: 21, posY: 6, interactionRadius: 1.5,
         item: { itemId: 'battery-1', name: 'Bateria', type: 'battery', quantity: 1 },
         collected: false,
       },
       {
-        id: 'heal-1', posX: 51, posY: 46, interactionRadius: 1.5,
+        id: 'heal-1', posX: 27, posY: 22, interactionRadius: 1.5,
         item: { itemId: 'heal-1', name: 'Kit Médico', type: 'healing', quantity: 1 },
         collected: false,
       },
@@ -306,38 +309,42 @@ export default class GameScene extends Phaser.Scene {
   }
 
   private drawWorldBaseFloor() {
+    const gridSize = 32;
     const corners = [
       toScreen({ x: 0, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
-      toScreen({ x: 64, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
-      toScreen({ x: 64, y: 64, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
-      toScreen({ x: 0, y: 64, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
+      toScreen({ x: gridSize, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
+      toScreen({ x: gridSize, y: gridSize, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
+      toScreen({ x: 0, y: gridSize, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
     ].map((point) => new Phaser.Math.Vector2(point.x, point.y));
 
-    this.groundGraphics.fillStyle(0x0a0c0e, 0.72);
+    // Dense dark base — no visible grid
+    this.groundGraphics.fillStyle(0x0a0c0e, 0.82);
     this.groundGraphics.fillPoints(corners, true);
 
-    this.groundGraphics.lineStyle(1, 0x1f2937, 0.08);
-    for (let x = 0; x <= 64; x += 4) {
+    // Very faint structural lines — almost invisible
+    this.groundGraphics.lineStyle(1, 0x1f2937, 0.03);
+    for (let x = 0; x <= gridSize; x += 4) {
       const start = toScreen({ x, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
-      const end = toScreen({ x, y: 64, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const end = toScreen({ x, y: gridSize, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
       this.groundGraphics.lineBetween(start.x, start.y, end.x, end.y);
     }
-    for (let y = 0; y <= 64; y += 4) {
+    for (let y = 0; y <= gridSize; y += 4) {
       const start = toScreen({ x: 0, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
-      const end = toScreen({ x: 64, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const end = toScreen({ x: gridSize, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
       this.groundGraphics.lineBetween(start.x, start.y, end.x, end.y);
     }
 
-    for (let index = 0; index < 130; index += 1) {
-      const x = (index * 19) % 64;
-      const y = (index * 31 + 7) % 64;
+    // Dense ground stains and debris — way more than before
+    for (let index = 0; index < 200; index += 1) {
+      const x = (index * 13) % gridSize;
+      const y = (index * 23 + 5) % gridSize;
       const screen = toScreen({ x, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
-      const width = 12 + (index % 5) * 6;
-      const height = 3 + (index % 3) * 2;
-      const color = index % 9 === 0 ? 0x4b1111 : index % 4 === 0 ? 0x1f2937 : 0x111827;
-      const alpha = index % 9 === 0 ? 0.18 : 0.16;
+      const w = 16 + (index % 6) * 8;
+      const h = 4 + (index % 4) * 3;
+      const color = index % 11 === 0 ? 0x4b1111 : index % 5 === 0 ? 0x1f2937 : 0x111827;
+      const alpha = index % 11 === 0 ? 0.22 : 0.2;
       this.groundGraphics.fillStyle(color, alpha);
-      this.groundGraphics.fillEllipse(screen.x, screen.y + 3, width, height);
+      this.groundGraphics.fillEllipse(screen.x, screen.y + 4, w, h);
     }
   }
 
@@ -352,6 +359,7 @@ export default class GameScene extends Phaser.Scene {
 
     const filledCells = new Set<string>();
     for (const surface of PHASE_ONE_URBAN_SURFACES) {
+      const isYard = surface.id.includes('yard');
       for (let x = Math.ceil(surface.minX); x <= Math.floor(surface.maxX); x += 1) {
         for (let y = Math.ceil(surface.minY); y <= Math.floor(surface.maxY); y += 1) {
           const cellId = `${x}:${y}`;
@@ -359,15 +367,39 @@ export default class GameScene extends Phaser.Scene {
           filledCells.add(cellId);
 
           const screen = toScreen({ x, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
-          const value = Math.abs((x * 31 + y * 17 + surface.id.length * 13) % 11);
-          const key = value === 0
-            ? tileKeys[2]
-            : value <= 3
-              ? tileKeys[1]
-              : tileKeys[0];
+          
+          let key = tileKeys[0]; // Default: cracked asphalt
+
+          if (!isYard) {
+            // Organize Road Lines and Crosswalks dynamically
+            
+            // 1. Crosswalks (pedestrian crossings at key entry points/intersections)
+            const isBaseCrosswalk = (x === 8 || x === 9) && (y >= 4 && y <= 6);
+            const isMarketCrosswalk = (x === 17 || x === 18) && (y >= 5 && y <= 7);
+            const isHouseCrosswalk = (x === 23 || x === 24) && (y >= 13 && y <= 15);
+            const isSchoolCrosswalk = (x === 27 || x === 28) && (y >= 25 && y <= 27);
+
+            if (isBaseCrosswalk || isMarketCrosswalk || isHouseCrosswalk || isSchoolCrosswalk) {
+              key = tileKeys[2]; // asphaltCrosswalkIso
+            } else {
+              // 2. Continuous Road Centerlines (aligning with physical road flow)
+              const isBaseStreetLine = (y === 6) && (x >= 7 && x <= 16);
+              const isMarketStreetLine = (y === 8) && (x >= 14 && x <= 24);
+              const isVerticalStreetLine = (x === 14) && (y >= 6 && y <= 12);
+              const isDiagonalConnector = (y === x - 2) && (x >= 14 && x <= 22) && (y >= 10 && y <= 18);
+              const isResidentialStreetLine = (y === 20) && (x >= 20 && x <= 30);
+              const isSchoolStreetLine = (y === x - 2) && (x >= 25 && x <= 30) && (y >= 23 && y <= 28);
+
+              if (isBaseStreetLine || isMarketStreetLine || isVerticalStreetLine || isDiagonalConnector || isResidentialStreetLine || isSchoolStreetLine) {
+                key = tileKeys[1]; // asphaltRoadLineIso
+              }
+            }
+          }
+
           const tile = this.add.image(screen.x, screen.y, key)
             .setOrigin(0.5, 0.5)
-            .setAlpha(surface.id.includes('yard') ? 0.78 : 0.86)
+            .setScale((TILE_WIDTH / 64) * 1.04)
+            .setAlpha(isYard ? 0.88 : 0.94)
             .setDepth(-48.8);
 
           this.environmentSprites.push(tile);
@@ -378,14 +410,14 @@ export default class GameScene extends Phaser.Scene {
 
   private drawRoadMarkings() {
     const markings = [
-      { x1: 10, y1: 9, x2: 24, y2: 9 },
-      { x1: 24, y1: 12, x2: 38, y2: 12 },
-      { x1: 26, y1: 22, x2: 42, y2: 32 },
-      { x1: 42, y1: 40, x2: 55, y2: 44 },
-      { x1: 53, y1: 51, x2: 62, y2: 58 },
+      { x1: 7, y1: 6, x2: 16, y2: 6 },
+      { x1: 14, y1: 8, x2: 24, y2: 8 },
+      { x1: 14, y1: 12, x2: 22, y2: 18 },
+      { x1: 22, y1: 18, x2: 30, y2: 20 },
+      { x1: 25, y1: 23, x2: 30, y2: 28 },
     ];
 
-    this.groundGraphics.lineStyle(1, 0x94a3b8, 0.18);
+    this.groundGraphics.lineStyle(1, 0x94a3b8, 0.22);
     for (const marking of markings) {
       const start = toScreen({ x: marking.x1, y: marking.y1, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
       const end = toScreen({ x: marking.x2, y: marking.y2, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
@@ -400,22 +432,30 @@ export default class GameScene extends Phaser.Scene {
       if (decoration.kind === 'tree') {
         const tree = this.add.graphics()
           .setDepth(decoration.depth);
-        tree.lineStyle(2, 0x5b4636, decoration.alpha);
-        tree.lineBetween(screen.x, screen.y + 7 * decoration.scale, screen.x, screen.y - 13 * decoration.scale);
-        tree.lineStyle(1, 0x7f6047, decoration.alpha * 0.82);
-        tree.lineBetween(screen.x, screen.y - 5 * decoration.scale, screen.x - 10 * decoration.scale, screen.y - 15 * decoration.scale);
-        tree.lineBetween(screen.x, screen.y - 7 * decoration.scale, screen.x + 9 * decoration.scale, screen.y - 17 * decoration.scale);
-        tree.lineBetween(screen.x, screen.y - 10 * decoration.scale, screen.x - 5 * decoration.scale, screen.y - 21 * decoration.scale);
-        tree.fillStyle(0x1f2937, decoration.alpha * 0.35);
-        tree.fillEllipse(screen.x, screen.y + 8 * decoration.scale, 16 * decoration.scale, 6 * decoration.scale);
+        // Thicker trunk
+        tree.lineStyle(3, 0x5b4636, decoration.alpha);
+        tree.lineBetween(screen.x, screen.y + 10 * decoration.scale, screen.x, screen.y - 18 * decoration.scale);
+        // Branches
+        tree.lineStyle(2, 0x7f6047, decoration.alpha * 0.82);
+        tree.lineBetween(screen.x, screen.y - 7 * decoration.scale, screen.x - 14 * decoration.scale, screen.y - 22 * decoration.scale);
+        tree.lineBetween(screen.x, screen.y - 10 * decoration.scale, screen.x + 12 * decoration.scale, screen.y - 24 * decoration.scale);
+        tree.lineBetween(screen.x, screen.y - 14 * decoration.scale, screen.x - 8 * decoration.scale, screen.y - 28 * decoration.scale);
+        tree.lineBetween(screen.x, screen.y - 5 * decoration.scale, screen.x + 10 * decoration.scale, screen.y - 18 * decoration.scale);
+        // Shadow
+        tree.fillStyle(0x1f2937, decoration.alpha * 0.4);
+        tree.fillEllipse(screen.x, screen.y + 12 * decoration.scale, 22 * decoration.scale, 8 * decoration.scale);
         this.environmentSprites.push(tree);
       } else {
-        const pole = this.add.rectangle(screen.x, screen.y - 2, 3, 20 * decoration.scale, decoration.color, decoration.alpha)
+        const pole = this.add.rectangle(screen.x, screen.y - 4, 4, 28 * decoration.scale, decoration.color, decoration.alpha)
           .setDepth(decoration.depth);
-        const lamp = this.add.ellipse(screen.x, screen.y - 14 * decoration.scale, 7, 7, 0xf8fafc, decoration.alpha * 0.9)
+        const lamp = this.add.ellipse(screen.x, screen.y - 20 * decoration.scale, 10, 10, 0xf8fafc, decoration.alpha * 0.9)
           .setDepth(decoration.depth + 1)
           .setBlendMode(Phaser.BlendModes.ADD);
-        this.environmentSprites.push(pole, lamp);
+        // Glow on ground
+        const glow = this.add.ellipse(screen.x, screen.y + 8, 40, 16, 0xfbbf24, 0.06)
+          .setDepth(decoration.depth - 1)
+          .setBlendMode(Phaser.BlendModes.ADD);
+        this.environmentSprites.push(pole, lamp, glow);
       }
     }
   }
@@ -481,7 +521,17 @@ export default class GameScene extends Phaser.Scene {
           interiorId: art.interiorId,
           sprite,
           defaultAlpha: art.alpha ?? 1,
+          isInterior: !!art.isInterior,
         });
+
+        // If it is an interior prop, hide it initially if player starts outside this building
+        const activeInterior = getEnterableBuildingAtPosition(
+          this.player ? this.player.playerState.posX : INITIAL_SPAWN.posX,
+          this.player ? this.player.playerState.posY : INITIAL_SPAWN.posY
+        );
+        if (art.isInterior && activeInterior?.id !== art.interiorId) {
+          sprite.setAlpha(0);
+        }
       }
     }
   }
@@ -490,9 +540,19 @@ export default class GameScene extends Phaser.Scene {
     const activeInterior = getEnterableBuildingAtPosition(posX, posY);
 
     for (const building of this.buildingSprites) {
-      const targetAlpha = activeInterior?.id === building.interiorId
-        ? Math.min(0.42, building.defaultAlpha)
-        : building.defaultAlpha;
+      let targetAlpha = building.defaultAlpha;
+
+      if (building.isInterior) {
+        // Interior element: fully visible only when the player is inside the building
+        targetAlpha = activeInterior?.id === building.interiorId
+          ? building.defaultAlpha
+          : 0;
+      } else {
+        // Exterior element: fades to near-invisible when the player enters the building
+        targetAlpha = activeInterior?.id === building.interiorId
+          ? 0.05
+          : building.defaultAlpha;
+      }
 
       if (Math.abs(building.sprite.alpha - targetAlpha) > 0.01) {
         building.sprite.setAlpha(targetAlpha);
@@ -577,7 +637,7 @@ export default class GameScene extends Phaser.Scene {
         y: height * 0.48,
         scaleX: 5.9,
         scaleY: 4.7,
-        alpha: 0.16,
+        alpha: 0.14,
         depth: 58,
       },
       {
@@ -586,7 +646,7 @@ export default class GameScene extends Phaser.Scene {
         y: height * 0.48,
         scaleX: 4.6,
         scaleY: 4.8,
-        alpha: 0.18,
+        alpha: 0.16,
         depth: 70,
       },
       {
@@ -595,7 +655,7 @@ export default class GameScene extends Phaser.Scene {
         y: height * 0.62,
         scaleX: 4.5,
         scaleY: 2.8,
-        alpha: 0.14,
+        alpha: 0.12,
         depth: 59,
       },
       {
@@ -604,7 +664,7 @@ export default class GameScene extends Phaser.Scene {
         y: height * 0.72,
         scaleX: 2.8,
         scaleY: 1.8,
-        alpha: 0.18,
+        alpha: 0.16,
         depth: 60,
       },
       {
@@ -613,7 +673,7 @@ export default class GameScene extends Phaser.Scene {
         y: height * 0.78,
         scaleX: 2.7,
         scaleY: 1.7,
-        alpha: 0.12,
+        alpha: 0.1,
         depth: 60,
       },
     ];
@@ -661,9 +721,10 @@ export default class GameScene extends Phaser.Scene {
         y + streak.length
       );
 
-      if (streak.width > 1 && y > height * 0.78) {
-        this.rainGraphics.lineStyle(1, 0xbfdbfe, streak.alpha * 0.55);
-        this.rainGraphics.lineBetween(x - 3, y + streak.length, x + 3, y + streak.length + 1);
+      // Splash at bottom
+      if (streak.width > 1 && y > height * 0.75) {
+        this.rainGraphics.lineStyle(1, 0xbfdbfe, streak.alpha * 0.6);
+        this.rainGraphics.lineBetween(x - 4, y + streak.length, x + 4, y + streak.length + 2);
       }
     }
   }
@@ -823,7 +884,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Restaurar e reviver inimigos
     for (const enemy of this.enemies) {
-      const spawn = ENEMY_SPAWNS[enemy.enemyState.id] || { posX: 15, posY: 15 };
+      const spawn = ENEMY_SPAWNS[enemy.enemyState.id] || { posX: 11, posY: 7 };
       enemy.enemyState = {
         ...enemy.enemyState,
         health: enemy.enemyState.maxHealth,

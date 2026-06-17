@@ -6,25 +6,25 @@ import {
 import { CHECKPOINTS, INITIAL_SPAWN } from '@/lib/game/systems/spawn-points';
 
 const hazards = [
-  { id: 'zombie-1', posX: 17, posY: 10 },
-  { id: 'zombie-2', posX: 32, posY: 30 },
-  { id: 'zombie-3', posX: 49, posY: 42 },
+  { id: 'zombie-1', posX: 12, posY: 10 },
+  { id: 'zombie-2', posX: 17, posY: 23 },
+  { id: 'zombie-3', posX: 28, posY: 22 },
 ];
 
 describe('Safe Restore', () => {
   test('mantem posição salva quando ela é segura', () => {
     const restored = resolveSafeRestorePosition({
-      savedPosition: { posX: 44, posY: 39 },
+      savedPosition: { posX: 24, posY: 17 },
       activeCheckpointId: 5,
       hazards,
     });
 
-    expect(restored).toEqual({ posX: 44, posY: 39 });
+    expect(restored).toEqual({ posX: 24, posY: 17 });
   });
 
   test('cai para checkpoint quando posição salva está perto demais de infectado', () => {
     const restored = resolveSafeRestorePosition({
-      savedPosition: { posX: 49.3, posY: 41.1 },
+      savedPosition: { posX: 28.5, posY: 21.5 },
       activeCheckpointId: 5,
       hazards,
     });

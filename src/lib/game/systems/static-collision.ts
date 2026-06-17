@@ -14,12 +14,23 @@ export interface LogicalPosition {
 }
 
 export const PHASE_ONE_STATIC_OBSTACLES: StaticObstacle[] = [
-  { id: 'police-base-barricade', minX: 10.4, maxX: 11.5, minY: 6.7, maxY: 7.6 },
-  { id: 'street-debris-pile', minX: 16.2, maxX: 19.2, minY: 9.0, maxY: 11.9 },
-  { id: 'market-barricade', minX: 34.1, maxX: 35.2, minY: 14.2, maxY: 15.2 },
-  { id: 'residence-roadblock', minX: 40.7, maxX: 41.8, minY: 35.8, maxY: 36.8 },
-  { id: 'rafael-house-wall', minX: 43.3, maxX: 44.4, minY: 37.8, maxY: 38.7 },
-  { id: 'school-gate', minX: 57.0, maxX: 60.0, minY: 55.5, maxY: 57.9 },
+  { id: 'police-base-barricade', minX: 7.5, maxX: 8.5, minY: 4.8, maxY: 5.6 },
+  { id: 'street-debris-pile', minX: 11.0, maxX: 13.0, minY: 6.5, maxY: 8.5 },
+  { id: 'market-barricade', minX: 22.0, maxX: 23.0, minY: 10.0, maxY: 11.0 },
+  { id: 'residence-roadblock', minX: 20.5, maxX: 21.5, minY: 20.5, maxY: 21.5 },
+  { id: 'rafael-house-wall', minX: 23.0, maxX: 24.0, minY: 16.5, maxY: 17.5 },
+  { id: 'school-gate', minX: 26.0, maxX: 29.0, minY: 26.5, maxY: 28.0 },
+  
+  // Police Base Physical Walls
+  { id: 'police-base-wall-nw', minX: 3.5, maxX: 7.0, minY: 3.4, maxY: 3.6 },
+  { id: 'police-base-wall-ne', minX: 3.4, maxX: 3.6, minY: 3.5, maxY: 6.5 },
+  { id: 'police-base-wall-se', minX: 3.5, maxX: 7.0, minY: 6.4, maxY: 6.6 },
+  // Front SW Wall (with door at y=5.0)
+  { id: 'police-base-wall-sw-1', minX: 6.9, maxX: 7.1, minY: 3.5, maxY: 4.8 },
+  { id: 'police-base-wall-sw-2', minX: 6.9, maxX: 7.1, minY: 5.2, maxY: 6.5 },
+  // Divider Wall (with door at x=5.0)
+  { id: 'police-base-divider-1', minX: 3.5, maxX: 4.8, minY: 4.9, maxY: 5.1 },
+  { id: 'police-base-divider-2', minX: 5.2, maxX: 7.0, minY: 4.9, maxY: 5.1 },
 ];
 
 export function isPositionInsideMap(posX: number, posY: number): boolean {

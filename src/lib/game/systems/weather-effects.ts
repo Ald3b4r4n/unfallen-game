@@ -19,18 +19,18 @@ export interface RainStreak {
 }
 
 export const DEFAULT_RAIN_CONFIG: RainConfig = {
-  count: 220,
-  minLength: 10,
-  maxLength: 26,
-  minSpeed: 210,
-  maxSpeed: 360,
-  slant: -8,
-  alpha: 0.3,
+  count: 320,
+  minLength: 12,
+  maxLength: 32,
+  minSpeed: 240,
+  maxSpeed: 420,
+  slant: -10,
+  alpha: 0.32,
 };
 
 export function isRainConfigSafe(config: RainConfig = DEFAULT_RAIN_CONFIG): boolean {
   return config.count > 0 &&
-    config.count <= 220 &&
+    config.count <= 400 &&
     config.minLength > 0 &&
     config.maxLength >= config.minLength &&
     config.maxSpeed >= config.minSpeed &&
@@ -58,8 +58,8 @@ export function createRainStreaks(
       y: seedB * height,
       length: config.minLength + seedC * lengthRange,
       speed: config.minSpeed + seedB * speedRange,
-      alpha: config.alpha * (0.55 + seedA * 0.45),
-      width: seedC > 0.76 ? 2 : 1,
+      alpha: config.alpha * (0.5 + seedA * 0.5),
+      width: seedC > 0.72 ? 2 : 1,
       phase: seedA * Math.PI * 2,
     };
   });

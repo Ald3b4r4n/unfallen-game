@@ -1,15 +1,15 @@
 import { toScreen } from '../isometric/iso-math';
 
-export const TILE_WIDTH = 64;
-export const TILE_HEIGHT = 32;
+export const TILE_WIDTH = 128;
+export const TILE_HEIGHT = 64;
 
 export const MAP_CONFIG = {
-  gridWidth: 64,
-  gridHeight: 64,
+  gridWidth: 32,
+  gridHeight: 32,
   minX: 0,
   minY: 0,
-  maxX: 63,
-  maxY: 63,
+  maxX: 31,
+  maxY: 31,
   cameraPadding: 420,
 } as const;
 

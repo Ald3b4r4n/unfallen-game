@@ -29,9 +29,9 @@ describe('Urban Layout', () => {
   });
 
   test('detecta entrada do personagem em predio para transparencia', () => {
-    expect(getEnterableBuildingAtPosition(6, 5)?.id).toBe('police-base');
-    expect(getEnterableBuildingAtPosition(32, 10)?.id).toBe('abandoned-market');
-    expect(getEnterableBuildingAtPosition(49, 41)?.id).toBe('rafael-house');
-    expect(getEnterableBuildingAtPosition(17, 10)).toBeNull();
+    expect(getEnterableBuildingAtPosition(5, 5)?.id).toBe('police-base');
+    expect(getEnterableBuildingAtPosition(20, 7)?.id).toBe('abandoned-market');
+    expect(getEnterableBuildingAtPosition(26, 19)?.id).toBe('rafael-house');
+    expect(getEnterableBuildingAtPosition(12, 12)).toBeNull();
   });
 });

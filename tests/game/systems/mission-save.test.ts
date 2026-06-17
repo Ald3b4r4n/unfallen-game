@@ -44,7 +44,7 @@ describe('Mission Save State', () => {
 
     const save = objectiveStateToMissionSave(state, {
       collectedInteractionIds: ['note-backpack'],
-      playerPosition: { x: 32, y: 10 },
+      playerPosition: { x: 20, y: 7 },
       lastKnownZoneId: 'mercado',
     });
     const restored = missionSaveToObjectiveState(save);
@@ -64,7 +64,7 @@ describe('Mission Save State', () => {
 
     const save = objectiveStateToMissionSave(state, {
       collectedInteractionIds: ['note-backpack', 'note-diary'],
-      playerPosition: { x: 48, y: 41 },
+      playerPosition: { x: 25, y: 18 },
       lastKnownZoneId: 'casa',
     });
     const restored = missionSaveToObjectiveState(save);
@@ -72,7 +72,7 @@ describe('Mission Save State', () => {
     expect(save.collectedInteractionIds).toEqual(['note-backpack', 'note-diary']);
     expect(restored.currentObjectiveId).toBe('reach_school_gate');
     expect(restored.collectedClues).toEqual(['backpack', 'diary']);
-    expect(getRespawnPosition(restored)).toEqual({ posX: 46, posY: 39 });
+    expect(getRespawnPosition(restored)).toEqual({ posX: 25, posY: 18 });
   });
 
   test('restaura respawn usando checkpoint salvo', () => {
@@ -81,12 +81,12 @@ describe('Mission Save State', () => {
       completedObjectiveIds: ['leave_police_base', 'investigate_market'],
       collectedInteractionIds: ['note-backpack'],
       activeCheckpointId: 3,
-      playerPosition: { x: 33, y: 11 },
+      playerPosition: { x: 21, y: 8 },
       phaseComplete: false,
       updatedAt: '2026-06-16T10:00:00.000Z',
     });
 
-    expect(getRespawnPosition(restored)).toEqual({ posX: 32, posY: 10 });
+    expect(getRespawnPosition(restored)).toEqual({ posX: 20, posY: 7 });
   });
 
   test('normaliza save corrompido sem pular etapas', () => {
@@ -95,7 +95,7 @@ describe('Mission Save State', () => {
       completedObjectiveIds: ['leave_police_base', 'reach_school_gate'],
       collectedInteractionIds: ['note-diary'],
       activeCheckpointId: 6,
-      playerPosition: { x: 58, y: 56 },
+      playerPosition: { x: 27, y: 27 },
       phaseComplete: true,
       updatedAt: '2026-06-16T10:00:00.000Z',
     });
@@ -117,7 +117,7 @@ describe('Mission Save State', () => {
 
     const save = objectiveStateToMissionSave(state, {
       collectedInteractionIds: ['note-backpack', 'note-diary'],
-      playerPosition: { x: 58, y: 56 },
+      playerPosition: { x: 27, y: 27 },
       lastKnownZoneId: 'escola',
     });
     const restored = missionSaveToObjectiveState(save);

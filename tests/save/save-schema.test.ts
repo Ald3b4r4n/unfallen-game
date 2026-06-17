@@ -78,7 +78,7 @@ describe("Save Payload Schema Validation", () => {
 
     expect(result.mission.currentObjectiveId).toBe("leave_police_base");
     expect(result.mission.activeCheckpointId).toBe(1);
-    expect(result.mission.playerPosition).toEqual({ x: 7, y: 8 });
+    expect(result.mission.playerPosition).toEqual({ x: 5, y: 6 });
     expect(result.mission.phaseComplete).toBe(false);
   });
 
@@ -123,7 +123,7 @@ describe("Save Payload Schema Validation", () => {
         ],
         collectedInteractionIds: ["note-backpack", "note-diary"],
         activeCheckpointId: 6,
-        playerPosition: { x: 58, y: 56 },
+        playerPosition: { x: 27, y: 27 },
         phaseComplete: true,
         lastKnownZoneId: "escola",
       },

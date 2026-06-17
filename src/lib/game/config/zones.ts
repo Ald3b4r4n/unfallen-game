@@ -11,12 +11,12 @@ export interface ZoneDefinition {
 }
 
 export const GAME_ZONES: ZoneDefinition[] = [
-  { id: 'base', name: 'Base Policial', minX: 3, maxX: 10, minY: 3, maxY: 10, color: 0x3b82f6 },
-  { id: 'rua', name: 'Rua Externa', minX: 11, maxX: 24, minY: 4, maxY: 15, color: 0x64748b },
-  { id: 'mercado', name: 'Mercado Abandonado', minX: 26, maxX: 38, minY: 5, maxY: 17, color: 0xf59e0b },
-  { id: 'caminho', name: 'Caminho para Residência', minX: 22, maxX: 43, minY: 22, maxY: 38, color: 0x78350f },
-  { id: 'casa', name: 'Casa de Rafael', minX: 43, maxX: 55, minY: 34, maxY: 49, color: 0x10b981 },
-  { id: 'escola', name: 'Escola Municipal (Portão)', minX: 55, maxX: 62, minY: 52, maxY: 61, color: 0xef4444 },
+  { id: 'base', name: 'Base Policial', minX: 2, maxX: 8, minY: 2, maxY: 8, color: 0x3b82f6 },
+  { id: 'rua', name: 'Rua Externa', minX: 8, maxX: 16, minY: 3, maxY: 10, color: 0x64748b },
+  { id: 'mercado', name: 'Mercado Abandonado', minX: 16, maxX: 24, minY: 3, maxY: 12, color: 0xf59e0b },
+  { id: 'caminho', name: 'Caminho para Residência', minX: 12, maxX: 22, minY: 12, maxY: 22, color: 0x78350f },
+  { id: 'casa', name: 'Casa de Rafael', minX: 22, maxX: 30, minY: 14, maxY: 24, color: 0x10b981 },
+  { id: 'escola', name: 'Escola Municipal (Portão)', minX: 24, maxX: 30, minY: 24, maxY: 30, color: 0xef4444 },
 ];
 
 export function getZoneById(zoneId: ZoneId): ZoneDefinition {
