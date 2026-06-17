@@ -28,6 +28,11 @@ import {
   objectiveStateToMissionSave,
 } from '../systems/mission-save';
 import { buildMissionFeedbackEvents } from '../systems/mission-feedback';
+import {
+  getPhaseOneEndingSteps,
+  getPhaseOneFinalState,
+  shouldStartPhaseOneEndingSequence,
+} from '../systems/phase-ending';
 import { HazardPosition, resolveSafeRestorePosition } from '../systems/safe-restore';
 import type { SavePayload } from '../../save/save-schema';
 import { deleteLocal, loadLocal, saveLocal } from '../../save/local-save';
@@ -96,6 +101,10 @@ export default class GameScene extends Phaser.Scene {
   private levelComplete = false;
   private gameOverText!: Phaser.GameObjects.Text;
   private levelCompleteText!: Phaser.GameObjects.Text;
+  private phaseEndingBg!: Phaser.GameObjects.Rectangle;
+  private phaseEndingTitle!: Phaser.GameObjects.Text;
+  private phaseEndingBody!: Phaser.GameObjects.Text;
+  private phaseEndingFooter!: Phaser.GameObjects.Text;
   private restartKey!: Phaser.Input.Keyboard.Key;
   private environmentSprites: Phaser.GameObjects.GameObject[] = [];
 
@@ -208,13 +217,14 @@ export default class GameScene extends Phaser.Scene {
       align: 'center',
       padding: { x: 20, y: 15 },
     }).setOrigin(0.5).setScrollFactor(0).setVisible(false).setDepth(100);
+    this.createPhaseEndingOverlay();
 
     if (this.input.keyboard) {
       this.restartKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
 
     if (this.narrativeState.phaseCompleted) {
-      this.showLevelCompleteOverlay();
+      this.showLevelCompleteOverlay(false);
     }
 
     // Escutar eventos do player
@@ -463,8 +473,8 @@ export default class GameScene extends Phaser.Scene {
       eventBridge.emit('narrative:toast', feedback);
     }
 
-    if (result.phaseCompleted) {
-      this.showLevelCompleteOverlay();
+    if (shouldStartPhaseOneEndingSequence(result)) {
+      this.showLevelCompleteOverlay(true);
     }
   }
 
@@ -510,6 +520,7 @@ export default class GameScene extends Phaser.Scene {
     this.narrativeState = createNarrativeState();
     this.levelComplete = false;
     this.levelCompleteText.setVisible(false);
+    this.hidePhaseEndingOverlay();
     this.gameOver = false;
     this.gameOverText.setVisible(false);
     this.scene.restart();
@@ -626,14 +637,89 @@ export default class GameScene extends Phaser.Scene {
     return 'note';
   }
 
-  private showLevelCompleteOverlay() {
+  private createPhaseEndingOverlay() {
+    const centerX = this.scale.width / 2;
+    const centerY = this.scale.height / 2;
+
+    this.phaseEndingBg = this.add.rectangle(centerX, centerY, this.scale.width, this.scale.height, 0x020617, 0.86)
+      .setScrollFactor(0)
+      .setDepth(98)
+      .setVisible(false);
+
+    this.phaseEndingTitle = this.add.text(centerX, centerY - 110, '', {
+      fontFamily: 'monospace',
+      fontSize: '18px',
+      color: '#fbbf24',
+      align: 'center',
+      wordWrap: { width: this.scale.width - 120 },
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(101).setVisible(false);
+
+    this.phaseEndingBody = this.add.text(centerX, centerY - 14, '', {
+      fontFamily: 'monospace',
+      fontSize: '14px',
+      color: '#f8fafc',
+      align: 'center',
+      lineSpacing: 8,
+      wordWrap: { width: this.scale.width - 140 },
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(101).setVisible(false);
+
+    this.phaseEndingFooter = this.add.text(centerX, centerY + 118, '', {
+      fontFamily: 'monospace',
+      fontSize: '11px',
+      color: '#94a3b8',
+      align: 'center',
+      wordWrap: { width: this.scale.width - 160 },
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(101).setVisible(false);
+  }
+
+  private showLevelCompleteOverlay(playSequence: boolean) {
     this.levelComplete = true;
     this.player.setVisible(false);
-    this.levelCompleteText.setPosition(this.scale.width / 2, this.scale.height / 2);
-    this.levelCompleteText.setText(
-      "FASE CONCLUÍDA: PLANTÃO FINAL!\n\nO caminho até a Escola Municipal está aberto.\nRafael preservou as pistas de Luísa e chegou ao próximo ponto de evacuação.\n\nProgresso salvo. Pressione R para reiniciar a fase."
-    );
-    this.levelCompleteText.setVisible(true);
+    this.phaseEndingBg.setVisible(true);
+
+    if (playSequence) {
+      this.playPhaseEndingSequence();
+      return;
+    }
+
+    this.showPhaseEndingFinalState();
+  }
+
+  private playPhaseEndingSequence() {
+    const steps = getPhaseOneEndingSteps();
+    let elapsed = 0;
+
+    for (const step of steps) {
+      this.time.delayedCall(elapsed, () => {
+        this.levelCompleteText.setVisible(false);
+        this.phaseEndingTitle.setText(step.title ?? '').setVisible(Boolean(step.title));
+        this.phaseEndingBody.setText(step.text).setVisible(true);
+        this.phaseEndingFooter.setText('').setVisible(false);
+      });
+      elapsed += step.durationMs;
+    }
+
+    this.time.delayedCall(elapsed, () => {
+      this.showPhaseEndingFinalState();
+    });
+  }
+
+  private showPhaseEndingFinalState() {
+    const finalState = getPhaseOneFinalState();
+    this.phaseEndingBg.setVisible(true);
+    this.phaseEndingTitle.setText(finalState.title).setVisible(true);
+    this.phaseEndingBody.setText(finalState.subtitle).setVisible(true);
+    this.phaseEndingFooter
+      .setText(`${finalState.footer}\n\nPressione R para reiniciar a fase.`)
+      .setVisible(true);
+    this.levelCompleteText.setVisible(false);
+  }
+
+  private hidePhaseEndingOverlay() {
+    this.phaseEndingBg.setVisible(false);
+    this.phaseEndingTitle.setVisible(false);
+    this.phaseEndingBody.setVisible(false);
+    this.phaseEndingFooter.setVisible(false);
   }
 
   shutdown() {
