@@ -29,6 +29,8 @@ export const PHASE_ONE_ENVIRONMENT_ART: EnvironmentArtDefinition[] = [
   { key: GAME_ASSETS.props.barricade.key, x: 10.9, y: 7.1, scale: 0.108, depth: -21, zoneId: 'base', alpha: 0.84, originY: 0.76 },
   { key: GAME_ASSETS.props.trashBags.key, x: 7.6, y: 10.8, scale: 0.102, depth: -20, zoneId: 'base', alpha: 0.78, originY: 0.78 },
   { key: GAME_ASSETS.props.rainPuddle.key, x: 5.2, y: 8.8, scale: 0.115, depth: -25, zoneId: 'base', alpha: 0.42, originY: 0.5 },
+  { key: GAME_ASSETS.props.brokenWall.key, x: 4.6, y: 6.8, scale: 0.086, depth: -21, zoneId: 'base', alpha: 0.72, originY: 0.82 },
+  { key: GAME_ASSETS.props.streetSign.key, x: 9.4, y: 5.3, scale: 0.082, depth: -22, zoneId: 'base', alpha: 0.72, originY: 0.92 },
 
   { key: GAME_ASSETS.props.brokenStreetPole.key, x: 13.2, y: 7.4, scale: 0.115, depth: -22, zoneId: 'rua', alpha: 0.86, originY: 0.92 },
   { key: GAME_ASSETS.props.streetSign.key, x: 19.4, y: 7.8, scale: 0.1, depth: -22, zoneId: 'rua', alpha: 0.86, originY: 0.92 },
@@ -37,6 +39,9 @@ export const PHASE_ONE_ENVIRONMENT_ART: EnvironmentArtDefinition[] = [
   { key: GAME_ASSETS.props.bloodPuddle.key, x: 18.4, y: 13.6, scale: 0.095, depth: -24, zoneId: 'rua', alpha: 0.38, originY: 0.5 },
   { key: GAME_ASSETS.props.rainPuddle.key, x: 22.6, y: 8.9, scale: 0.11, depth: -25, zoneId: 'rua', alpha: 0.44, originY: 0.5 },
   { key: GAME_ASSETS.props.brokenWall.key, x: 24.2, y: 14.4, scale: 0.09, depth: -21, zoneId: 'rua', alpha: 0.72, originY: 0.82 },
+  { key: GAME_ASSETS.props.barricade.key, x: 16.4, y: 6.2, scale: 0.095, depth: -21, zoneId: 'rua', alpha: 0.78, originY: 0.76 },
+  { key: GAME_ASSETS.props.dragMark.key, x: 12.6, y: 13.2, scale: 0.085, depth: -24, zoneId: 'rua', alpha: 0.34, originY: 0.5 },
+  { key: GAME_ASSETS.props.rainPuddle.key, x: 20.8, y: 14.4, scale: 0.1, depth: -25, zoneId: 'rua', alpha: 0.4, originY: 0.5 },
 
   { key: GAME_ASSETS.props.marketCrates.key, x: 31.4, y: 12.4, scale: 0.11, depth: -20, zoneId: 'mercado', alpha: 0.86, originY: 0.78 },
   { key: GAME_ASSETS.props.trashBags.key, x: 29.2, y: 11.7, scale: 0.105, depth: -20, zoneId: 'mercado', alpha: 0.82, originY: 0.78 },
@@ -44,6 +49,9 @@ export const PHASE_ONE_ENVIRONMENT_ART: EnvironmentArtDefinition[] = [
   { key: GAME_ASSETS.props.brokenWindow.key, x: 35.4, y: 9.3, scale: 0.078, depth: -20, zoneId: 'mercado', alpha: 0.76, originY: 0.82 },
   { key: GAME_ASSETS.props.rainPuddle.key, x: 36.8, y: 15.2, scale: 0.115, depth: -25, zoneId: 'mercado', alpha: 0.44, originY: 0.5 },
   { key: GAME_ASSETS.props.dragMark.key, x: 27.8, y: 13.6, scale: 0.09, depth: -24, zoneId: 'mercado', alpha: 0.38, originY: 0.5 },
+  { key: GAME_ASSETS.props.brokenWall.key, x: 27.6, y: 8.6, scale: 0.088, depth: -21, zoneId: 'mercado', alpha: 0.72, originY: 0.82 },
+  { key: GAME_ASSETS.props.rainPuddle.key, x: 33.2, y: 6.9, scale: 0.096, depth: -25, zoneId: 'mercado', alpha: 0.38, originY: 0.5 },
+  { key: GAME_ASSETS.props.trashBags.key, x: 38.0, y: 11.9, scale: 0.092, depth: -20, zoneId: 'mercado', alpha: 0.74, originY: 0.78 },
 
   { key: GAME_ASSETS.props.brokenWall.key, x: 23.6, y: 22.8, scale: 0.105, depth: -21, zoneId: 'caminho', alpha: 0.82, originY: 0.82 },
   { key: GAME_ASSETS.props.rainPuddle.key, x: 27.2, y: 28.9, scale: 0.13, depth: -25, zoneId: 'caminho', alpha: 0.5, originY: 0.5 },
@@ -52,21 +60,24 @@ export const PHASE_ONE_ENVIRONMENT_ART: EnvironmentArtDefinition[] = [
   { key: GAME_ASSETS.props.streetSign.key, x: 39.2, y: 27.4, scale: 0.088, depth: -22, zoneId: 'caminho', alpha: 0.8, originY: 0.92 },
   { key: GAME_ASSETS.props.barricade.key, x: 41.2, y: 36.3, scale: 0.105, depth: -21, zoneId: 'caminho', alpha: 0.82, originY: 0.76 },
   { key: GAME_ASSETS.props.rainPuddle.key, x: 34.4, y: 24.8, scale: 0.11, depth: -25, zoneId: 'caminho', alpha: 0.42, originY: 0.5 },
+  { key: GAME_ASSETS.props.brokenStreetPole.key, x: 24.8, y: 34.5, scale: 0.098, depth: -22, zoneId: 'caminho', alpha: 0.78, originY: 0.92 },
+  { key: GAME_ASSETS.props.dragMark.key, x: 32.0, y: 36.4, scale: 0.088, depth: -24, zoneId: 'caminho', alpha: 0.34, originY: 0.5 },
+  { key: GAME_ASSETS.props.trashBags.key, x: 42.0, y: 24.5, scale: 0.094, depth: -20, zoneId: 'caminho', alpha: 0.74, originY: 0.78 },
 
   { key: GAME_ASSETS.props.brokenDoor.key, x: 49.4, y: 40.0, scale: 0.095, depth: -20, zoneId: 'casa', alpha: 0.84, originY: 0.92 },
   { key: GAME_ASSETS.props.brokenWindow.key, x: 51.2, y: 43.2, scale: 0.1, depth: -20, zoneId: 'casa', alpha: 0.84, originY: 0.82 },
   { key: GAME_ASSETS.props.trashBags.key, x: 45.2, y: 45.6, scale: 0.102, depth: -20, zoneId: 'casa', alpha: 0.82, originY: 0.78 },
   { key: GAME_ASSETS.props.rainPuddle.key, x: 53.4, y: 39.2, scale: 0.11, depth: -25, zoneId: 'casa', alpha: 0.42, originY: 0.5 },
   { key: GAME_ASSETS.props.bloodPuddle.key, x: 48.2, y: 44.9, scale: 0.088, depth: -24, zoneId: 'casa', alpha: 0.34, originY: 0.5 },
+  { key: GAME_ASSETS.props.barricade.key, x: 43.8, y: 38.2, scale: 0.092, depth: -21, zoneId: 'casa', alpha: 0.76, originY: 0.76 },
+  { key: GAME_ASSETS.props.streetSign.key, x: 54.6, y: 45.8, scale: 0.08, depth: -22, zoneId: 'casa', alpha: 0.72, originY: 0.92 },
 
   { key: GAME_ASSETS.props.dragMark.key, x: 57.2, y: 55.0, scale: 0.11, depth: -24, zoneId: 'escola', alpha: 0.45, originY: 0.5 },
   { key: GAME_ASSETS.props.barricade.key, x: 55.8, y: 53.8, scale: 0.095, depth: -21, zoneId: 'escola', alpha: 0.78, originY: 0.76 },
   { key: GAME_ASSETS.props.brokenWall.key, x: 61.2, y: 58.4, scale: 0.088, depth: -21, zoneId: 'escola', alpha: 0.72, originY: 0.82 },
   { key: GAME_ASSETS.props.rainPuddle.key, x: 59.6, y: 54.4, scale: 0.11, depth: -25, zoneId: 'escola', alpha: 0.42, originY: 0.5 },
-
-  { key: GAME_ASSETS.enemies.infectedStreetVendor.key, x: 15.6, y: 14.2, scale: 0.052, depth: -19, zoneId: 'rua', alpha: 0.5, originY: 0.93 },
-  { key: GAME_ASSETS.enemies.infectedUrbanSurvivor.key, x: 35.8, y: 33.2, scale: 0.05, depth: -19, zoneId: 'caminho', alpha: 0.42, originY: 0.93 },
-  { key: GAME_ASSETS.enemies.infectedTeacher.key, x: 56.4, y: 58.8, scale: 0.048, depth: -19, zoneId: 'escola', alpha: 0.38, originY: 0.93 },
+  { key: GAME_ASSETS.props.streetSign.key, x: 56.7, y: 59.8, scale: 0.078, depth: -22, zoneId: 'escola', alpha: 0.7, originY: 0.92 },
+  { key: GAME_ASSETS.props.bloodPuddle.key, x: 60.4, y: 56.2, scale: 0.084, depth: -24, zoneId: 'escola', alpha: 0.3, originY: 0.5 },
 ];
 
 export function getEnvironmentArtByZone(zoneId: ZoneId): EnvironmentArtDefinition[] {

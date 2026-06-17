@@ -40,6 +40,7 @@ import {
   PHASE_ONE_ATMOSPHERE,
 } from '../systems/lighting-effects';
 import { HazardPosition, resolveSafeRestorePosition } from '../systems/safe-restore';
+import { resolveMovementAgainstStaticObstacles } from '../systems/static-collision';
 import type { SavePayload } from '../../save/save-schema';
 import { deleteLocal, loadLocal, saveLocal } from '../../save/local-save';
 
@@ -116,6 +117,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Criar player no spawn inicial
     this.player = new PlayerSprite(this, spawnPos.posX, spawnPos.posY);
+    this.player.setMovementResolver(resolveMovementAgainstStaticObstacles);
     this.hydratePlayerFromSave();
 
     // Criar inimigos patrulheiros distribuídos nas zonas de transição

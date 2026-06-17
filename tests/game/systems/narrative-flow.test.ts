@@ -79,7 +79,7 @@ describe('Narrative Flow (lógica pura)', () => {
     
     // Checkpoint 1
     let pos = getRespawnPosition(state);
-    expect(pos).toEqual({ posX: 6, posY: 6 });
+    expect(pos).toEqual({ posX: 7, posY: 8 });
 
     // Checkpoint 2
     state = activateCheckpoint(state, 2);

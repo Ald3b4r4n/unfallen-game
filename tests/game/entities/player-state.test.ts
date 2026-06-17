@@ -51,8 +51,8 @@ describe('PlayerState (lógica pura)', () => {
 
     const respawned = respawn(state);
     expect(respawned.health).toBe(100);
-    expect(respawned.posX).toBe(6);
-    expect(respawned.posY).toBe(6);
+    expect(respawned.posX).toBe(7);
+    expect(respawned.posY).toBe(8);
   });
 
   test('Respawn preserva arma ativa', () => {

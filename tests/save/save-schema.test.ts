@@ -78,7 +78,7 @@ describe("Save Payload Schema Validation", () => {
 
     expect(result.mission.currentObjectiveId).toBe("leave_police_base");
     expect(result.mission.activeCheckpointId).toBe(1);
-    expect(result.mission.playerPosition).toEqual({ x: 6, y: 6 });
+    expect(result.mission.playerPosition).toEqual({ x: 7, y: 8 });
     expect(result.mission.phaseComplete).toBe(false);
   });
 

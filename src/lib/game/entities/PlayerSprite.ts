@@ -19,6 +19,11 @@ const DASH_SPEED_MULT = 3;
 const DASH_DURATION_MS = 200;
 const PLAYER_SPRITE_SCALE = 0.08;
 
+type MovementResolver = (
+  current: { posX: number; posY: number },
+  next: { posX: number; posY: number }
+) => { posX: number; posY: number };
+
 export default class PlayerSprite extends Phaser.GameObjects.Container {
   public playerState: PlayerStateData;
   public staminaState: StaminaData;
@@ -38,8 +43,10 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
   };
 
   private bodyRect?: Phaser.GameObjects.Rectangle;
+  private visualBody?: Phaser.GameObjects.Image | Phaser.GameObjects.Rectangle;
   private isDashing = false;
   private dashTimer = 0;
+  private movementResolver?: MovementResolver;
 
   constructor(scene: Phaser.Scene, startX: number, startY: number) {
     super(scene, 0, 0);
@@ -59,9 +66,11 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
         .setOrigin(0.5, 0.94)
         .setScale(PLAYER_SPRITE_SCALE);
       this.add(sprite);
+      this.visualBody = sprite;
     } else {
       this.bodyRect = scene.add.rectangle(0, 0, 20, 30, 0x3b82f6);
       this.add(this.bodyRect);
+      this.visualBody = this.bodyRect;
 
       const label = scene.add.text(0, -22, 'P', {
         fontFamily: 'monospace',
@@ -101,6 +110,7 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     this.handleInputActions();
     this.handleBattery(dt);
     this.handleStaminaRegen(dt);
+    this.updateIdleMotion(_time);
     this.updateScreenPosition();
     this.emitStateUpdate();
   }
@@ -124,13 +134,20 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     }
 
     const speed = this.isDashing ? PLAYER_SPEED * DASH_SPEED_MULT : PLAYER_SPEED;
+    const currentPos = {
+      posX: this.playerState.posX,
+      posY: this.playerState.posY,
+    };
     const nextPos = clampToMapBounds(
       this.playerState.posX + dx * speed * dt,
       this.playerState.posY + dy * speed * dt
     );
+    const resolvedPos = this.movementResolver
+      ? this.movementResolver(currentPos, nextPos)
+      : nextPos;
 
-    this.playerState.posX = nextPos.posX;
-    this.playerState.posY = nextPos.posY;
+    this.playerState.posX = resolvedPos.posX;
+    this.playerState.posY = resolvedPos.posY;
   }
 
   private handleDash(dt: number) {
@@ -195,6 +212,15 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
       TILE_HEIGHT
     );
     this.setPosition(screen.x, screen.y);
+  }
+
+  private updateIdleMotion(time: number) {
+    if (!this.visualBody) return;
+    this.visualBody.y = Math.sin(time / 260) * 0.8;
+  }
+
+  setMovementResolver(resolver: MovementResolver) {
+    this.movementResolver = resolver;
   }
 
   private emitStateUpdate() {

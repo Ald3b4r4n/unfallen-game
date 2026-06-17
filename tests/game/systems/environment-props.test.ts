@@ -13,17 +13,15 @@ describe('Environment Props', () => {
   });
 
   test('mantem todos os elementos visuais dentro do mapa 64x64', () => {
-    expect(PHASE_ONE_ENVIRONMENT_ART.length).toBeGreaterThanOrEqual(40);
+    expect(PHASE_ONE_ENVIRONMENT_ART.length).toBeGreaterThanOrEqual(50);
     expect(PHASE_ONE_ENVIRONMENT_ART.every(isEnvironmentArtInsideMap)).toBe(true);
   });
 
-  test('usa infectados ambientais apenas como silhuetas visuais', () => {
-    const infectedSilhouettes = PHASE_ONE_ENVIRONMENT_ART.filter((art) =>
+  test('nao usa infectados como enfeite sem comportamento', () => {
+    const decorativeInfected = PHASE_ONE_ENVIRONMENT_ART.filter((art) =>
       art.key.startsWith('enemy:')
     );
 
-    expect(infectedSilhouettes.length).toBe(3);
-    expect(infectedSilhouettes.every((art) => art.depth < 0)).toBe(true);
-    expect(infectedSilhouettes.every((art) => (art.alpha ?? 1) < 0.8)).toBe(true);
+    expect(decorativeInfected).toHaveLength(0);
   });
 });

@@ -18,6 +18,7 @@ const ENEMY_SPRITE_SCALE = 0.06;
 export default class EnemySprite extends Phaser.GameObjects.Container {
   public enemyState: EnemyStateData;
   private bodyRect?: Phaser.GameObjects.Rectangle;
+  private visualBody?: Phaser.GameObjects.Image | Phaser.GameObjects.Rectangle;
   private stateLabel: Phaser.GameObjects.Text;
   private hasSpriteAsset = false;
   private lastContactDamageTime = 0;
@@ -45,10 +46,12 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
         .setOrigin(0.5, 0.93)
         .setScale(ENEMY_SPRITE_SCALE);
       this.add(sprite);
+      this.visualBody = sprite;
       this.hasSpriteAsset = true;
     } else {
       this.bodyRect = scene.add.rectangle(0, 0, 18, 24, 0xef4444);
       this.add(this.bodyRect);
+      this.visualBody = this.bodyRect;
     }
 
     this.stateLabel = scene.add.text(0, -18, 'Z', {
@@ -79,6 +82,7 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
     this.stateLabel.setText(this.enemyState.state === 'CHASING' ? '!' : 'Z');
     this.stateLabel.setVisible(!this.hasSpriteAsset || this.enemyState.state === 'CHASING');
     this.bodyRect?.setFillStyle(this.enemyState.state === 'CHASING' ? 0xdc2626 : 0xef4444);
+    this.updateIdleMotion(time);
 
     this.updateScreenPosition();
 
@@ -108,6 +112,13 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
       TILE_HEIGHT
     );
     this.setPosition(screen.x, screen.y);
+  }
+
+  private updateIdleMotion(time: number) {
+    if (!this.visualBody) return;
+    const urgency = this.enemyState.state === 'CHASING' ? 160 : 320;
+    this.visualBody.y = Math.sin(time / urgency + this.enemyState.posX) * 0.9;
+    this.visualBody.rotation = Math.sin(time / (urgency * 1.5) + this.enemyState.posY) * 0.015;
   }
 
   /** Recebe dano do player. Retorna true se morreu. */

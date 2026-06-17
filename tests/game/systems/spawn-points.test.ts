@@ -2,7 +2,7 @@ import { CHECKPOINTS, getSpawnPoint, INITIAL_SPAWN } from '@/lib/game/systems/sp
 
 describe('Spawn Points 64x64', () => {
   test('define spawn inicial e checkpoints principais', () => {
-    expect(INITIAL_SPAWN).toEqual({ id: 1, label: 'Base Policial', posX: 6, posY: 6 });
+    expect(INITIAL_SPAWN).toEqual({ id: 1, label: 'Base Policial', posX: 7, posY: 8 });
     expect(CHECKPOINTS[2]).toEqual({ id: 2, label: 'Saída da Base', posX: 13, posY: 7 });
     expect(CHECKPOINTS[3]).toEqual({ id: 3, label: 'Mercado Abandonado', posX: 32, posY: 10 });
     expect(CHECKPOINTS[4]).toEqual({ id: 4, label: 'Caminho para Residência', posX: 28, posY: 28 });
