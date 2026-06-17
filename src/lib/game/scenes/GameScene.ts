@@ -33,43 +33,15 @@ import {
   getPhaseOneFinalState,
   shouldStartPhaseOneEndingSequence,
 } from '../systems/phase-ending';
+import { PHASE_ONE_ENVIRONMENT_ART } from '../systems/environment-props';
+import { DEFAULT_RAIN_CONFIG, RainStreak, createRainStreaks } from '../systems/weather-effects';
+import {
+  PHASE_ONE_AMBIENT_LIGHTS,
+  PHASE_ONE_ATMOSPHERE,
+} from '../systems/lighting-effects';
 import { HazardPosition, resolveSafeRestorePosition } from '../systems/safe-restore';
 import type { SavePayload } from '../../save/save-schema';
 import { deleteLocal, loadLocal, saveLocal } from '../../save/local-save';
-
-interface EnvironmentArt {
-  key: string;
-  x: number;
-  y: number;
-  scale: number;
-  depth: number;
-  alpha?: number;
-  originY?: number;
-  footprintWidth?: number;
-  footprintHeight?: number;
-  footprintOffsetY?: number;
-  footprintAlpha?: number;
-}
-
-const ENVIRONMENT_ART: EnvironmentArt[] = [
-  { key: GAME_ASSETS.buildings.policeBase.key, x: 6.4, y: 6.6, scale: 0.125, depth: -30, alpha: 0.88, originY: 0.78, footprintWidth: 230, footprintHeight: 76, footprintOffsetY: 16, footprintAlpha: 0.26 },
-  { key: GAME_ASSETS.buildings.exteriorStreet.key, x: 17.6, y: 10.2, scale: 0.105, depth: -32, alpha: 0.58, originY: 0.58, footprintWidth: 280, footprintHeight: 96, footprintOffsetY: 10, footprintAlpha: 0.18 },
-  { key: GAME_ASSETS.buildings.abandonedMarket.key, x: 31.8, y: 10.6, scale: 0.115, depth: -28, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 72, footprintOffsetY: 15, footprintAlpha: 0.24 },
-  { key: GAME_ASSETS.buildings.residencePath.key, x: 32.6, y: 29.6, scale: 0.105, depth: -31, alpha: 0.58, originY: 0.6, footprintWidth: 260, footprintHeight: 86, footprintOffsetY: 10, footprintAlpha: 0.17 },
-  { key: GAME_ASSETS.buildings.rafaelHouse.key, x: 49.4, y: 41.6, scale: 0.118, depth: -27, alpha: 0.84, originY: 0.78, footprintWidth: 220, footprintHeight: 76, footprintOffsetY: 15, footprintAlpha: 0.24 },
-  { key: GAME_ASSETS.buildings.schoolGate.key, x: 58.4, y: 56.6, scale: 0.098, depth: -26, alpha: 0.84, originY: 0.78, footprintWidth: 210, footprintHeight: 70, footprintOffsetY: 14, footprintAlpha: 0.22 },
-  { key: GAME_ASSETS.props.brokenStreetPole.key, x: 13.2, y: 7.4, scale: 0.115, depth: -22, alpha: 0.86, originY: 0.92 },
-  { key: GAME_ASSETS.props.streetSign.key, x: 19.4, y: 7.8, scale: 0.1, depth: -22, alpha: 0.86, originY: 0.92 },
-  { key: GAME_ASSETS.props.barricade.key, x: 14.8, y: 11.0, scale: 0.12, depth: -21, alpha: 0.88, originY: 0.76 },
-  { key: GAME_ASSETS.props.trashBags.key, x: 21.0, y: 12.2, scale: 0.12, depth: -20, alpha: 0.84, originY: 0.78 },
-  { key: GAME_ASSETS.props.marketCrates.key, x: 31.4, y: 12.4, scale: 0.11, depth: -20, alpha: 0.86, originY: 0.78 },
-  { key: GAME_ASSETS.props.brokenWall.key, x: 23.6, y: 22.8, scale: 0.105, depth: -21, alpha: 0.82, originY: 0.82 },
-  { key: GAME_ASSETS.props.rainPuddle.key, x: 27.2, y: 28.9, scale: 0.13, depth: -25, alpha: 0.5, originY: 0.5 },
-  { key: GAME_ASSETS.props.bloodPuddle.key, x: 37.4, y: 35.2, scale: 0.12, depth: -24, alpha: 0.5, originY: 0.5 },
-  { key: GAME_ASSETS.props.brokenDoor.key, x: 49.4, y: 40.0, scale: 0.095, depth: -20, alpha: 0.84, originY: 0.92 },
-  { key: GAME_ASSETS.props.brokenWindow.key, x: 51.2, y: 43.2, scale: 0.1, depth: -20, alpha: 0.84, originY: 0.82 },
-  { key: GAME_ASSETS.props.dragMark.key, x: 57.2, y: 55.0, scale: 0.11, depth: -24, alpha: 0.45, originY: 0.5 },
-];
 
 const ENEMY_ASSET_KEYS = [
   GAME_ASSETS.enemies.infectedBusDriver.key,
@@ -107,6 +79,9 @@ export default class GameScene extends Phaser.Scene {
   private phaseEndingFooter!: Phaser.GameObjects.Text;
   private restartKey!: Phaser.Input.Keyboard.Key;
   private environmentSprites: Phaser.GameObjects.GameObject[] = [];
+  private rainGraphics!: Phaser.GameObjects.Graphics;
+  private rainStreaks: RainStreak[] = [];
+  private rainElapsed = 0;
 
   // Sistema narrativo
   private narrativeState!: NarrativeState;
@@ -128,6 +103,8 @@ export default class GameScene extends Phaser.Scene {
 
     this.graphics = this.add.graphics();
     this.createEnvironmentArt();
+    this.createAtmosphere();
+    this.createWeatherEffects();
 
     // Inicializar o fluxo narrativo a partir do save local quando existir.
     this.loadedSave = loadLocal(SAVE_SLOT);
@@ -248,6 +225,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number) {
+    this.updateWeather(delta);
+
     if (this.levelComplete) {
       if (this.restartKey && Phaser.Input.Keyboard.JustDown(this.restartKey)) {
         this.handleResetFull();
@@ -304,7 +283,7 @@ export default class GameScene extends Phaser.Scene {
       const s3 = toScreen({ x: zone.maxX + 1, y: zone.maxY + 1, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
       const s4 = toScreen({ x: zone.minX, y: zone.maxY + 1, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
 
-      this.graphics.lineStyle(1, zone.color, 0.42);
+      this.graphics.lineStyle(1, zone.color, 0.25);
       this.graphics.lineBetween(s1.x, s1.y, s2.x, s2.y);
       this.graphics.lineBetween(s2.x, s2.y, s3.x, s3.y);
       this.graphics.lineBetween(s3.x, s3.y, s4.x, s4.y);
@@ -314,8 +293,9 @@ export default class GameScene extends Phaser.Scene {
 
   private createEnvironmentArt() {
     this.environmentSprites = [];
+    this.createAmbientLights();
 
-    for (const art of ENVIRONMENT_ART) {
+    for (const art of PHASE_ONE_ENVIRONMENT_ART) {
       if (!this.textures.exists(art.key)) continue;
 
       const screen = toScreen({ x: art.x, y: art.y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
@@ -346,8 +326,105 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
+  private createAmbientLights() {
+    for (const light of PHASE_ONE_AMBIENT_LIGHTS) {
+      const screen = toScreen({ x: light.x, y: light.y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const glow = this.add.ellipse(
+        screen.x,
+        screen.y + 8,
+        light.radiusX,
+        light.radiusY,
+        light.color,
+        light.alpha
+      )
+        .setDepth(-18)
+        .setBlendMode(Phaser.BlendModes.ADD);
+
+      this.environmentSprites.push(glow);
+    }
+  }
+
+  private createAtmosphere() {
+    const { width, height } = this.scale;
+
+    const darkness = this.add.rectangle(
+      width / 2,
+      height / 2,
+      width,
+      height,
+      0x020617,
+      PHASE_ONE_ATMOSPHERE.darknessAlpha
+    )
+      .setScrollFactor(0)
+      .setDepth(55);
+
+    const fog = this.add.rectangle(
+      width / 2,
+      height * 0.58,
+      width,
+      height * 0.62,
+      0x64748b,
+      PHASE_ONE_ATMOSPHERE.fogAlpha
+    )
+      .setScrollFactor(0)
+      .setDepth(56);
+
+    const vignetteTop = this.add.rectangle(
+      width / 2,
+      height * 0.08,
+      width,
+      height * 0.16,
+      0x000000,
+      PHASE_ONE_ATMOSPHERE.vignetteAlpha
+    )
+      .setScrollFactor(0)
+      .setDepth(57);
+
+    const vignetteBottom = this.add.rectangle(
+      width / 2,
+      height * 0.92,
+      width,
+      height * 0.16,
+      0x000000,
+      PHASE_ONE_ATMOSPHERE.vignetteAlpha
+    )
+      .setScrollFactor(0)
+      .setDepth(57);
+
+    this.environmentSprites.push(darkness, fog, vignetteTop, vignetteBottom);
+  }
+
+  private createWeatherEffects() {
+    this.rainStreaks = createRainStreaks(this.scale.width, this.scale.height);
+    this.rainGraphics = this.add.graphics()
+      .setScrollFactor(0)
+      .setDepth(72);
+  }
+
+  private updateWeather(delta: number) {
+    if (!this.rainGraphics) return;
+
+    const { width, height } = this.scale;
+    this.rainElapsed += delta / 1000;
+    this.rainGraphics.clear();
+
+    for (const streak of this.rainStreaks) {
+      const y = (streak.y + this.rainElapsed * streak.speed) % (height + 80) - 40;
+      const wind = (this.rainElapsed * DEFAULT_RAIN_CONFIG.slant * 3) % 80;
+      const x = (streak.x + wind + width + 40) % (width + 80) - 40;
+
+      this.rainGraphics.lineStyle(1, 0x93c5fd, streak.alpha);
+      this.rainGraphics.lineBetween(
+        x,
+        y,
+        x + DEFAULT_RAIN_CONFIG.slant,
+        y + streak.length
+      );
+    }
+  }
+
   private drawIsometricGrid(sizeX: number, sizeY: number) {
-    this.graphics.lineStyle(1, 0x2d3748, 0.18);
+    this.graphics.lineStyle(1, 0x1e293b, 0.09);
 
     for (let x = 0; x <= sizeX; x++) {
       const pStart = toScreen({ x, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT);

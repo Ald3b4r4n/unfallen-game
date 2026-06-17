@@ -51,6 +51,9 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     this.batteryState = createBattery();
     this.inventoryState = createInventory();
 
+    const shadow = scene.add.ellipse(0, 3, 24, 10, 0x000000, 0.36);
+    this.add(shadow);
+
     if (scene.textures.exists(GAME_ASSETS.characters.antonioRafael.key)) {
       const sprite = scene.add.image(0, 0, GAME_ASSETS.characters.antonioRafael.key)
         .setOrigin(0.5, 0.94)

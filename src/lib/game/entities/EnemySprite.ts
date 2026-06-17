@@ -37,6 +37,9 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
 
     this.enemyState = createEnemyState(id, startX, startY, enemyOverrides);
 
+    const shadow = scene.add.ellipse(0, 2, 20, 8, 0x000000, 0.32);
+    this.add(shadow);
+
     if (assetKey && scene.textures.exists(assetKey)) {
       const sprite = scene.add.image(0, 0, assetKey)
         .setOrigin(0.5, 0.93)
