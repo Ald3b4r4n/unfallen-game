@@ -7,6 +7,8 @@ import {
 describe('Weather Effects', () => {
   test('mantem configuracao padrao de chuva dentro de limites seguros', () => {
     expect(isRainConfigSafe(DEFAULT_RAIN_CONFIG)).toBe(true);
+    expect(DEFAULT_RAIN_CONFIG.count).toBe(220);
+    expect(DEFAULT_RAIN_CONFIG.alpha).toBeGreaterThanOrEqual(0.3);
   });
 
   test('gera filetes de chuva deterministas dentro do viewport', () => {

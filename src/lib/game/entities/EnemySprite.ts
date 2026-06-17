@@ -22,6 +22,7 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
   private stateLabel: Phaser.GameObjects.Text;
   private hasSpriteAsset = false;
   private lastContactDamageTime = 0;
+  private alertRing: Phaser.GameObjects.Ellipse;
 
   constructor(
     scene: Phaser.Scene,
@@ -40,6 +41,10 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
 
     const shadow = scene.add.ellipse(0, 2, 20, 8, 0x000000, 0.32);
     this.add(shadow);
+    this.alertRing = scene.add.ellipse(0, 3, 26, 11, 0xef4444, 0.12)
+      .setStrokeStyle(1, 0xef4444, 0.28)
+      .setVisible(false);
+    this.add(this.alertRing);
 
     if (assetKey && scene.textures.exists(assetKey)) {
       const sprite = scene.add.image(0, 0, assetKey)
@@ -81,6 +86,7 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
     // Atualizar visual
     this.stateLabel.setText(this.enemyState.state === 'CHASING' ? '!' : 'Z');
     this.stateLabel.setVisible(!this.hasSpriteAsset || this.enemyState.state === 'CHASING');
+    this.alertRing.setVisible(this.enemyState.state === 'CHASING');
     this.bodyRect?.setFillStyle(this.enemyState.state === 'CHASING' ? 0xdc2626 : 0xef4444);
     this.updateIdleMotion(time);
 
@@ -117,8 +123,12 @@ export default class EnemySprite extends Phaser.GameObjects.Container {
   private updateIdleMotion(time: number) {
     if (!this.visualBody) return;
     const urgency = this.enemyState.state === 'CHASING' ? 160 : 320;
-    this.visualBody.y = Math.sin(time / urgency + this.enemyState.posX) * 0.9;
-    this.visualBody.rotation = Math.sin(time / (urgency * 1.5) + this.enemyState.posY) * 0.015;
+    const chaseBoost = this.enemyState.state === 'CHASING' ? 1.9 : 1;
+    this.visualBody.y = Math.sin(time / urgency + this.enemyState.posX) * 0.9 * chaseBoost;
+    this.visualBody.rotation = Math.sin(time / (urgency * 1.25) + this.enemyState.posY) * 0.025 * chaseBoost;
+    this.alertRing.alpha = this.enemyState.state === 'CHASING'
+      ? 0.12 + Math.abs(Math.sin(time / 120)) * 0.12
+      : 0;
   }
 
   /** Recebe dano do player. Retorna true se morreu. */

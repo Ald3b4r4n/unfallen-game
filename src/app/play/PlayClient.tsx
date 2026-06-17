@@ -9,8 +9,8 @@ const GameWrapper = dynamic(() => import("@/components/game/GameWrapper"), {
   loading: () => (
     <div 
       style={{ 
-        width: "800px", 
-        height: "600px", 
+        width: "1120px", 
+        height: "640px", 
         margin: "0 auto", 
         display: "flex", 
         alignItems: "center", 
@@ -29,7 +29,7 @@ const GameWrapper = dynamic(() => import("@/components/game/GameWrapper"), {
 
 export default function PlayClient() {
   return (
-    <div style={{ padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div style={{ padding: "0.75rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <GameWrapper />
     </div>
   );

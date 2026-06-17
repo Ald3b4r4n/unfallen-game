@@ -8,8 +8,8 @@ import PauseScene from "./scenes/PauseScene";
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: typeof window !== "undefined" ? Phaser.AUTO : Phaser.HEADLESS,
-  width: 800,
-  height: 600,
+  width: 1120,
+  height: 640,
   parent: "game-container",
   scene: [BootScene, PreloadScene, MenuScene, GameScene, UIScene, PauseScene],
   physics: {

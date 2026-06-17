@@ -127,9 +127,9 @@ export default function Home() {
       </main>
 
       <footer>
-        <p id="footer-branding">SANTA AMÉLIA - ZONA OESTE | BASE OPERACIONAL 01</p>
+        <p id="footer-branding">SANTA Bela - ZONA Central | BASE OPERACIONAL 01</p>
         <p className="footer-quote">&quot;A esperança não é um plano. Mas é o que ainda nos mantém de pé.&quot;</p>
-        <p id="footer-text">&copy; {new Date().getFullYear()} Unfallen. Desenvolvido sob especificações de governança SDD Master.</p>
+        <p id="footer-text">&copy; {new Date().getFullYear()} Unfallen. Desenvolvido por AR Games Development.</p>
       </footer>
     </div>
   );

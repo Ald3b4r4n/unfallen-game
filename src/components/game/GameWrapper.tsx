@@ -24,8 +24,8 @@ export default function GameWrapper() {
     <div 
       id="game-container" 
       style={{ 
-        width: "800px", 
-        height: "600px", 
+        width: "1120px", 
+        height: "640px", 
         margin: "0 auto", 
         background: "#000",
         borderRadius: "4px",

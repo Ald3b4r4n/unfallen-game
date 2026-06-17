@@ -58,6 +58,7 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
   private movementResolver?: MovementResolver;
   private facingX = 1;
   private facingY = 0;
+  private isMoving = false;
 
   constructor(scene: Phaser.Scene, startX: number, startY: number) {
     super(scene, 0, 0);
@@ -161,7 +162,9 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
       dy /= mag;
     }
 
-    if (dx !== 0 || dy !== 0) {
+    this.isMoving = dx !== 0 || dy !== 0;
+
+    if (this.isMoving) {
       this.facingX = dx;
       this.facingY = dy;
       this.drawWeapon();
@@ -277,12 +280,18 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
 
   private updateIdleMotion(time: number) {
     if (!this.visualBody) return;
-    const idleOffset = Math.sin(time / 260) * 0.8;
+    const gaitSpeed = this.isMoving ? 95 : 260;
+    const gaitAmount = this.isMoving ? 2.2 : 0.8;
+    const idleOffset = Math.sin(time / gaitSpeed) * gaitAmount;
     this.visualBody.y = idleOffset;
+    this.visualBody.rotation = this.isMoving
+      ? Math.sin(time / 140) * 0.018
+      : Math.sin(time / 520) * 0.006;
     this.weaponGraphics.y = idleOffset;
     if (this.weaponImage) {
       this.weaponImage.y += idleOffset - (this.weaponImage.getData('idleOffset') ?? 0);
       this.weaponImage.setData('idleOffset', idleOffset);
+      this.weaponImage.rotation = (this.isMoving ? Math.sin(time / 110) * 0.035 : 0);
     }
   }
 
@@ -391,12 +400,18 @@ export default class PlayerSprite extends Phaser.GameObjects.Container {
     if (this.playerState.activeWeapon === 'pistol') {
       this.attackGraphics.fillStyle(0xfbbf24, 0.95);
       this.attackGraphics.fillTriangle(12 * direction, -12, 30 * direction, -16, 30 * direction, -8);
+      this.attackGraphics.fillStyle(0xffffff, 0.65);
+      this.attackGraphics.fillCircle(32 * direction, -12, 3);
       this.attackGraphics.lineStyle(1, 0xfef3c7, 0.45);
       this.attackGraphics.lineBetween(14 * direction, -12, 55 * direction, -20);
     } else {
       this.attackGraphics.lineStyle(3, 0xf8fafc, 0.65);
       this.attackGraphics.beginPath();
       this.attackGraphics.arc(6 * direction, -10, 18, -0.8, 0.7, false);
+      this.attackGraphics.strokePath();
+      this.attackGraphics.lineStyle(1, 0x93c5fd, 0.45);
+      this.attackGraphics.beginPath();
+      this.attackGraphics.arc(7 * direction, -10, 24, -0.9, 0.6, false);
       this.attackGraphics.strokePath();
     }
 

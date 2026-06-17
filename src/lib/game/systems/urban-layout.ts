@@ -34,17 +34,17 @@ export interface EnterableBuilding {
 }
 
 export const PHASE_ONE_URBAN_SURFACES: UrbanSurface[] = [
-  { id: 'base-yard', minX: 2, maxX: 12, minY: 2, maxY: 12, color: 0x111418, alpha: 0.72, borderColor: 0x1d4ed8, borderAlpha: 0.14 },
-  { id: 'base-to-street-road', minX: 9, maxX: 25, minY: 6, maxY: 13, color: 0x101113, alpha: 0.74 },
-  { id: 'street-block', minX: 11, maxX: 25, minY: 4, maxY: 16, color: 0x101113, alpha: 0.76, borderColor: 0x475569, borderAlpha: 0.12 },
-  { id: 'street-to-market-road', minX: 22, maxX: 39, minY: 6, maxY: 16, color: 0x121212, alpha: 0.76 },
-  { id: 'market-block', minX: 26, maxX: 39, minY: 4, maxY: 18, color: 0x141414, alpha: 0.76, borderColor: 0xf59e0b, borderAlpha: 0.12 },
-  { id: 'market-to-residence-road', minX: 24, maxX: 43, minY: 16, maxY: 26, color: 0x101113, alpha: 0.74 },
-  { id: 'residence-road', minX: 21, maxX: 44, minY: 22, maxY: 39, color: 0x121212, alpha: 0.76, borderColor: 0x78350f, borderAlpha: 0.12 },
-  { id: 'residence-to-house-road', minX: 39, maxX: 56, minY: 34, maxY: 48, color: 0x111418, alpha: 0.74 },
-  { id: 'rafael-house-yard', minX: 42, maxX: 56, minY: 33, maxY: 50, color: 0x101712, alpha: 0.74, borderColor: 0x10b981, borderAlpha: 0.12 },
-  { id: 'school-approach-road', minX: 51, maxX: 63, minY: 47, maxY: 62, color: 0x121212, alpha: 0.76 },
-  { id: 'school-gate-block', minX: 54, maxX: 63, minY: 51, maxY: 63, color: 0x171111, alpha: 0.74, borderColor: 0xef4444, borderAlpha: 0.12 },
+  { id: 'base-yard', minX: 2, maxX: 12, minY: 2, maxY: 12, color: 0x0b0d10, alpha: 0.42, borderColor: 0x1d4ed8, borderAlpha: 0.04 },
+  { id: 'base-to-street-road', minX: 9, maxX: 25, minY: 6, maxY: 13, color: 0x0b0c0e, alpha: 0.42 },
+  { id: 'street-block', minX: 11, maxX: 25, minY: 4, maxY: 16, color: 0x0b0c0e, alpha: 0.43, borderColor: 0x475569, borderAlpha: 0.04 },
+  { id: 'street-to-market-road', minX: 22, maxX: 39, minY: 6, maxY: 16, color: 0x0d0d0d, alpha: 0.43 },
+  { id: 'market-block', minX: 26, maxX: 39, minY: 4, maxY: 18, color: 0x0f0e0d, alpha: 0.44, borderColor: 0xf59e0b, borderAlpha: 0.04 },
+  { id: 'market-to-residence-road', minX: 24, maxX: 43, minY: 16, maxY: 26, color: 0x0b0c0e, alpha: 0.42 },
+  { id: 'residence-road', minX: 21, maxX: 44, minY: 22, maxY: 39, color: 0x0d0d0d, alpha: 0.43, borderColor: 0x78350f, borderAlpha: 0.04 },
+  { id: 'residence-to-house-road', minX: 39, maxX: 56, minY: 34, maxY: 48, color: 0x0b0d10, alpha: 0.42 },
+  { id: 'rafael-house-yard', minX: 42, maxX: 56, minY: 33, maxY: 50, color: 0x0a100d, alpha: 0.42, borderColor: 0x10b981, borderAlpha: 0.04 },
+  { id: 'school-approach-road', minX: 51, maxX: 63, minY: 47, maxY: 62, color: 0x0d0d0d, alpha: 0.43 },
+  { id: 'school-gate-block', minX: 54, maxX: 63, minY: 51, maxY: 63, color: 0x110c0c, alpha: 0.42, borderColor: 0xef4444, borderAlpha: 0.04 },
 ];
 
 export const PHASE_ONE_URBAN_DECORATIONS: UrbanDecoration[] = [

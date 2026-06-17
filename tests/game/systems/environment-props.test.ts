@@ -32,8 +32,16 @@ describe('Environment Props', () => {
     const purchasedFloorArt = purchasedArt.filter((art) => art.depth <= -48);
     const purchasedInteriorArt = purchasedArt.filter((art) => art.interiorId);
 
-    expect(purchasedArt.length).toBeGreaterThanOrEqual(30);
+    expect(purchasedArt.length).toBeGreaterThanOrEqual(60);
     expect(purchasedFloorArt.length).toBeGreaterThanOrEqual(10);
     expect(purchasedInteriorArt.length).toBeGreaterThanOrEqual(6);
+  });
+
+  test('usa tiles isometricos derivados para evitar blocos top-down no chao', () => {
+    const purchasedFloorArt = PHASE_ONE_ENVIRONMENT_ART.filter((art) =>
+      art.depth <= -48 && art.key.includes('-iso')
+    );
+
+    expect(purchasedFloorArt.length).toBeGreaterThanOrEqual(10);
   });
 });

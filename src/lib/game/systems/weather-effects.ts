@@ -19,13 +19,13 @@ export interface RainStreak {
 }
 
 export const DEFAULT_RAIN_CONFIG: RainConfig = {
-  count: 170,
-  minLength: 7,
-  maxLength: 18,
-  minSpeed: 160,
-  maxSpeed: 280,
-  slant: -5,
-  alpha: 0.22,
+  count: 220,
+  minLength: 10,
+  maxLength: 26,
+  minSpeed: 210,
+  maxSpeed: 360,
+  slant: -8,
+  alpha: 0.3,
 };
 
 export function isRainConfigSafe(config: RainConfig = DEFAULT_RAIN_CONFIG): boolean {

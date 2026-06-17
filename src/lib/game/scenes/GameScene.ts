@@ -279,7 +279,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   private createUrbanGround() {
-    this.groundGraphics = this.add.graphics().setDepth(-50);
+    this.groundGraphics = this.add.graphics().setDepth(-52);
+    this.drawWorldBaseFloor();
 
     for (const surface of PHASE_ONE_URBAN_SURFACES) {
       const s1 = toScreen({ x: surface.minX, y: surface.minY, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
@@ -304,29 +305,72 @@ export default class GameScene extends Phaser.Scene {
     this.drawUrbanDecorations();
   }
 
+  private drawWorldBaseFloor() {
+    const corners = [
+      toScreen({ x: 0, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
+      toScreen({ x: 64, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
+      toScreen({ x: 64, y: 64, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
+      toScreen({ x: 0, y: 64, z: 0 }, TILE_WIDTH, TILE_HEIGHT),
+    ].map((point) => new Phaser.Math.Vector2(point.x, point.y));
+
+    this.groundGraphics.fillStyle(0x0a0c0e, 0.72);
+    this.groundGraphics.fillPoints(corners, true);
+
+    this.groundGraphics.lineStyle(1, 0x1f2937, 0.08);
+    for (let x = 0; x <= 64; x += 4) {
+      const start = toScreen({ x, y: 0, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const end = toScreen({ x, y: 64, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      this.groundGraphics.lineBetween(start.x, start.y, end.x, end.y);
+    }
+    for (let y = 0; y <= 64; y += 4) {
+      const start = toScreen({ x: 0, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const end = toScreen({ x: 64, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      this.groundGraphics.lineBetween(start.x, start.y, end.x, end.y);
+    }
+
+    for (let index = 0; index < 130; index += 1) {
+      const x = (index * 19) % 64;
+      const y = (index * 31 + 7) % 64;
+      const screen = toScreen({ x, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
+      const width = 12 + (index % 5) * 6;
+      const height = 3 + (index % 3) * 2;
+      const color = index % 9 === 0 ? 0x4b1111 : index % 4 === 0 ? 0x1f2937 : 0x111827;
+      const alpha = index % 9 === 0 ? 0.18 : 0.16;
+      this.groundGraphics.fillStyle(color, alpha);
+      this.groundGraphics.fillEllipse(screen.x, screen.y + 3, width, height);
+    }
+  }
+
   private createPurchasedGroundTiles() {
     const tileKeys = [
-      GAME_ASSETS.purchased.asphaltCrackedA.key,
-      GAME_ASSETS.purchased.asphaltRoadLineA.key,
-      GAME_ASSETS.purchased.asphaltCrosswalkA.key,
+      GAME_ASSETS.purchased.asphaltCrackedIso.key,
+      GAME_ASSETS.purchased.asphaltRoadLineIso.key,
+      GAME_ASSETS.purchased.asphaltCrosswalkIso.key,
     ];
 
     if (!tileKeys.every((key) => this.textures.exists(key))) return;
 
+    const filledCells = new Set<string>();
     for (const surface of PHASE_ONE_URBAN_SURFACES) {
-      let index = 0;
-      for (let x = surface.minX + 1; x <= surface.maxX; x += 3.1) {
-        for (let y = surface.minY + 1; y <= surface.maxY; y += 3.1) {
+      for (let x = Math.ceil(surface.minX); x <= Math.floor(surface.maxX); x += 1) {
+        for (let y = Math.ceil(surface.minY); y <= Math.floor(surface.maxY); y += 1) {
+          const cellId = `${x}:${y}`;
+          if (filledCells.has(cellId)) continue;
+          filledCells.add(cellId);
+
           const screen = toScreen({ x, y, z: 0 }, TILE_WIDTH, TILE_HEIGHT);
-          const key = tileKeys[(index + Math.floor(x) + Math.floor(y)) % tileKeys.length];
+          const value = Math.abs((x * 31 + y * 17 + surface.id.length * 13) % 11);
+          const key = value === 0
+            ? tileKeys[2]
+            : value <= 3
+              ? tileKeys[1]
+              : tileKeys[0];
           const tile = this.add.image(screen.x, screen.y, key)
-            .setOrigin(0.5, 0.52)
-            .setScale(0.31)
-            .setAlpha(surface.id.includes('yard') ? 0.5 : 0.62)
+            .setOrigin(0.5, 0.5)
+            .setAlpha(surface.id.includes('yard') ? 0.78 : 0.86)
             .setDepth(-48.8);
 
           this.environmentSprites.push(tile);
-          index += 1;
         }
       }
     }

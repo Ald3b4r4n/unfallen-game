@@ -156,6 +156,18 @@ export const GAME_ASSETS = {
       key: 'props:drag-mark',
       path: `${GAME_ASSET_BASE_PATH}/props/cut/drag-mark.png`,
     },
+    sandbagWallIso: {
+      key: 'props:sandbag-wall-iso',
+      path: `${GAME_ASSET_BASE_PATH}/generated/scene/sandbag-wall-iso.png`,
+    },
+    concreteBarrierIso: {
+      key: 'props:concrete-barrier-iso',
+      path: `${GAME_ASSET_BASE_PATH}/generated/scene/concrete-barrier-iso.png`,
+    },
+    militaryCratesIso: {
+      key: 'props:military-crates-iso',
+      path: `${GAME_ASSET_BASE_PATH}/generated/scene/military-crates-iso.png`,
+    },
   },
   purchased: {
     asphaltCrackedA: {
@@ -169,6 +181,18 @@ export const GAME_ASSETS = {
     asphaltCrosswalkA: {
       key: 'purchased:asphalt-crosswalk-a',
       path: `${GAME_ASSET_BASE_PATH}/purchased/cut/asphalt-crosswalk-a.png`,
+    },
+    asphaltCrackedIso: {
+      key: 'purchased:asphalt-cracked-iso',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/iso/asphalt-cracked-iso.png`,
+    },
+    asphaltRoadLineIso: {
+      key: 'purchased:asphalt-road-line-iso',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/iso/asphalt-road-line-iso.png`,
+    },
+    asphaltCrosswalkIso: {
+      key: 'purchased:asphalt-crosswalk-iso',
+      path: `${GAME_ASSET_BASE_PATH}/purchased/iso/asphalt-crosswalk-iso.png`,
     },
     wallBrokenWideA: {
       key: 'purchased:wall-broken-wide-a',

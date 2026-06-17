@@ -19,12 +19,12 @@ export default function PlayPage() {
         </nav>
       </header>
 
-      <main style={{ padding: "2rem 4rem" }}>
+      <main style={{ padding: "0.75rem 1rem" }}>
         <PlayClient />
       </main>
 
       <footer>
-        <p>&copy; {new Date().getFullYear()} Unfallen. Desenvolvido sob especificações de governança SDD Master.</p>
+        <p>&copy; {new Date().getFullYear()} Unfallen. Desenvolvido por AR Games Development.</p>
       </footer>
     </div>
   );
