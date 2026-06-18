@@ -1,0 +1,177 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_ctrl"]
+[ext_resource type="Script" path="res://scripts/player/isometric_movement.gd" id="2_mov"]
+[ext_resource type="Script" path="res://scripts/player/player_animation_controller.gd" id="3_anim"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front.png" id="4_front"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_back.png" id="5_back"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_left.png" id="6_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_right.png" id="7_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_left.png" id="8_front_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png" id="9_front_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_back_left.png" id="10_back_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_back_right.png" id="11_back_right"]
+
+[sub_resource type="Animation" id="Animation_idle_front"]
+resource_name = "idle_front"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_front")]
+}
+
+[sub_resource type="Animation" id="Animation_idle_back"]
+resource_name = "idle_back"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_back")]
+}
+
+[sub_resource type="Animation" id="Animation_idle_left"]
+resource_name = "idle_left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_left")]
+}
+
+[sub_resource type="Animation" id="Animation_idle_right"]
+resource_name = "idle_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_right")]
+}
+
+[sub_resource type="Animation" id="Animation_idle_front_left"]
+resource_name = "idle_front_left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_front_left")]
+}
+
+[sub_resource type="Animation" id="Animation_idle_front_right"]
+resource_name = "idle_front_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_front_right")]
+}
+
+[sub_resource type="Animation" id="Animation_idle_back_left"]
+resource_name = "idle_back_left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_back_left")]
+}
+
+[sub_resource type="Animation" id="Animation_idle_back_right"]
+resource_name = "idle_back_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_back_right")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_idle"]
+_data = {
+"idle_back": SubResource("Animation_idle_back"),
+"idle_back_left": SubResource("Animation_idle_back_left"),
+"idle_back_right": SubResource("Animation_idle_back_right"),
+"idle_front": SubResource("Animation_idle_front"),
+"idle_front_left": SubResource("Animation_idle_front_left"),
+"idle_front_right": SubResource("Animation_idle_front_right"),
+"idle_left": SubResource("Animation_idle_left"),
+"idle_right": SubResource("Animation_idle_right")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ctrl")
+
+[node name="SpritePivot" type="Node2D" parent="."]
+
+[node name="CharacterSprite" type="Sprite2D" parent="SpritePivot"]
+texture_filter = 1
+texture = ExtResource("4_front")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("..")
+autoplay = "idle_front"
+libraries = {
+"": SubResource("AnimationLibrary_idle")
+}
+
+[node name="MovementModule" type="Node" parent="."]
+script = ExtResource("2_mov")
+
+[node name="AnimationModule" type="Node" parent="."]
+script = ExtResource("3_anim")
