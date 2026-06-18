@@ -1,0 +1,9 @@
+.godot/
+*.translation
+export_presets.cfg
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
