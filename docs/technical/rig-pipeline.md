@@ -127,3 +127,28 @@ Uso proibido:
 Limitacoes registradas: `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual; `radio` e `holster` foram rejeitados no manifesto por baixa legibilidade em `front_right`.
 
 As partes sao materiais de producao para laboratorio e nao substituem o Player oficial.
+
+## Rig Assembly V1 - Feature 006
+
+Em 2026-06-19, foi montada a primeira hierarquia tecnica do rig 2D do SGT Antonio Rafael usando a direcao `front_right`.
+
+Referencias e resultados:
+
+- referencia mestre: `res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png`;
+- partes usadas: `res://assets/characters/antonio_rafael/rig/parts/front_right/`;
+- manifesto de partes: `res://assets/characters/antonio_rafael/rig/parts_manifest.json`;
+- manifesto de montagem: `res://assets/characters/antonio_rafael/rig/rig_assembly_manifest.json`;
+- preview humano: `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_assembly_v1_preview.png`;
+- laboratorio: `res://scenes/rig/AntonioRafaelRigLab.tscn`;
+- documentacao dedicada: `res://docs/technical/rig-assembly-v1.md`.
+
+A montagem foi **APROVADA PARCIALMENTE** como `Rig Assembly V1`. Ela e uma etapa de laboratorio para validar hierarquia, pivos e recomposicao, nao uma animacao oficial e nao runtime final.
+
+Limitacoes herdadas: `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual. `radio` e `holster` permanecem rejeitados.
+
+Escopo da aprovacao parcial:
+
+- autorizada como laboratorio tecnico, prova inicial de montagem, validacao de hierarquia/pivos e base para refinamento manual;
+- nao autorizada como arte final, animacao final, walk cycle oficial, asset final de gameplay ou substituto do Player runtime.
+
+Auditoria: Player, scripts do Player e sprites idle aprovados permanecem sem alteracao por esta feature; a cena de rig referencia apenas assets do rig e o idle `front_right`.

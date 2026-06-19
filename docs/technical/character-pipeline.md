@@ -358,3 +358,23 @@ Escopo da aprovacao parcial:
 Limitacoes registradas: `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual. `radio` e `holster` permanecem rejeitados no manifesto por baixa legibilidade.
 
 A proxima etapa recomendada e refinar manualmente as partes limitadas e validar visualmente no Godot antes de qualquer animacao futura.
+
+## Rig Assembly V1 - Feature 006
+
+A feature `006-rig-assembly-v1` montou tecnicamente as partes `front_right` em `res://scenes/rig/AntonioRafaelRigLab.tscn`.
+
+Estado:
+
+- laboratorio de rig atualizado com hierarquia tecnica e **APROVADO PARCIALMENTE** como `Rig Assembly V1`;
+- pivos/markers representados ou documentados;
+- manifesto de montagem criado em `res://assets/characters/antonio_rafael/rig/rig_assembly_manifest.json`;
+- preview humano criado em `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_assembly_v1_preview.png`;
+- Base Idle Oficial V1 preservada;
+- Player oficial nao alterado;
+- nenhum walk cycle final criado;
+- nenhuma animacao oficial criada;
+- nenhum sistema de gameplay alterado.
+
+Esta montagem e uma ponte tecnica entre separacao de partes e animacao futura. Ela nao substitui o Player e nao deve ser usada em runtime.
+
+Limitacoes registradas: `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual. A validacao foi estatica porque Godot nao estava no PATH; ainda falta validacao visual ao vivo no Godot.

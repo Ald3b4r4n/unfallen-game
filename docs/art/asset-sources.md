@@ -245,3 +245,28 @@ Observacoes:
 - A validacao foi estatica; ainda falta validacao visual ao vivo no Godot.
 - O Player oficial nao foi alterado.
 - Os idles aprovados nao foram alterados.
+
+## Rig Assembly V1 - Feature 006
+
+**Data**: 2026-06-19  
+**Direcao primaria**: `front_right`  
+**Status**: APROVADA PARCIALMENTE como `Rig Assembly V1`  
+**Origem visual**: Base Idle Oficial V1 + Rig Parts Separation V1
+
+| Asset | Descricao | Origem | Status |
+|---|---|---|---|
+| `res://scenes/rig/AntonioRafaelRigLab.tscn` | Laboratorio com hierarquia tecnica da montagem V1 | Partes `front_right` + manifesto de partes | Tecnico / nao gameplay |
+| `res://assets/characters/antonio_rafael/rig/rig_assembly_manifest.json` | Manifesto de montagem, nodes, pivos, posicoes, status e notas | Gerado localmente a partir de `parts_manifest.json` | Criado / pendente validacao |
+| `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_assembly_v1_preview.png` | Preview humano com referencia, rig montado e pivos | Montagem local das partes `front_right` | Criado / revisao humana |
+| `res://docs/technical/rig-assembly-v1.md` | Documentacao dedicada da montagem | Registro tecnico local | Documentacao |
+
+Observacoes:
+
+- O preview pode conter labels externos para revisao humana.
+- Nenhum PNG individual de parte foi alterado.
+- Nenhum sprite idle aprovado foi alterado.
+- O Player oficial nao foi alterado.
+- Nenhum walk cycle ou animacao oficial foi criado.
+- `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual antes de qualquer animacao final.
+- A validacao foi estatica porque Godot nao estava no PATH; ainda falta validacao visual ao vivo no Godot.
+- A aprovacao parcial nao autoriza arte final, gameplay, animacao oficial ou substituicao do Player runtime.

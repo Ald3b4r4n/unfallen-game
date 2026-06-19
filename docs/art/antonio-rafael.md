@@ -533,3 +533,37 @@ Limitacoes obrigatorias:
 - falta validacao visual ao vivo no Godot.
 
 A Base Idle Oficial V1 permanece aprovada e intacta.
+
+## Rig Assembly V1 - Front Right
+
+Em 2026-06-19, as partes separadas `front_right` foram montadas tecnicamente no laboratorio de rig 2D.
+
+Arquivos principais:
+
+- `res://scenes/rig/AntonioRafaelRigLab.tscn`;
+- `res://assets/characters/antonio_rafael/rig/rig_assembly_manifest.json`;
+- `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_assembly_v1_preview.png`.
+
+Status:
+
+- material tecnico **APROVADO PARCIALMENTE** como `Rig Assembly V1`;
+- nao e arte final;
+- nao e animacao;
+- nao e walk cycle;
+- nao substitui o Player oficial.
+
+Partes usadas:
+
+- obrigatorias: cabeca, pescoco, tronco base, colete, mochila, bracos, antebracos, maos, quadril, coxas, canelas e botas;
+- opcionais: oculos, cinto, patch de Goias e divisa de sargento;
+- rejeitadas: radio e coldre.
+
+Limitacoes:
+
+- `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual;
+- a recomposicao e tecnica e deve ser validada visualmente antes de qualquer animacao futura.
+- o preview e material de validacao humana, nao asset final;
+- a validacao foi estatica porque Godot nao estava no PATH;
+- nenhuma animacao oficial ou walk cycle foi criado.
+
+A Base Idle Oficial V1 permanece preservada como referencia visual mestre.

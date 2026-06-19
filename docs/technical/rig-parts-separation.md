@@ -189,3 +189,17 @@ Auditoria executada em 2026-06-19:
 ## Proxima Etapa
 
 Proxima etapa recomendada: refinamento manual das partes marcadas com limitacao e validacao visual ao vivo no Godot, ainda dentro do laboratorio de rig. Somente depois disso uma feature futura pode montar/articular o rig e testar movimento em laboratorio antes de qualquer exportacao final de walk cycle.
+
+## Uso Pela Rig Assembly V1
+
+Em 2026-06-19, a feature `006-rig-assembly-v1` usou estas partes como entrada para a primeira montagem tecnica do rig.
+
+Artefatos gerados pela montagem:
+
+- `res://assets/characters/antonio_rafael/rig/rig_assembly_manifest.json`;
+- `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_assembly_v1_preview.png`;
+- atualizacao de `res://scenes/rig/AntonioRafaelRigLab.tscn`.
+
+A montagem nao altera as partes PNG criadas na separacao. As limitacoes de `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` continuam validas.
+
+Decisao posterior: a Rig Assembly V1 foi **APROVADA PARCIALMENTE** como montagem tecnica inicial de laboratorio. Essa aprovacao nao transforma as partes separadas em arte final e nao autoriza uso runtime no Player.
