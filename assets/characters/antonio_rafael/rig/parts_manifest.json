@@ -1,0 +1,656 @@
+{
+  "character": "SGT Antonio Rafael",
+  "feature": "005-rig-parts-separation",
+  "primary_direction": "front_right",
+  "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+  "created": "2026-06-19",
+  "status": "pending_human_validation",
+  "base_references": [
+    "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front.png",
+    "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_back.png",
+    "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_left.png",
+    "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_right.png",
+    "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_left.png",
+    "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+    "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_back_left.png",
+    "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_back_right.png"
+  ],
+  "canvas_registration": "All created parts use a registered 128x128 canvas so they can be alpha-composited at origin to reconstruct the source pose.",
+  "recomposition_preview": "res://assets/characters/antonio_rafael/rig/assembled/front_right_recomposition.png",
+  "human_preview": "res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_parts_preview.png",
+  "parts": [
+    {
+      "name": "head",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/head.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        44,
+        8,
+        81,
+        43
+      ],
+      "suggested_pivot": {
+        "x": 62,
+        "y": 38,
+        "anchor": "base do pescoco"
+      },
+      "usage_note": "Cabeca extraida da referencia front_right; inclui rosto, cabelo e oculos na camada base.",
+      "visual_dependency": [
+        "neck",
+        "glasses"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "neck",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/neck.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        55,
+        34,
+        73,
+        48
+      ],
+      "suggested_pivot": {
+        "x": 63,
+        "y": 41,
+        "anchor": "centro"
+      },
+      "usage_note": "Pescoco parcialmente coberto por cabeca/colete; usar como junta tecnica inicial.",
+      "visual_dependency": [
+        "head",
+        "torso_base"
+      ],
+      "status": "needs_manual_refinement"
+    },
+    {
+      "name": "torso_base",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/torso_base.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        42,
+        35,
+        87,
+        92
+      ],
+      "suggested_pivot": {
+        "x": 64,
+        "y": 40,
+        "anchor": "centro superior do torso"
+      },
+      "usage_note": "Base do tronco esta majoritariamente coberta pelo colete; camada tecnica registrada para encaixe.",
+      "visual_dependency": [
+        "vest",
+        "pelvis"
+      ],
+      "status": "needs_manual_refinement"
+    },
+    {
+      "name": "vest",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/vest.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        43,
+        38,
+        86,
+        89
+      ],
+      "suggested_pivot": {
+        "x": 64,
+        "y": 60,
+        "anchor": "centro do torso"
+      },
+      "usage_note": "Colete tatico preservado a partir dos pixels oficiais da direcao front_right.",
+      "visual_dependency": [
+        "torso_base",
+        "upper_arm_left",
+        "upper_arm_right"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "backpack",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/backpack.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        39,
+        25,
+        62,
+        76
+      ],
+      "suggested_pivot": {
+        "x": 48,
+        "y": 49,
+        "anchor": "centro de fixacao nas costas"
+      },
+      "usage_note": "Mochila aparece parcialmente atras do tronco/braco; separacao inicial preserva apenas area visivel.",
+      "visual_dependency": [
+        "torso_base",
+        "vest"
+      ],
+      "status": "needs_manual_refinement"
+    },
+    {
+      "name": "upper_arm_left",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/upper_arm_left.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        39,
+        42,
+        56,
+        74
+      ],
+      "suggested_pivot": {
+        "x": 48,
+        "y": 45,
+        "anchor": "ombro esquerdo"
+      },
+      "usage_note": "Braco superior esquerdo extraido com margem para rotacao no ombro.",
+      "visual_dependency": [
+        "vest",
+        "forearm_left"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "upper_arm_right",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/upper_arm_right.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        73,
+        42,
+        88,
+        72
+      ],
+      "suggested_pivot": {
+        "x": 80,
+        "y": 45,
+        "anchor": "ombro direito"
+      },
+      "usage_note": "Braco superior direito extraido com margem para rotacao no ombro.",
+      "visual_dependency": [
+        "vest",
+        "forearm_right"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "forearm_left",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/forearm_left.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        42,
+        63,
+        57,
+        90
+      ],
+      "suggested_pivot": {
+        "x": 48,
+        "y": 65,
+        "anchor": "cotovelo esquerdo"
+      },
+      "usage_note": "Antebraco esquerdo usa pixels oficiais e preserva a manga.",
+      "visual_dependency": [
+        "upper_arm_left",
+        "hand_left"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "forearm_right",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/forearm_right.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        73,
+        62,
+        88,
+        86
+      ],
+      "suggested_pivot": {
+        "x": 81,
+        "y": 65,
+        "anchor": "cotovelo direito"
+      },
+      "usage_note": "Antebraco direito usa pixels oficiais e preserva a manga.",
+      "visual_dependency": [
+        "upper_arm_right",
+        "hand_right"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "hand_left",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/hand_left.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        47,
+        78,
+        58,
+        97
+      ],
+      "suggested_pivot": {
+        "x": 49,
+        "y": 82,
+        "anchor": "punho esquerdo"
+      },
+      "usage_note": "Mao esquerda preserva tom de pele e encaixe no punho.",
+      "visual_dependency": [
+        "forearm_left"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "hand_right",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/hand_right.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        72,
+        78,
+        81,
+        97
+      ],
+      "suggested_pivot": {
+        "x": 81,
+        "y": 82,
+        "anchor": "punho direito"
+      },
+      "usage_note": "Mao direita preserva tom de pele e encaixe no punho.",
+      "visual_dependency": [
+        "forearm_right"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "pelvis",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/pelvis.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        49,
+        76,
+        80,
+        102
+      ],
+      "suggested_pivot": {
+        "x": 64,
+        "y": 87,
+        "anchor": "centro do quadril"
+      },
+      "usage_note": "Quadril/pelvis parcialmente coberto por colete e pernas; camada inicial para encaixe.",
+      "visual_dependency": [
+        "torso_base",
+        "thigh_left",
+        "thigh_right"
+      ],
+      "status": "needs_manual_refinement"
+    },
+    {
+      "name": "thigh_left",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/thigh_left.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        47,
+        85,
+        63,
+        115
+      ],
+      "suggested_pivot": {
+        "x": 55,
+        "y": 88,
+        "anchor": "quadril esquerdo"
+      },
+      "usage_note": "Coxa esquerda com margem para articulacao no quadril.",
+      "visual_dependency": [
+        "pelvis",
+        "shin_left"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "thigh_right",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/thigh_right.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        67,
+        86,
+        83,
+        115
+      ],
+      "suggested_pivot": {
+        "x": 73,
+        "y": 88,
+        "anchor": "quadril direito"
+      },
+      "usage_note": "Coxa direita com margem para articulacao no quadril.",
+      "visual_dependency": [
+        "pelvis",
+        "shin_right"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "shin_left",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/shin_left.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        48,
+        101,
+        61,
+        124
+      ],
+      "suggested_pivot": {
+        "x": 55,
+        "y": 103,
+        "anchor": "joelho esquerdo"
+      },
+      "usage_note": "Canela/perna esquerda extraida para futura articulacao no joelho.",
+      "visual_dependency": [
+        "thigh_left",
+        "boot_left"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "shin_right",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/shin_right.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        68,
+        101,
+        85,
+        116
+      ],
+      "suggested_pivot": {
+        "x": 75,
+        "y": 103,
+        "anchor": "joelho direito"
+      },
+      "usage_note": "Canela/perna direita extraida para futura articulacao no joelho.",
+      "visual_dependency": [
+        "thigh_right",
+        "boot_right"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "boot_left",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/boot_left.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        48,
+        113,
+        61,
+        124
+      ],
+      "suggested_pivot": {
+        "x": 55,
+        "y": 116,
+        "anchor": "tornozelo esquerdo"
+      },
+      "usage_note": "Bota esquerda preservada em preto/chumbo, com margem para giro no tornozelo.",
+      "visual_dependency": [
+        "shin_left"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "boot_right",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/boot_right.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        74,
+        113,
+        85,
+        116
+      ],
+      "suggested_pivot": {
+        "x": 76,
+        "y": 116,
+        "anchor": "tornozelo direito"
+      },
+      "usage_note": "Bota direita preservada em preto/chumbo, com margem para giro no tornozelo.",
+      "visual_dependency": [
+        "shin_right"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "glasses",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/glasses.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        51,
+        20,
+        78,
+        31
+      ],
+      "suggested_pivot": {
+        "x": 64,
+        "y": 25,
+        "anchor": "centro dos oculos"
+      },
+      "usage_note": "Oculos separados como detalhe opcional para refinamento facial.",
+      "visual_dependency": [
+        "head"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "belt",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/belt.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        49,
+        75,
+        81,
+        91
+      ],
+      "suggested_pivot": {
+        "x": 64,
+        "y": 82,
+        "anchor": "centro do cinto"
+      },
+      "usage_note": "Cinto/ponto de transicao torso-quadril separado como opcional.",
+      "visual_dependency": [
+        "pelvis",
+        "vest"
+      ],
+      "status": "ready_for_rig_lab"
+    },
+    {
+      "name": "goias_patch",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/goias_patch.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        39,
+        48,
+        53,
+        63
+      ],
+      "suggested_pivot": {
+        "x": 45,
+        "y": 55,
+        "anchor": "centro do patch"
+      },
+      "usage_note": "Patch de Goias pequeno e parcialmente integrado a manga; preservado como opcional visivel.",
+      "visual_dependency": [
+        "upper_arm_left"
+      ],
+      "status": "needs_manual_refinement"
+    },
+    {
+      "name": "sergeant_chevron",
+      "path": "res://assets/characters/antonio_rafael/rig/parts/front_right/sergeant_chevron.png",
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": {
+        "width": 128,
+        "height": 128
+      },
+      "content_bbox": [
+        75,
+        48,
+        88,
+        65
+      ],
+      "suggested_pivot": {
+        "x": 81,
+        "y": 56,
+        "anchor": "centro da divisa"
+      },
+      "usage_note": "Divisa muito pequena/oculta na direcao; separacao inicial para auditoria visual.",
+      "visual_dependency": [
+        "upper_arm_right"
+      ],
+      "status": "needs_manual_refinement"
+    },
+    {
+      "name": "radio",
+      "path": null,
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": null,
+      "content_bbox": null,
+      "suggested_pivot": null,
+      "usage_note": "Nao ha radio legivel na direcao front_right aprovada; opcional rejeitado para evitar inventar detalhe.",
+      "visual_dependency": [],
+      "status": "rejected"
+    },
+    {
+      "name": "holster",
+      "path": null,
+      "source_direction": "front_right",
+      "source_sprite": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+      "size": null,
+      "content_bbox": null,
+      "suggested_pivot": null,
+      "usage_note": "Nao ha coldre legivel sem risco de parecer arma funcional; opcional rejeitado nesta rodada.",
+      "visual_dependency": [],
+      "status": "rejected"
+    }
+  ],
+  "known_limitations": [
+    "torso_base, pelvis, neck and backpack are partially hidden by visible equipment in the front_right idle and need manual refinement before final animation.",
+    "goias_patch and sergeant_chevron are tiny in 128x128 and should be reviewed manually before being used as independent animated parts.",
+    "radio and holster were not separated because they are not legible enough in the approved front_right reference without inventing detail.",
+    "This is a production rig-parts candidate, not an approved runtime asset and not an animation."
+  ],
+  "validation": {
+    "expected_required_parts": 18,
+    "created_required_parts": 18,
+    "created_optional_parts": [
+      "glasses",
+      "belt",
+      "goias_patch",
+      "sergeant_chevron"
+    ],
+    "rejected_optional_parts": [
+      "radio",
+      "holster"
+    ]
+  }
+}

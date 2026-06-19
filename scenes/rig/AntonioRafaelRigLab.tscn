@@ -1,28 +1,140 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="Script" path="res://scripts/rig/rig_preview_controller.gd" id="1_preview"]
-[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_left.png" id="2_idle_left"]
-[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front.png" id="3_idle_front"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png" id="2_idle_front_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/assembled/front_right_recomposition.png" id="3_recomposition"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/head.png" id="4_head"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/neck.png" id="5_neck"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/torso_base.png" id="6_torso"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/vest.png" id="7_vest"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/backpack.png" id="8_backpack"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/upper_arm_left.png" id="9_upper_arm_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/upper_arm_right.png" id="10_upper_arm_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/forearm_left.png" id="11_forearm_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/forearm_right.png" id="12_forearm_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/hand_left.png" id="13_hand_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/hand_right.png" id="14_hand_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/pelvis.png" id="15_pelvis"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/thigh_left.png" id="16_thigh_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/thigh_right.png" id="17_thigh_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/shin_left.png" id="18_shin_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/shin_right.png" id="19_shin_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/boot_left.png" id="20_boot_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/boot_right.png" id="21_boot_right"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/glasses.png" id="22_glasses"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/belt.png" id="23_belt"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/goias_patch.png" id="24_goias_patch"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/rig/parts/front_right/sergeant_chevron.png" id="25_sergeant_chevron"]
 
 [node name="AntonioRafaelRigLab" type="Node2D"]
 script = ExtResource("1_preview")
 
 [node name="ReferenceLayer" type="Node2D" parent="."]
 
-[node name="IdleLeftReference" type="Sprite2D" parent="ReferenceLayer"]
-position = Vector2(-96, 0)
+[node name="IdleFrontRightReference" type="Sprite2D" parent="ReferenceLayer"]
+position = Vector2(-160, 0)
 texture_filter = 1
-modulate = Color(1, 1, 1, 0.65)
-texture = ExtResource("2_idle_left")
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("2_idle_front_right")
 
-[node name="IdleFrontReference" type="Sprite2D" parent="ReferenceLayer"]
+[node name="RecompositionReference" type="Sprite2D" parent="ReferenceLayer"]
 position = Vector2(-32, 0)
 texture_filter = 1
-modulate = Color(1, 1, 1, 0.35)
-texture = ExtResource("3_idle_front")
+modulate = Color(1, 1, 1, 0.86)
+texture = ExtResource("3_recomposition")
 
 [node name="RigRoot" type="Node2D" parent="."]
-position = Vector2(56, 0)
+position = Vector2(96, 0)
+
+[node name="RecomposedParts" type="Node2D" parent="RigRoot"]
+
+[node name="Backpack" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("8_backpack")
+
+[node name="TorsoBase" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("6_torso")
+
+[node name="Neck" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("5_neck")
+
+[node name="Pelvis" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("15_pelvis")
+
+[node name="ThighLeft" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("16_thigh_left")
+
+[node name="ThighRight" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("17_thigh_right")
+
+[node name="ShinLeft" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("18_shin_left")
+
+[node name="ShinRight" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("19_shin_right")
+
+[node name="BootLeft" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("20_boot_left")
+
+[node name="BootRight" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("21_boot_right")
+
+[node name="UpperArmLeft" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("9_upper_arm_left")
+
+[node name="UpperArmRight" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("10_upper_arm_right")
+
+[node name="Vest" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("7_vest")
+
+[node name="ForearmLeft" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("11_forearm_left")
+
+[node name="ForearmRight" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("12_forearm_right")
+
+[node name="HandLeft" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("13_hand_left")
+
+[node name="HandRight" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("14_hand_right")
+
+[node name="Head" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("4_head")
+
+[node name="Glasses" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("22_glasses")
+
+[node name="Belt" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("23_belt")
+
+[node name="GoiasPatch" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("24_goias_patch")
+
+[node name="SergeantChevron" type="Sprite2D" parent="RigRoot/RecomposedParts"]
+texture_filter = 1
+texture = ExtResource("25_sergeant_chevron")
 
 [node name="Skeleton2D" type="Skeleton2D" parent="RigRoot"]
 
@@ -35,70 +147,76 @@ position = Vector2(0, -18)
 [node name="Torso" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips"]
 position = Vector2(0, -32)
 
-[node name="Neck" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
+[node name="NeckBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
 position = Vector2(0, -22)
 
-[node name="Head" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/Neck"]
+[node name="HeadBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/NeckBone"]
 position = Vector2(0, -13)
 
-[node name="Backpack" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
+[node name="BackpackBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
 position = Vector2(10, -6)
 
-[node name="UpperArmLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
+[node name="UpperArmLeftBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
 position = Vector2(-8, -13)
 
-[node name="ForearmLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmLeft"]
+[node name="ForearmLeftBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmLeftBone"]
 position = Vector2(-4, 18)
 
-[node name="HandLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmLeft/ForearmLeft"]
+[node name="HandLeftBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmLeftBone/ForearmLeftBone"]
 position = Vector2(-2, 15)
 
-[node name="UpperArmRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
+[node name="UpperArmRightBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
 position = Vector2(8, -13)
 
-[node name="ForearmRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmRight"]
+[node name="ForearmRightBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmRightBone"]
 position = Vector2(4, 18)
 
-[node name="HandRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmRight/ForearmRight"]
+[node name="HandRightBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmRightBone/ForearmRightBone"]
 position = Vector2(2, 15)
 
-[node name="ThighLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips"]
+[node name="ThighLeftBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips"]
 position = Vector2(-5, 14)
 
-[node name="ShinLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighLeft"]
+[node name="ShinLeftBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighLeftBone"]
 position = Vector2(-4, 23)
 
-[node name="BootLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighLeft/ShinLeft"]
+[node name="BootLeftBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighLeftBone/ShinLeftBone"]
 position = Vector2(-7, 19)
 
-[node name="ThighRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips"]
+[node name="ThighRightBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips"]
 position = Vector2(5, 14)
 
-[node name="ShinRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighRight"]
+[node name="ShinRightBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighRightBone"]
 position = Vector2(4, 23)
 
-[node name="BootRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighRight/ShinRight"]
+[node name="BootRightBone" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighRightBone/ShinRightBone"]
 position = Vector2(7, 19)
 
-[node name="PartMarkers" type="Node2D" parent="RigRoot"]
+[node name="PivotMarkers" type="Node2D" parent="RigRoot"]
 
-[node name="HeadMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
-position = Vector2(0, -58)
+[node name="HeadPivot" type="Marker2D" parent="RigRoot/PivotMarkers"]
+position = Vector2(-2, -26)
 
-[node name="TorsoMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
-position = Vector2(0, -26)
+[node name="TorsoPivot" type="Marker2D" parent="RigRoot/PivotMarkers"]
+position = Vector2(0, -24)
 
-[node name="BackpackMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
-position = Vector2(14, -25)
+[node name="BackpackPivot" type="Marker2D" parent="RigRoot/PivotMarkers"]
+position = Vector2(-16, -15)
 
-[node name="LeftBootMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
-position = Vector2(-12, 58)
+[node name="LeftShoulderPivot" type="Marker2D" parent="RigRoot/PivotMarkers"]
+position = Vector2(-16, -19)
 
-[node name="RightBootMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
-position = Vector2(12, 58)
+[node name="RightShoulderPivot" type="Marker2D" parent="RigRoot/PivotMarkers"]
+position = Vector2(16, -19)
+
+[node name="LeftHipPivot" type="Marker2D" parent="RigRoot/PivotMarkers"]
+position = Vector2(-9, 24)
+
+[node name="RightHipPivot" type="Marker2D" parent="RigRoot/PivotMarkers"]
+position = Vector2(9, 24)
 
 [node name="ExportFrame128" type="Line2D" parent="."]
-points = PackedVector2Array(-8, -64, 120, -64, 120, 64, -8, 64, -8, -64)
+points = PackedVector2Array(-224, -64, -96, -64, -96, 64, -224, 64, -224, -64, -96, -64, 32, -64, 32, 64, -96, 64, -96, -64, 32, -64, 160, -64, 160, 64, 32, 64, 32, -64)
 width = 1.0
 default_color = Color(0.2, 0.75, 1, 0.65)
 

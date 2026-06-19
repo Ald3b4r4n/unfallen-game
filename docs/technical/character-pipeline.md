@@ -324,3 +324,37 @@ Fluxo atualizado:
 Documento dedicado:
 
 - `res://docs/technical/rig-pipeline.md`
+
+## Separacao de Partes do Rig - Feature 005
+
+A feature `005-rig-parts-separation` preparou a primeira base de partes visuais controlaveis do SGT Antonio Rafael.
+
+Direcao usada:
+
+```txt
+front_right
+```
+
+Arquivos principais:
+
+- `res://assets/characters/antonio_rafael/rig/parts/front_right/`
+- `res://assets/characters/antonio_rafael/rig/parts_manifest.json`
+- `res://assets/characters/antonio_rafael/rig/assembled/front_right_recomposition.png`
+- `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_parts_preview.png`
+
+Estado:
+
+- partes tecnicas **APROVADAS PARCIALMENTE** como `Rig Parts Separation V1`;
+- Base Idle Oficial V1 preservada;
+- Player oficial nao alterado;
+- nenhum walk cycle final criado;
+- nenhuma animacao integrada ao Player.
+
+Escopo da aprovacao parcial:
+
+- autorizada como base tecnica inicial para laboratorio, estudo de separacao, preparacao de esqueleto/armacao e referencia de refinamento manual;
+- nao autorizada como arte final, animacao final, walk cycle oficial, asset final de gameplay ou substituto do Player runtime.
+
+Limitacoes registradas: `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual. `radio` e `holster` permanecem rejeitados no manifesto por baixa legibilidade.
+
+A proxima etapa recomendada e refinar manualmente as partes limitadas e validar visualmente no Godot antes de qualquer animacao futura.

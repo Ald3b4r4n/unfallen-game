@@ -199,3 +199,49 @@ Observacoes:
 - O Player deve continuar usando sprites finais `128x128` via `Sprite2D` e `AnimationPlayer`.
 - Nenhum walk cycle final novo foi gerado nesta execucao.
 - Qualquer exportacao futura precisa de validacao humana antes de virar animacao oficial.
+
+## Separacao de Partes do Rig - Feature 005
+
+**Data**: 2026-06-19  
+**Direcao primaria**: `front_right`  
+**Status**: APROVADA PARCIALMENTE como `Rig Parts Separation V1`  
+**Origem visual**: Base Idle Oficial V1 aprovada
+
+| Asset | Descricao | Origem | Status |
+|---|---|---|---|
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/head.png` | Parte cabeca | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/neck.png` | Parte pescoco | `antonio_rafael_idle_front_right.png` | Criado / precisa refinamento |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/torso_base.png` | Parte tronco base | `antonio_rafael_idle_front_right.png` | Criado / precisa refinamento |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/vest.png` | Parte colete | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/backpack.png` | Parte mochila | `antonio_rafael_idle_front_right.png` | Criado / precisa refinamento |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/upper_arm_left.png` | Braco superior esquerdo | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/upper_arm_right.png` | Braco superior direito | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/forearm_left.png` | Antebraco esquerdo | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/forearm_right.png` | Antebraco direito | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/hand_left.png` | Mao esquerda | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/hand_right.png` | Mao direita | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/pelvis.png` | Quadril/pelvis | `antonio_rafael_idle_front_right.png` | Criado / precisa refinamento |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/thigh_left.png` | Coxa esquerda | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/thigh_right.png` | Coxa direita | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/shin_left.png` | Perna/canela esquerda | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/shin_right.png` | Perna/canela direita | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/boot_left.png` | Bota esquerda | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/boot_right.png` | Bota direita | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/glasses.png` | Oculos opcional | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/belt.png` | Cinto opcional | `antonio_rafael_idle_front_right.png` | Criado / laboratorio |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/goias_patch.png` | Patch de Goias opcional | `antonio_rafael_idle_front_right.png` | Criado / precisa refinamento |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/sergeant_chevron.png` | Divisa de sargento opcional | `antonio_rafael_idle_front_right.png` | Criado / precisa refinamento |
+| `res://assets/characters/antonio_rafael/rig/parts_manifest.json` | Manifesto de partes e pivos | Gerado localmente a partir das partes | Criado |
+| `res://assets/characters/antonio_rafael/rig/assembled/front_right_recomposition.png` | Recomposicao aproximada | Montagem local das partes | Criado |
+| `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_parts_preview.png` | Preview humano com labels externos | Montagem local para revisao | Criado |
+
+Observacoes:
+
+- Os PNGs individuais das partes nao possuem labels.
+- `radio` e `holster` nao foram criados porque nao estao legiveis na referencia `front_right` e permanecem rejeitados no manifesto.
+- `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual antes de virar base final de animacao.
+- A aprovacao parcial autoriza uso como base tecnica inicial de laboratorio, estudo de separacao e referencia para refinamento manual.
+- A aprovacao parcial nao autoriza arte final, animacao final, walk cycle oficial, asset final de gameplay ou substituicao do Player runtime.
+- A validacao foi estatica; ainda falta validacao visual ao vivo no Godot.
+- O Player oficial nao foi alterado.
+- Os idles aprovados nao foram alterados.

@@ -481,3 +481,55 @@ Estado do Player apos esta decisao:
 - nenhuma Walk V1, V2, V3 ou candidata manual esta ativa como animacao oficial;
 - nenhuma nova walk cycle final foi gerada nesta execucao;
 - nenhuma nova caminhada foi integrada no Godot.
+
+## Separacao de Partes do Rig Tecnico 2D - Front Right
+
+Em 2026-06-19, foi criada uma primeira separacao tecnica do SGT Antonio Rafael em partes visuais controlaveis para laboratorio de rig 2D.
+
+Referencia mestre:
+
+- `res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png`
+
+Partes obrigatorias criadas:
+
+- cabeca, pescoco, tronco base, colete, mochila;
+- bracos, antebracos e maos;
+- quadril, coxas, pernas/canelas e botas.
+
+Partes opcionais criadas:
+
+- oculos;
+- cinto;
+- patch da bandeira de Goias;
+- divisa de sargento.
+
+Partes opcionais rejeitadas nesta direcao:
+
+- radio;
+- coldre.
+
+Motivo da rejeicao dos opcionais: baixa legibilidade no idle `front_right` aprovado e risco de inventar detalhe visual.
+
+Status:
+
+- material tecnico **APROVADO PARCIALMENTE** como `Rig Parts Separation V1`;
+- nao e animacao;
+- nao e walk cycle;
+- nao substitui o Player oficial.
+
+Escopo autorizado da aprovacao parcial:
+
+- laboratorio de rig tecnico;
+- estudo de separacao de partes;
+- preparacao para futura montagem de esqueleto/armacao;
+- referencia para refinamento manual.
+
+Limitacoes obrigatorias:
+
+- `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual antes de virar base final de animacao;
+- `radio` e `holster` foram rejeitados no manifesto por baixa legibilidade na pose `front_right`;
+- a recomposicao e tecnica, nao arte final;
+- o rig ainda nao esta animado;
+- falta validacao visual ao vivo no Godot.
+
+A Base Idle Oficial V1 permanece aprovada e intacta.

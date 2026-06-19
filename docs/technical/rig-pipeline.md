@@ -93,3 +93,37 @@ Cada parte deve preservar rosto, oculos, cabelo, tom de pele, uniforme cinza/chu
 Preparar as partes do rig a partir da Base Idle Oficial V1 e validar uma animacao lateral em laboratorio antes de qualquer nova tentativa completa de 8 direcoes.
 
 Nao gerar walk final, nao integrar no Player e nao fazer commit/push sem nova decisao humana.
+
+## Separacao de Partes - Feature 005
+
+Em 2026-06-19, foi executada a primeira separacao tecnica de partes do SGT Antonio Rafael para rig 2D, usando a direcao primaria `front_right`.
+
+Referencias e resultados:
+
+- referencia mestre: `res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png`;
+- partes criadas: `res://assets/characters/antonio_rafael/rig/parts/front_right/`;
+- manifesto: `res://assets/characters/antonio_rafael/rig/parts_manifest.json`;
+- recomposicao: `res://assets/characters/antonio_rafael/rig/assembled/front_right_recomposition.png`;
+- preview humano: `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_parts_preview.png`;
+- documentacao dedicada: `res://docs/technical/rig-parts-separation.md`.
+
+Decisao humana posterior: as partes estao **APROVADAS PARCIALMENTE** como `Rig Parts Separation V1`.
+
+Uso permitido:
+
+- base tecnica inicial para laboratorio de rig;
+- estudo de separacao de partes;
+- preparacao para futura montagem de esqueleto/armacao;
+- referencia para refinamento manual.
+
+Uso proibido:
+
+- arte final;
+- animacao final;
+- walk cycle oficial;
+- asset final de gameplay;
+- substituto do Player runtime.
+
+Limitacoes registradas: `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual; `radio` e `holster` foram rejeitados no manifesto por baixa legibilidade em `front_right`.
+
+As partes sao materiais de producao para laboratorio e nao substituem o Player oficial.
