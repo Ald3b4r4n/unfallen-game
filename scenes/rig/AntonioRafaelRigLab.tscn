@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/rig/rig_preview_controller.gd" id="1_preview"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_left.png" id="2_idle_left"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front.png" id="3_idle_front"]
+
+[node name="AntonioRafaelRigLab" type="Node2D"]
+script = ExtResource("1_preview")
+
+[node name="ReferenceLayer" type="Node2D" parent="."]
+
+[node name="IdleLeftReference" type="Sprite2D" parent="ReferenceLayer"]
+position = Vector2(-96, 0)
+texture_filter = 1
+modulate = Color(1, 1, 1, 0.65)
+texture = ExtResource("2_idle_left")
+
+[node name="IdleFrontReference" type="Sprite2D" parent="ReferenceLayer"]
+position = Vector2(-32, 0)
+texture_filter = 1
+modulate = Color(1, 1, 1, 0.35)
+texture = ExtResource("3_idle_front")
+
+[node name="RigRoot" type="Node2D" parent="."]
+position = Vector2(56, 0)
+
+[node name="Skeleton2D" type="Skeleton2D" parent="RigRoot"]
+
+[node name="Root" type="Bone2D" parent="RigRoot/Skeleton2D"]
+position = Vector2(0, 28)
+
+[node name="Hips" type="Bone2D" parent="RigRoot/Skeleton2D/Root"]
+position = Vector2(0, -18)
+
+[node name="Torso" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips"]
+position = Vector2(0, -32)
+
+[node name="Neck" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
+position = Vector2(0, -22)
+
+[node name="Head" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/Neck"]
+position = Vector2(0, -13)
+
+[node name="Backpack" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
+position = Vector2(10, -6)
+
+[node name="UpperArmLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
+position = Vector2(-8, -13)
+
+[node name="ForearmLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmLeft"]
+position = Vector2(-4, 18)
+
+[node name="HandLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmLeft/ForearmLeft"]
+position = Vector2(-2, 15)
+
+[node name="UpperArmRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso"]
+position = Vector2(8, -13)
+
+[node name="ForearmRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmRight"]
+position = Vector2(4, 18)
+
+[node name="HandRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/Torso/UpperArmRight/ForearmRight"]
+position = Vector2(2, 15)
+
+[node name="ThighLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips"]
+position = Vector2(-5, 14)
+
+[node name="ShinLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighLeft"]
+position = Vector2(-4, 23)
+
+[node name="BootLeft" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighLeft/ShinLeft"]
+position = Vector2(-7, 19)
+
+[node name="ThighRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips"]
+position = Vector2(5, 14)
+
+[node name="ShinRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighRight"]
+position = Vector2(4, 23)
+
+[node name="BootRight" type="Bone2D" parent="RigRoot/Skeleton2D/Root/Hips/ThighRight/ShinRight"]
+position = Vector2(7, 19)
+
+[node name="PartMarkers" type="Node2D" parent="RigRoot"]
+
+[node name="HeadMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
+position = Vector2(0, -58)
+
+[node name="TorsoMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
+position = Vector2(0, -26)
+
+[node name="BackpackMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
+position = Vector2(14, -25)
+
+[node name="LeftBootMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
+position = Vector2(-12, 58)
+
+[node name="RightBootMarker" type="Marker2D" parent="RigRoot/PartMarkers"]
+position = Vector2(12, 58)
+
+[node name="ExportFrame128" type="Line2D" parent="."]
+points = PackedVector2Array(-8, -64, 120, -64, 120, 64, -8, 64, -8, -64)
+width = 1.0
+default_color = Color(0.2, 0.75, 1, 0.65)
+
+[node name="PreviewCamera" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
