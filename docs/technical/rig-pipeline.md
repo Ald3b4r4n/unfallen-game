@@ -176,4 +176,4 @@ Resultado:
 - nenhum walk cycle criado;
 - nenhum asset foi integrado ao Player.
 
-Antes de qualquer animacao controlada, ainda e necessario validar o resultado ao vivo no Godot.
+Atualizacao de validacao: a montagem refinada foi aberta no Godot e **APROVADA PARCIALMENTE** no marco `Validacao Visual Godot - Rig Refinement V1`. Esta aprovacao e somente visual estatica de laboratorio; algumas partes ainda podem precisar ajustes durante testes futuros de articulacao.

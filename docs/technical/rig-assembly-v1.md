@@ -221,3 +221,5 @@ Limitacoes ainda abertas:
 - `torso_base` e `pelvis` ainda precisam validacao visual ao vivo no Godot;
 - `goias_patch` e `sergeant_chevron` sao detalhes simbolicos por limite de escala;
 - o refinamento e tecnico de laboratorio, nao arte final.
+
+Validacao visual posterior: a cena `res://scenes/rig/AntonioRafaelRigLab.tscn` foi aberta no Godot e a montagem refinada foi **APROVADA PARCIALMENTE** como `Validacao Visual Godot - Rig Refinement V1`. A recomposicao mantem a silhueta geral, o personagem continua reconhecivel e a montagem e adequada para laboratorio tecnico, sem autorizar animacao, walk cycle ou Player runtime.

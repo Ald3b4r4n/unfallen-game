@@ -574,6 +574,16 @@ Em 2026-06-19, foi executado refinamento manual das partes criticas do rig tecni
 
 Decisao humana: **APROVADA PARCIALMENTE** como `Rig Refinement V1`, autorizada apenas como refinamento tecnico inicial de laboratorio e preparacao para validacao visual ao vivo no Godot.
 
+Marco visual posterior: a cena `res://scenes/rig/AntonioRafaelRigLab.tscn` foi aberta no Godot e aprovada parcialmente como `Validacao Visual Godot - Rig Refinement V1`.
+
+Observacoes aprovadas:
+
+- a recomposicao mantem a silhueta geral do personagem;
+- o personagem continua reconhecivel como SGT Antonio Rafael;
+- colete, uniforme, mochila e patch continuam legiveis;
+- a versao refinada esta aceitavel para continuidade do pipeline tecnico;
+- a montagem nao aparenta estar quebrada, fora de escala ou inutilizavel.
+
 Partes refinadas:
 
 - `neck.png`: melhor transicao entre cabeca e tronco, mantendo tom de pele.
@@ -599,6 +609,6 @@ Limitacoes:
 
 - o refinamento e tecnico, nao arte final;
 - detalhes pequenos continuam simbolicos em `128x128`;
-- falta validacao visual ao vivo no Godot;
+- a validacao atual e visual estatica no laboratorio, nao validacao de animacao;
 - o Player nao deve usar essas partes em runtime;
 - nenhuma animacao ou walk cycle foi criado.

@@ -413,6 +413,8 @@ Confirmacoes de escopo:
 - nenhum walk cycle foi criado;
 - nenhum sistema de gameplay foi alterado.
 
-Status: **APROVADA PARCIALMENTE** como `Rig Refinement V1`, refinamento tecnico de laboratorio ainda pendente de validacao visual ao vivo no Godot.
+Status: **APROVADA PARCIALMENTE** como `Rig Refinement V1`, com validacao visual estatica ao vivo realizada no Godot e testes de articulacao/animacao ainda pendentes.
 
 Auditoria: `Player.tscn` aparece no Git por alteracao pre-existente, com hash baseline `5AAEF2...`; nao ha referencia do rig dentro do Player, nao ha referencia a `walk_*` e nao houve alteracao de gameplay.
+
+Atualizacao de validacao visual: a cena `res://scenes/rig/AntonioRafaelRigLab.tscn` foi aberta no Godot e aprovada parcialmente como `Validacao Visual Godot - Rig Refinement V1`. A validacao confirma que a montagem nao aparenta estar quebrada, fora de escala ou inutilizavel, mas nao aprova arte final, animacao final, walk cycle ou asset final de gameplay.

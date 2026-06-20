@@ -176,6 +176,7 @@ Task: "T024 Refinar sergeant_chevron em assets/characters/antonio_rafael/rig/par
 
 **Data**: 2026-06-19  
 **Decisao**: Rig Refinement V1 APROVADA PARCIALMENTE como refinamento tecnico inicial de laboratorio.
+**Marco visual**: Validacao Visual Godot - Rig Refinement V1.
 
 Escopo aprovado parcialmente:
 
@@ -203,5 +204,7 @@ Auditoria:
 - nao ha referencia do rig dentro do Player;
 - nao ha referencia a `walk_*`;
 - nao houve alteracao de gameplay;
+- a cena `res://scenes/rig/AntonioRafaelRigLab.tscn` foi aberta e validada visualmente no Godot;
+- a validacao visual e estatica de laboratorio, nao validacao de animacao;
 - nao houve commit;
 - nao houve push.

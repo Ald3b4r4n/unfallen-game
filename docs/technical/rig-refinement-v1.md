@@ -12,6 +12,21 @@
 
 A feature **Rig Refinement V1** esta **APROVADA PARCIALMENTE** como refinamento tecnico inicial de laboratorio.
 
+Marco registrado: **Validacao Visual Godot - Rig Refinement V1**.
+
+A cena foi aberta e validada visualmente no Godot:
+
+```txt
+res://scenes/rig/AntonioRafaelRigLab.tscn
+```
+
+Resultado da validacao humana:
+
+```txt
+Status: APROVADO PARCIALMENTE
+Marco: Validacao Visual Godot - Rig Refinement V1
+```
+
 Esta aprovacao autoriza somente:
 
 - refinamento tecnico das partes criticas;
@@ -27,6 +42,17 @@ Esta aprovacao nao autoriza:
 - asset final de gameplay;
 - substituto do Player runtime;
 - base definitiva sem validacao visual.
+
+## Observacoes Visuais Aprovadas
+
+Durante a validacao visual ao vivo no Godot, foi registrado que:
+
+- a recomposicao mantem a silhueta geral do personagem;
+- o personagem continua reconhecivel como SGT Antonio Rafael;
+- colete, uniforme, mochila e patch continuam legiveis;
+- a versao refinada esta aceitavel para continuidade do pipeline tecnico;
+- o resultado e adequado para laboratorio de rig;
+- a montagem nao aparenta estar quebrada, fora de escala ou inutilizavel.
 
 ## Objetivo
 
@@ -143,7 +169,7 @@ Labels existem somente no preview. Os PNGs individuais nao possuem labels ou tex
 
 ## Validacao Godot
 
-Godot nao foi executado nesta rodada. A validacao visual ao vivo de `res://scenes/rig/AntonioRafaelRigLab.tscn` permanece pendente.
+Godot foi usado para validacao visual humana ao vivo desta rodada. A cena `res://scenes/rig/AntonioRafaelRigLab.tscn` foi aberta e aprovada parcialmente como laboratorio tecnico. Esta validacao e visual estatica da montagem; ela nao valida animacao.
 
 ## Escopo Preservado
 
