@@ -203,3 +203,35 @@ Artefatos gerados pela montagem:
 A montagem nao altera as partes PNG criadas na separacao. As limitacoes de `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` continuam validas.
 
 Decisao posterior: a Rig Assembly V1 foi **APROVADA PARCIALMENTE** como montagem tecnica inicial de laboratorio. Essa aprovacao nao transforma as partes separadas em arte final e nao autoriza uso runtime no Player.
+
+## Rig Refinement V1 - Feature 007
+
+Em 2026-06-19, as partes criticas abaixo foram refinadas manualmente com backup nao destrutivo:
+
+- `neck`;
+- `torso_base`;
+- `backpack`;
+- `pelvis`;
+- `goias_patch`;
+- `sergeant_chevron`.
+
+Backups preservados:
+
+```txt
+res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/
+```
+
+Os arquivos refinados continuam nos caminhos canonicos de `front_right/`, para preservar compatibilidade com a Rig Assembly V1. `goias_patch` e `sergeant_chevron` foram tratados como detalhes simbolicos em escala `128x128`, sem texto literal ou labels.
+
+Status apos refinamento:
+
+- `neck`: `refined_for_rig_v1`;
+- `torso_base`: `needs_minor_adjustment`;
+- `backpack`: `refined_for_rig_v1`;
+- `pelvis`: `needs_minor_adjustment`;
+- `goias_patch`: `symbolic_detail`;
+- `sergeant_chevron`: `symbolic_detail`.
+
+O refinamento foi **APROVADO PARCIALMENTE** como `Rig Refinement V1`. Ele nao cria animacao, nao cria walk cycle, nao altera Player e nao altera sprites idle aprovados.
+
+Backups das seis partes foram criados e validados como PNG `128x128`, `RGBA`, com transparencia. `torso_base` e `pelvis` ainda precisam validacao visual ao vivo no Godot antes de qualquer animacao controlada.

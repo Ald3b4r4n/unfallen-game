@@ -7,7 +7,7 @@
   "scene": "res://scenes/rig/AntonioRafaelRigLab.tscn",
   "preview": "res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_assembly_v1_preview.png",
   "created": "2026-06-19",
-  "status": "pending_human_validation",
+  "status": "pending_human_validation_after_refinement",
   "assembly_strategy": "Node2D hierarchy with registered 128x128 part sprites; Sprite children offset by pivot so each part can rotate around its anatomical marker in future lab animation.",
   "placements": [
     {
@@ -49,8 +49,13 @@
         "x": 1,
         "y": 1
       },
-      "status": "needs_art_refinement",
-      "refinement_note": "Mounted for lab review; inherited visual limitation requires manual refinement before final animation."
+      "status": "refined_for_rig_v1",
+      "refinement_note": "Refinado para melhorar transicao cabeca-tronco, tom de pele e leitura anatomica simples; continua exigindo validacao visual humana antes de articulacao.",
+      "status_previous": "needs_art_refinement",
+      "backup_path": "res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/neck.png",
+      "pivot_change": "maintained",
+      "remaining_limitation": "validar encaixe fino ao rotacionar cabeca no laboratorio",
+      "refined_in_feature": "007-rig-refinement-v1"
     },
     {
       "name": "torso_base",
@@ -70,8 +75,13 @@
         "x": 1,
         "y": 1
       },
-      "status": "needs_art_refinement",
-      "refinement_note": "Mounted for lab review; inherited visual limitation requires manual refinement before final animation."
+      "status": "needs_minor_adjustment",
+      "refinement_note": "Refinado como camada tecnica sob colete, com volume de tronco mais limpo e menos ruido; permanece parcialmente coberto pela montagem.",
+      "status_previous": "needs_art_refinement",
+      "backup_path": "res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/torso_base.png",
+      "pivot_change": "maintained",
+      "remaining_limitation": "camada ainda depende do colete para leitura final e precisa validacao ao vivo no Godot",
+      "refined_in_feature": "007-rig-refinement-v1"
     },
     {
       "name": "vest",
@@ -112,8 +122,13 @@
         "x": 1,
         "y": 1
       },
-      "status": "needs_art_refinement",
-      "refinement_note": "Mounted for lab review; inherited visual limitation requires manual refinement before final animation."
+      "status": "refined_for_rig_v1",
+      "refinement_note": "Refinado para leitura mais clara de mochila tatica, com contorno, volume lateral e separacao de sombra/colete.",
+      "status_previous": "needs_art_refinement",
+      "backup_path": "res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/backpack.png",
+      "pivot_change": "maintained",
+      "remaining_limitation": "validar sobreposicao com ombro/braco em futura oscilacao",
+      "refined_in_feature": "007-rig-refinement-v1"
     },
     {
       "name": "upper_arm_left",
@@ -259,8 +274,13 @@
         "x": 1,
         "y": 1
       },
-      "status": "needs_art_refinement",
-      "refinement_note": "Mounted for lab review; inherited visual limitation requires manual refinement before final animation."
+      "status": "needs_minor_adjustment",
+      "refinement_note": "Refinado como centro tecnico do rig, melhorando ponte visual entre tronco e pernas e leitura de quadril.",
+      "status_previous": "needs_art_refinement",
+      "backup_path": "res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/pelvis.png",
+      "pivot_change": "maintained",
+      "remaining_limitation": "precisa teste de caminhada futura para confirmar amplitude sem deformacao",
+      "refined_in_feature": "007-rig-refinement-v1"
     },
     {
       "name": "thigh_left",
@@ -448,8 +468,13 @@
         "x": 1,
         "y": 1
       },
-      "status": "needs_art_refinement",
-      "refinement_note": "Mounted for lab review; inherited visual limitation requires manual refinement before final animation."
+      "status": "symbolic_detail",
+      "refinement_note": "Refinado como detalhe simbolico Goias/PMGO em verde, amarelo e azul, sem texto literal ou label externo.",
+      "status_previous": "needs_art_refinement",
+      "backup_path": "res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/goias_patch.png",
+      "pivot_change": "maintained",
+      "remaining_limitation": "detalhe e simbolico pela escala 128x128; nao tentar texto literal",
+      "refined_in_feature": "007-rig-refinement-v1"
     },
     {
       "name": "sergeant_chevron",
@@ -469,8 +494,13 @@
         "x": 1,
         "y": 1
       },
-      "status": "needs_art_refinement",
-      "refinement_note": "Mounted for lab review; inherited visual limitation requires manual refinement before final animation."
+      "status": "symbolic_detail",
+      "refinement_note": "Refinado como divisa simbolica simples de sargento, sem texto e sem label externo.",
+      "status_previous": "needs_art_refinement",
+      "backup_path": "res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/sergeant_chevron.png",
+      "pivot_change": "maintained",
+      "remaining_limitation": "detalhe e simbolico pela escala 128x128; validar legibilidade em movimento",
+      "refined_in_feature": "007-rig-refinement-v1"
     },
     {
       "name": "radio",
@@ -502,11 +532,11 @@
     }
   ],
   "known_limitations": [
-    "neck, torso_base, backpack and pelvis inherit partial occlusion from front_right source and need manual refinement before final animation.",
-    "goias_patch and sergeant_chevron are very small at 128x128 and need manual review before independent animation.",
-    "radio and holster remain rejected because they are not legible enough in the approved front_right reference.",
-    "Rig Assembly V1 is a production/laboratory artifact, not gameplay art and not an official animation.",
-    "The scene uses a technical hierarchy and pivot markers; no walk cycle or animation has been created."
+    "Rig Refinement V1 improves six critical parts but remains pending human validation.",
+    "torso_base and pelvis may need minor position/art adjustment after live Godot review.",
+    "goias_patch and sergeant_chevron are symbolic details, not literal readable text.",
+    "The scene remains a laboratory artifact and must not be used as Player runtime.",
+    "No walk cycle and no official animation were created."
   ],
   "validation": {
     "required_parts_expected": 18,
@@ -523,6 +553,41 @@
     ],
     "player_runtime_use": false,
     "official_animation_created": false,
-    "walk_cycle_created": false
-  }
+    "walk_cycle_created": false,
+    "refinement_v1": {
+      "critical_parts_refined": [
+        "neck",
+        "torso_base",
+        "backpack",
+        "pelvis",
+        "goias_patch",
+        "sergeant_chevron"
+      ],
+      "backup_directory": "res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/",
+      "preview": "res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_refinement_v1_preview.png",
+      "scene_paths_changed": false,
+      "player_runtime_use": false,
+      "official_animation_created": false,
+      "walk_cycle_created": false,
+      "human_validation_required": true
+    }
+  },
+  "feature_refinement": "007-rig-refinement-v1",
+  "refinement_preview": "res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_refinement_v1_preview.png",
+  "refinement_history": [
+    {
+      "feature": "007-rig-refinement-v1",
+      "date": "2026-06-19",
+      "parts": [
+        "neck",
+        "torso_base",
+        "backpack",
+        "pelvis",
+        "goias_patch",
+        "sergeant_chevron"
+      ],
+      "status": "pending_human_validation",
+      "note": "Scene paths remain canonical; no Player integration, no walk cycle and no official animation."
+    }
+  ]
 }

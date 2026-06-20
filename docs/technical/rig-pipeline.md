@@ -152,3 +152,28 @@ Escopo da aprovacao parcial:
 - nao autorizada como arte final, animacao final, walk cycle oficial, asset final de gameplay ou substituto do Player runtime.
 
 Auditoria: Player, scripts do Player e sprites idle aprovados permanecem sem alteracao por esta feature; a cena de rig referencia apenas assets do rig e o idle `front_right`.
+
+## Rig Refinement V1 - Feature 007
+
+Em 2026-06-19, foi executado o primeiro refinamento manual das partes criticas do rig `front_right`, seguindo a decisao "Rig Tecnico 2D primeiro, sprites finais depois".
+
+Fluxo aplicado:
+
+1. Validar Base Idle Oficial V1 e manifestos existentes.
+2. Criar backup nao destrutivo das partes criticas em `_backup_v1/`.
+3. Refinar `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron`.
+4. Atualizar `parts_manifest.json` e `rig_assembly_manifest.json`.
+5. Gerar preview humano de antes/depois.
+6. Registrar limitacoes e parar para validacao humana.
+
+Resultado:
+
+- refinamento tecnico criado;
+- aprovado parcialmente como `Rig Refinement V1`;
+- `goias_patch` e `sergeant_chevron` tratados como detalhes simbolicos;
+- laboratorio continua isolado;
+- nenhuma animacao oficial criada;
+- nenhum walk cycle criado;
+- nenhum asset foi integrado ao Player.
+
+Antes de qualquer animacao controlada, ainda e necessario validar o resultado ao vivo no Godot.

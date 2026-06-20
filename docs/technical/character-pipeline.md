@@ -378,3 +378,41 @@ Estado:
 Esta montagem e uma ponte tecnica entre separacao de partes e animacao futura. Ela nao substitui o Player e nao deve ser usada em runtime.
 
 Limitacoes registradas: `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual. A validacao foi estatica porque Godot nao estava no PATH; ainda falta validacao visual ao vivo no Godot.
+
+## Rig Refinement V1 - Front Right
+
+Em 2026-06-19, a feature `007-rig-refinement-v1` refinou manualmente partes criticas do rig tecnico:
+
+- `neck`;
+- `torso_base`;
+- `backpack`;
+- `pelvis`;
+- `goias_patch`;
+- `sergeant_chevron`.
+
+O refinamento usa a Base Idle Oficial V1 como referencia visual mestre e preserva a direcao `front_right`.
+
+Backups:
+
+```txt
+res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/
+```
+
+Preview:
+
+```txt
+res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_refinement_v1_preview.png
+```
+
+Confirmacoes de escopo:
+
+- Player oficial nao foi alterado por esta feature;
+- scripts do Player nao foram alterados;
+- sprites idle aprovados nao foram alterados;
+- nenhuma animacao oficial foi criada;
+- nenhum walk cycle foi criado;
+- nenhum sistema de gameplay foi alterado.
+
+Status: **APROVADA PARCIALMENTE** como `Rig Refinement V1`, refinamento tecnico de laboratorio ainda pendente de validacao visual ao vivo no Godot.
+
+Auditoria: `Player.tscn` aparece no Git por alteracao pre-existente, com hash baseline `5AAEF2...`; nao ha referencia do rig dentro do Player, nao ha referencia a `walk_*` e nao houve alteracao de gameplay.

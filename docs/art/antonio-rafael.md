@@ -567,3 +567,38 @@ Limitacoes:
 - nenhuma animacao oficial ou walk cycle foi criado.
 
 A Base Idle Oficial V1 permanece preservada como referencia visual mestre.
+
+## Rig Refinement V1 - Partes Criticas
+
+Em 2026-06-19, foi executado refinamento manual das partes criticas do rig tecnico `front_right`, sem alterar a Base Idle Oficial V1 e sem integrar nada ao Player.
+
+Decisao humana: **APROVADA PARCIALMENTE** como `Rig Refinement V1`, autorizada apenas como refinamento tecnico inicial de laboratorio e preparacao para validacao visual ao vivo no Godot.
+
+Partes refinadas:
+
+- `neck.png`: melhor transicao entre cabeca e tronco, mantendo tom de pele.
+- `torso_base.png`: volume tecnico de torso mais limpo sob o colete.
+- `backpack.png`: leitura mais clara de mochila tatica.
+- `pelvis.png`: centro do rig mais legivel para futura articulacao.
+- `goias_patch.png`: detalhe Goias/PMGO tratado como simbolo pequeno, sem texto literal.
+- `sergeant_chevron.png`: divisa tratada como marca simbolica simples, sem label.
+
+Backups preservados:
+
+```txt
+res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/
+```
+
+Preview de revisao:
+
+```txt
+res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_refinement_v1_preview.png
+```
+
+Limitacoes:
+
+- o refinamento e tecnico, nao arte final;
+- detalhes pequenos continuam simbolicos em `128x128`;
+- falta validacao visual ao vivo no Godot;
+- o Player nao deve usar essas partes em runtime;
+- nenhuma animacao ou walk cycle foi criado.

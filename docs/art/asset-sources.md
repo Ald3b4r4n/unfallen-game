@@ -270,3 +270,35 @@ Observacoes:
 - `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron` precisam refinamento manual antes de qualquer animacao final.
 - A validacao foi estatica porque Godot nao estava no PATH; ainda falta validacao visual ao vivo no Godot.
 - A aprovacao parcial nao autoriza arte final, gameplay, animacao oficial ou substituicao do Player runtime.
+
+## Rig Refinement V1 - Feature 007
+
+**Data**: 2026-06-19
+**Direcao primaria**: `front_right`
+**Status**: APROVADA PARCIALMENTE como `Rig Refinement V1`
+**Origem visual**: Base Idle Oficial V1 + Rig Parts Separation V1 + Rig Assembly V1
+
+| Asset | Descricao | Origem | Status |
+|---|---|---|---|
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/neck.png` | Backup pre-refinamento do pescoco | Rig Parts Separation V1 | Backup / auditoria |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/torso_base.png` | Backup pre-refinamento do torso base | Rig Parts Separation V1 | Backup / auditoria |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/backpack.png` | Backup pre-refinamento da mochila | Rig Parts Separation V1 | Backup / auditoria |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/pelvis.png` | Backup pre-refinamento da pelvis | Rig Parts Separation V1 | Backup / auditoria |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/goias_patch.png` | Backup pre-refinamento do patch Goias | Rig Parts Separation V1 | Backup / auditoria |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/sergeant_chevron.png` | Backup pre-refinamento da divisa | Rig Parts Separation V1 | Backup / auditoria |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/neck.png` | Pescoco refinado para encaixe cabeca/tronco | Edicao local sobre parte V1 | `refined_for_rig_v1` |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/torso_base.png` | Torso base refinado como camada tecnica sob colete | Edicao local sobre parte V1 | `needs_minor_adjustment` |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/backpack.png` | Mochila refinada para leitura tatica | Edicao local sobre parte V1 | `refined_for_rig_v1` |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/pelvis.png` | Pelvis refinada como centro tecnico do rig | Edicao local sobre parte V1 | `needs_minor_adjustment` |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/goias_patch.png` | Patch Goias/PMGO simbolico | Edicao local sobre parte V1 | `symbolic_detail` |
+| `res://assets/characters/antonio_rafael/rig/parts/front_right/sergeant_chevron.png` | Divisa de sargento simbolica | Edicao local sobre parte V1 | `symbolic_detail` |
+| `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_refinement_v1_preview.png` | Preview humano antes/depois com labels externos | Montagem local para revisao | Preview / nao gameplay |
+
+Observacoes:
+
+- Os PNGs individuais refinados nao possuem labels ou texto externo.
+- `goias_patch` e `sergeant_chevron` sao detalhes simbolicos pela escala `128x128`; nao ha texto literal.
+- O refinamento nao criou animacao oficial, walk cycle, gameplay ou integracao no Player.
+- A Base Idle Oficial V1 permaneceu intacta.
+- Os seis backups foram criados e validados como PNG `128x128`, `RGBA`, com transparencia.
+- O Player nao deve usar essas partes em runtime.

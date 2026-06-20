@@ -195,3 +195,29 @@ Auditoria registrada em 2026-06-19:
 ## Proxima Etapa
 
 Proxima etapa recomendada: refinamento manual de `neck`, `torso_base`, `backpack`, `pelvis`, `goias_patch` e `sergeant_chevron`, seguido de validacao visual ao vivo no Godot antes de qualquer animacao controlada.
+
+## Rig Refinement V1 - Feature 007
+
+Em 2026-06-19, a feature `007-rig-refinement-v1` refinou manualmente as seis partes criticas herdadas da montagem:
+
+- `neck`;
+- `torso_base`;
+- `backpack`;
+- `pelvis`;
+- `goias_patch`;
+- `sergeant_chevron`.
+
+Artefatos relacionados:
+
+- backups: `res://assets/characters/antonio_rafael/rig/parts/front_right/_backup_v1/`;
+- preview: `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_refinement_v1_preview.png`;
+- manifestos atualizados: `parts_manifest.json` e `rig_assembly_manifest.json`;
+- documento dedicado: `res://docs/technical/rig-refinement-v1.md`.
+
+O refinamento foi **APROVADO PARCIALMENTE** como `Rig Refinement V1`, melhorando a leitura tecnica e o encaixe visual da montagem. A cena `AntonioRafaelRigLab.tscn` continua isolada, sem animacao oficial, sem walk cycle e sem integracao no Player.
+
+Limitacoes ainda abertas:
+
+- `torso_base` e `pelvis` ainda precisam validacao visual ao vivo no Godot;
+- `goias_patch` e `sergeant_chevron` sao detalhes simbolicos por limite de escala;
+- o refinamento e tecnico de laboratorio, nao arte final.
