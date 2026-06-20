@@ -197,3 +197,36 @@ Auditoria registrada em 2026-06-19:
 ## Proxima Etapa Recomendada
 
 Validar visualmente a cena de laboratorio no Godot. Qualquer animacao controlada futura deve ser aberta em nova feature e passar por novo gate humano antes de gerar frames finais ou integrar no Player.
+
+## Rig Articulation Test V1 - Feature 008
+
+Em 2026-06-20, a feature `008-rig-articulation-test-v1` usou a Rig Refinement V1 como base para criar testes tecnicos de articulacao no laboratorio.
+
+Artefatos criados:
+
+- cena atualizada: `res://scenes/rig/AntonioRafaelRigLab.tscn`;
+- manifesto: `res://assets/characters/antonio_rafael/rig/rig_articulation_test_manifest.json`;
+- preview: `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png`;
+- documento dedicado: `res://docs/technical/rig-articulation-test-v1.md`.
+
+Estados tecnicos criados no laboratorio:
+
+- `test_neutral`;
+- `test_head`;
+- `test_torso`;
+- `test_arms`;
+- `test_legs`;
+- `test_combined_pose`.
+
+Esta etapa nao altera as partes PNG refinadas. Ela testa pivos e transformacoes leves com `AnimationPlayer` restrito ao laboratorio.
+
+Validacao humana posterior: o preview `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png` foi **APROVADO PARCIALMENTE** como `Rig Articulation Test V1`.
+
+Registro de escopo:
+
+- os estados `test_neutral`, `test_head`, `test_torso`, `test_arms`, `test_legs` e `test_combined_pose` sao somente testes tecnicos de laboratorio;
+- `test_arms` e `test_legs` ainda sao poses tecnicas, nao movimento natural final;
+- `test_combined_pose` e prova de pivo, nao pose final de animacao;
+- mochila, colete, manga com patch e pernas devem ser observados em futuros testes dinamicos;
+- nao houve alteracao de Player, scripts do Player ou sprites idle aprovados;
+- nenhum walk cycle final ou animacao oficial foi criado.

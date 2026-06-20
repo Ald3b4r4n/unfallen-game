@@ -147,6 +147,40 @@ Essa recomendacao usou a **Base Idle Oficial V1** como referencia visual obrigat
 
 **Status oficial**: **BASE IDLE OFICIAL V1 APROVADA**.
 
+## Rig Articulation Test V1 - Identidade Visual
+
+Em 2026-06-20, foi criada a feature `008-rig-articulation-test-v1` como teste tecnico de articulacao do rig `front_right`.
+
+Esta etapa preserva a Base Idle Oficial V1 e usa o laboratorio:
+
+```txt
+res://scenes/rig/AntonioRafaelRigLab.tscn
+```
+
+Estados tecnicos criados:
+
+- `test_neutral`;
+- `test_head`;
+- `test_torso`;
+- `test_arms`;
+- `test_legs`;
+- `test_combined_pose`.
+
+O preview de validacao humana esta em:
+
+```txt
+res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png
+```
+
+Observacao artistica:
+
+- o personagem permanece reconhecivel como SGT Antonio Rafael no preview estatico;
+- rosto, oculos, uniforme, colete, mochila e silhueta geral permanecem coerentes;
+- patch de Goias e divisa seguem como detalhes simbolicos em escala `128x128`;
+- a etapa e tecnica e ainda nao aprova arte final, animacao oficial ou walk cycle.
+
+O Player oficial e os sprites idle aprovados nao foram alterados por esta feature.
+
 ## Walk Cycle 8 Direcoes V1 - REPROVADA
 
 Em 2026-06-18, foi criada a primeira base de caminhada V1 do SGT Antonio Rafael para validacao humana, usando a **Base Idle Oficial V1** como referencia visual direta. Apos revisao humana, esta tentativa foi **REPROVADA**.
@@ -612,3 +646,34 @@ Limitacoes:
 - a validacao atual e visual estatica no laboratorio, nao validacao de animacao;
 - o Player nao deve usar essas partes em runtime;
 - nenhuma animacao ou walk cycle foi criado.
+
+## Rig Articulation Test V1 - Aprovacao Parcial
+
+Em 2026-06-20, o preview `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png` foi validado visualmente pelo usuario e recebeu status **APROVADO PARCIALMENTE** como `Rig Articulation Test V1`.
+
+Testes tecnicos registrados:
+
+- `test_neutral`;
+- `test_head`;
+- `test_torso`;
+- `test_arms`;
+- `test_legs`;
+- `test_combined_pose`.
+
+Observacoes visuais aprovadas:
+
+- a pose neutra permanece coerente;
+- a articulacao da cabeca e sutil e preserva rosto/oculos;
+- o teste de tronco mantem silhueta aceitavel;
+- os testes de bracos e pernas funcionam como prova tecnica;
+- o teste combinado e util para validar pivos;
+- a montagem continua reconhecivel como SGT Antonio Rafael;
+- o preview esta adequado como material de validacao humana.
+
+Limites:
+
+- os testes sao laboratorio tecnico, nao animacao oficial;
+- `test_arms` e `test_legs` nao representam movimento natural final;
+- `test_combined_pose` nao e pose final de animacao;
+- mochila, colete, manga com patch e pernas devem ser observados em futuros testes dinamicos;
+- nao ha autorizacao para Player, gameplay, walk cycle final ou exportacao final de frames.

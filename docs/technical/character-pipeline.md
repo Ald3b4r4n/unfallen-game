@@ -418,3 +418,54 @@ Status: **APROVADA PARCIALMENTE** como `Rig Refinement V1`, com validacao visual
 Auditoria: `Player.tscn` aparece no Git por alteracao pre-existente, com hash baseline `5AAEF2...`; nao ha referencia do rig dentro do Player, nao ha referencia a `walk_*` e nao houve alteracao de gameplay.
 
 Atualizacao de validacao visual: a cena `res://scenes/rig/AntonioRafaelRigLab.tscn` foi aberta no Godot e aprovada parcialmente como `Validacao Visual Godot - Rig Refinement V1`. A validacao confirma que a montagem nao aparenta estar quebrada, fora de escala ou inutilizavel, mas nao aprova arte final, animacao final, walk cycle ou asset final de gameplay.
+
+## Rig Articulation Test V1 - Feature 008
+
+Em 2026-06-20, o pipeline do personagem recebeu uma etapa de teste tecnico de articulacao antes de qualquer nova tentativa de animacao real.
+
+Esta etapa usa:
+
+- Base Idle Oficial V1 como referencia visual mestre;
+- partes refinadas `front_right`;
+- `AntonioRafaelRigLab.tscn` como laboratorio isolado;
+- manifestos de partes e montagem como fonte tecnica.
+
+Foram criados seis estados tecnicos de laboratorio:
+
+- `test_neutral`;
+- `test_head`;
+- `test_torso`;
+- `test_arms`;
+- `test_legs`;
+- `test_combined_pose`.
+
+Confirmacoes de escopo:
+
+- Player oficial nao foi alterado;
+- scripts do Player nao foram alterados;
+- sprites idle aprovados nao foram alterados;
+- nenhuma animacao oficial foi criada;
+- nenhum walk cycle foi criado;
+- nenhum sistema de gameplay foi alterado.
+
+Status: **APROVADA PARCIALMENTE** como `Rig Articulation Test V1`.
+
+Resultado visual humano:
+
+- a pose neutra permanece coerente;
+- a articulacao da cabeca e sutil e nao quebra rosto/oculos;
+- o teste de tronco mantem silhueta aceitavel;
+- os testes de bracos e pernas funcionam como prova tecnica;
+- o teste combinado e util para validacao de pivos;
+- a montagem continua reconhecivel como SGT Antonio Rafael.
+
+Limites mantidos:
+
+- `test_arms` e `test_legs` ainda sao poses tecnicas, nao movimento natural final;
+- `test_combined_pose` e prova de pivo, nao pose final de animacao;
+- mochila, colete, manga com patch e pernas devem ser observados em futuros testes dinamicos;
+- esta validacao nao autoriza integracao no Player;
+- esta validacao nao autoriza exportacao de frames finais;
+- nenhum walk cycle final, animacao oficial ou sistema de gameplay foi criado.
+
+Auditoria: `Player.tscn` aparece no Git por alteracao pre-existente, mas nao foi alterado por esta aprovacao documental; scripts do Player e sprites idle aprovados permanecem inalterados; nao ha referencia do rig dentro do Player nem referencia a `walk_*` como animacao oficial.

@@ -223,3 +223,24 @@ Limitacoes ainda abertas:
 - o refinamento e tecnico de laboratorio, nao arte final.
 
 Validacao visual posterior: a cena `res://scenes/rig/AntonioRafaelRigLab.tscn` foi aberta no Godot e a montagem refinada foi **APROVADA PARCIALMENTE** como `Validacao Visual Godot - Rig Refinement V1`. A recomposicao mantem a silhueta geral, o personagem continua reconhecivel e a montagem e adequada para laboratorio tecnico, sem autorizar animacao, walk cycle ou Player runtime.
+
+## Rig Articulation Test V1 - Feature 008
+
+Em 2026-06-20, a montagem `front_right` foi usada para preparar testes tecnicos de articulacao no laboratorio.
+
+Atualizacao na cena:
+
+- adicionado `ArticulationTestPlayer` como `AnimationPlayer` restrito ao laboratorio;
+- adicionadas animacoes tecnicas `test_neutral`, `test_head`, `test_torso`, `test_arms`, `test_legs` e `test_combined_pose`;
+- a hierarquia `Node2D`/`Sprite2D` existente foi preservada;
+- os pivos/markers existentes continuam como referencia visual e tecnica.
+
+Artefatos:
+
+- manifesto: `res://assets/characters/antonio_rafael/rig/rig_articulation_test_manifest.json`;
+- preview: `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png`;
+- documento: `res://docs/technical/rig-articulation-test-v1.md`.
+
+Escopo preservado: nenhum Player, script do Player, sprite idle aprovado, sistema de gameplay, animacao oficial ou walk cycle foi criado ou alterado por esta feature.
+
+Validacao humana posterior: o preview de `Rig Articulation Test V1` foi **APROVADO PARCIALMENTE** como teste tecnico de laboratorio. Os estados `test_neutral`, `test_head`, `test_torso`, `test_arms`, `test_legs` e `test_combined_pose` validam pivos e articulacao controlada, mas nao sao animacoes oficiais, walk cycle final, assets de gameplay ou integracao no Player.

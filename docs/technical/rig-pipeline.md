@@ -177,3 +177,54 @@ Resultado:
 - nenhum asset foi integrado ao Player.
 
 Atualizacao de validacao: a montagem refinada foi aberta no Godot e **APROVADA PARCIALMENTE** no marco `Validacao Visual Godot - Rig Refinement V1`. Esta aprovacao e somente visual estatica de laboratorio; algumas partes ainda podem precisar ajustes durante testes futuros de articulacao.
+
+## Rig Articulation Test V1 - Feature 008
+
+Em 2026-06-20, foi criada a etapa `Rig Articulation Test V1`, ainda dentro do laboratorio tecnico.
+
+Objetivo:
+
+- testar pivos principais;
+- testar rotacao leve da cabeca;
+- testar inclinacao leve do tronco;
+- testar swing simples dos bracos;
+- testar flexao leve das pernas;
+- testar uma pose combinada simples;
+- registrar limitacoes antes de qualquer animacao real.
+
+Estados tecnicos de laboratorio:
+
+```txt
+test_neutral
+test_head
+test_torso
+test_arms
+test_legs
+test_combined_pose
+```
+
+Artefatos:
+
+- `res://scenes/rig/AntonioRafaelRigLab.tscn`
+- `res://assets/characters/antonio_rafael/rig/rig_articulation_test_manifest.json`
+- `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png`
+- `res://docs/technical/rig-articulation-test-v1.md`
+
+Regras da etapa:
+
+- usar somente como laboratorio;
+- nao integrar ao Player;
+- nao exportar frames finais;
+- nao tratar como animacao oficial;
+- nao tratar como walk cycle;
+- exigir validacao humana antes da proxima etapa.
+
+Decisao humana posterior: o preview `res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png` foi **APROVADO PARCIALMENTE** como `Rig Articulation Test V1`.
+
+Limites mantidos:
+
+- `test_arms` e `test_legs` sao poses tecnicas, nao movimento natural final;
+- `test_combined_pose` e prova de pivo, nao pose final de animacao;
+- mochila, colete, manga com patch e pernas devem ser observados com atencao em testes dinamicos futuros;
+- a validacao nao autoriza integracao no Player nem exportacao de frames finais;
+- nenhum walk cycle final, animacao oficial ou sistema de gameplay foi criado.
