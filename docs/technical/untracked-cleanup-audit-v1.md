@@ -220,3 +220,41 @@ Documentos criados pela feature 011:
 - `docs/archive/walk-prototypes-v1/README.md`
 - `docs/archive/walk-prototypes-v1/manifest.md`
 - `docs/technical/walk-prototypes-archive-v1.md`
+
+## Atualizacao 2026-06-21 - Feature 012 Godot Import UID Policy V1
+
+A feature `012-godot-import-uid-policy-v1` tratou documentalmente os grupos pendentes de arquivos Godot gerados:
+
+| Grupo anterior | Quantidade feature 010 | Resultado feature 012 | Status |
+|---|---:|---|---|
+| `godot_import_files` | 109 | Reclassificado em grupos de politica `.import` | Decisao pendente |
+| `godot_uid_files` | 2 | Reclassificado em grupos de politica `.uid` | Decisao pendente |
+
+Classificacao encontrada na feature 012:
+
+| Grupo | Quantidade | Risco | Recomendacao |
+|---|---:|---|---|
+| `official_asset_imports` | 32 | critical | needs_human_review |
+| `prototype_imports` | 77 | high | remove_later em feature separada |
+| `archive_imports` | 0 | low | ignore_later |
+| `stale_imports` | 0 | high | remove_later |
+| `unknown_imports` | 0 | high | needs_human_review |
+| `official_uid_files` | 2 | critical | needs_human_review |
+| `prototype_uid_files` | 0 | high | separate_feature |
+| `stale_uid_files` | 0 | high | remove_later |
+| `unknown_uid_files` | 0 | high | needs_human_review |
+
+Confirmacoes da feature 012:
+
+- `.import` e `.uid` foram auditados e documentados, nao limpos.
+- `.gitignore` foi verificado e nao alterado.
+- Nenhum `.import` foi apagado, movido ou stageado.
+- Nenhum `.uid` foi apagado, movido ou stageado.
+- Player, cena de rig, scripts, sprites idle aprovados e assets oficiais nao foram alterados.
+- Nao houve gameplay, walk cycle ou animacao oficial.
+- Nao houve commit.
+- Nao houve push.
+
+Documento criado pela feature 012:
+
+- `docs/technical/godot-import-uid-policy-v1.md`

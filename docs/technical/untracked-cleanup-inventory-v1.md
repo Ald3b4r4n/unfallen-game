@@ -380,3 +380,45 @@ Itens que continuam fora do escopo e pendentes de decisao futura:
 - Player/cenas/scripts oficiais: sem alteracao.
 
 Consultar o manifesto detalhado em `docs/archive/walk-prototypes-v1/manifest.md` para a lista completa dos 77 PNGs arquivados.
+
+## Atualizacao 2026-06-21 - Feature 012 Godot Import UID Policy V1
+
+Os grupos `godot_import_files` e `godot_uid_files` foram auditados pela feature `012-godot-import-uid-policy-v1`.
+
+Resumo atualizado:
+
+| Grupo original | Quantidade | Status apos feature 012 |
+|---|---:|---|
+| `godot_import_files` | 109 | Reclassificado; sem limpeza executada |
+| `godot_uid_files` | 2 | Reclassificado; sem limpeza executada |
+
+Classificacao `.import`:
+
+| Grupo 012 | Quantidade | Risco | Recomendacao | Observacao |
+|---|---:|---|---|---|
+| `official_asset_imports` | 32 | critical | needs_human_review | Imports ligados ao rig tecnico validado; fonte existe. |
+| `prototype_imports` | 77 | high | remove_later | Imports ligados a prototipos de walk; fonte original ausente apos arquivamento historico. |
+| `archive_imports` | 0 | low | ignore_later | Nenhum `.import` untracked em `docs/archive/`. |
+| `stale_imports` | 0 | high | remove_later | Nenhum stale sem origem reconhecida separado dos prototipos. |
+| `unknown_imports` | 0 | high | needs_human_review | Nenhum `.import` sem origem inferida. |
+
+Classificacao `.uid`:
+
+| Grupo 012 | Quantidade | Risco | Recomendacao | Observacao |
+|---|---:|---|---|---|
+| `official_uid_files` | 2 | critical | needs_human_review | UIDs ligados a `scripts/rig/rig_export_notes.gd` e `scripts/rig/rig_preview_controller.gd`. |
+| `prototype_uid_files` | 0 | high | separate_feature | Nenhum UID de prototipo encontrado. |
+| `stale_uid_files` | 0 | high | remove_later | Nenhum UID com origem ausente encontrado. |
+| `unknown_uid_files` | 0 | high | needs_human_review | Nenhum UID sem origem inferida. |
+
+Politica aplicada nesta atualizacao:
+
+- Nada foi movido.
+- Nada foi apagado.
+- Nada foi stageado.
+- `.gitignore` nao foi alterado.
+- `.import` e `.uid` continuam pendentes de decisao humana antes de qualquer versionamento, remocao ou ignore futuro.
+
+Documento de referencia:
+
+- `docs/technical/godot-import-uid-policy-v1.md`
