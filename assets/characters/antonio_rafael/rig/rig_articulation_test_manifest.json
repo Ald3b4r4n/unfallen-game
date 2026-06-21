@@ -1,0 +1,242 @@
+{
+  "character": "SGT Antonio Rafael",
+  "feature": "008-rig-articulation-test-v1",
+  "created": "2026-06-20",
+  "source_idle": "res://assets/characters/antonio_rafael/sprites/idle/antonio_rafael_idle_front_right.png",
+  "parts_source": "res://assets/characters/antonio_rafael/rig/parts/front_right/",
+  "parts_manifest": "res://assets/characters/antonio_rafael/rig/parts_manifest.json",
+  "assembly_manifest": "res://assets/characters/antonio_rafael/rig/rig_assembly_manifest.json",
+  "lab_scene": "res://scenes/rig/AntonioRafaelRigLab.tscn",
+  "preview": "res://assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png",
+  "technical_state_names": [
+    "test_neutral",
+    "test_head",
+    "test_torso",
+    "test_arms",
+    "test_legs",
+    "test_combined_pose"
+  ],
+  "status_set": [
+    "test_passed",
+    "needs_pivot_adjustment",
+    "needs_part_refinement",
+    "needs_visual_review",
+    "rejected"
+  ],
+  "tests": [
+    {
+      "test_name": "test_neutral",
+      "parts_involved": [
+        "pelvis",
+        "torso_base",
+        "vest",
+        "backpack",
+        "neck",
+        "head",
+        "glasses",
+        "upper_arm_left",
+        "upper_arm_right",
+        "forearm_left",
+        "forearm_right",
+        "hand_left",
+        "hand_right",
+        "thigh_left",
+        "thigh_right",
+        "shin_left",
+        "shin_right",
+        "boot_left",
+        "boot_right",
+        "belt",
+        "goias_patch",
+        "sergeant_chevron"
+      ],
+      "pivots_used": [
+        "all assembly pivots at rest"
+      ],
+      "rotation_applied": {},
+      "position_applied": {},
+      "expected_result": "Baseline pose remains coherent with the refined lab assembly.",
+      "status": "needs_visual_review",
+      "observed_limitation": "Static preview only; live editor review still recommended."
+    },
+    {
+      "test_name": "test_head",
+      "parts_involved": [
+        "neck",
+        "head",
+        "glasses"
+      ],
+      "pivots_used": [
+        "neck center",
+        "head base at neck",
+        "glasses center"
+      ],
+      "rotation_applied": {
+        "Neck": -0.03,
+        "Head": -0.12
+      },
+      "position_applied": {},
+      "expected_result": "Head rotates lightly and returns to neutral while preserving face, glasses and neck fit.",
+      "status": "needs_visual_review",
+      "observed_limitation": "Neck opening should be checked live in Godot before any production animation."
+    },
+    {
+      "test_name": "test_torso",
+      "parts_involved": [
+        "torso_base",
+        "vest",
+        "backpack",
+        "neck",
+        "pelvis",
+        "belt"
+      ],
+      "pivots_used": [
+        "upper torso center",
+        "vest center",
+        "backpack attachment",
+        "pelvis center"
+      ],
+      "rotation_applied": {
+        "TorsoBase": 0.055,
+        "Backpack": -0.02,
+        "Neck": -0.025
+      },
+      "position_applied": {},
+      "expected_result": "Torso tilts lightly while vest and backpack remain visually attached.",
+      "status": "needs_visual_review",
+      "observed_limitation": "Backpack overlap and torso underlayer still need live visual judgement."
+    },
+    {
+      "test_name": "test_arms",
+      "parts_involved": [
+        "upper_arm_left",
+        "forearm_left",
+        "hand_left",
+        "upper_arm_right",
+        "forearm_right",
+        "hand_right",
+        "goias_patch",
+        "sergeant_chevron"
+      ],
+      "pivots_used": [
+        "left shoulder",
+        "left elbow",
+        "left wrist",
+        "right shoulder",
+        "right elbow",
+        "right wrist",
+        "patch center",
+        "chevron center"
+      ],
+      "rotation_applied": {
+        "UpperArmLeft": 0.18,
+        "ForearmLeft": -0.13,
+        "HandLeft": 0.04,
+        "UpperArmRight": -0.16,
+        "ForearmRight": 0.12,
+        "HandRight": -0.04
+      },
+      "position_applied": {},
+      "expected_result": "Arms swing simply without reading as hostile action; hands remain attached.",
+      "status": "needs_visual_review",
+      "observed_limitation": "Patch and chevron are symbolic and may need adjustment during later motion tests."
+    },
+    {
+      "test_name": "test_legs",
+      "parts_involved": [
+        "pelvis",
+        "thigh_left",
+        "shin_left",
+        "boot_left",
+        "thigh_right",
+        "shin_right",
+        "boot_right"
+      ],
+      "pivots_used": [
+        "pelvis center",
+        "left hip",
+        "left knee",
+        "left ankle",
+        "right hip",
+        "right knee",
+        "right ankle"
+      ],
+      "rotation_applied": {
+        "Pelvis": 0.018,
+        "ThighLeft": -0.12,
+        "ShinLeft": 0.16,
+        "BootLeft": -0.05,
+        "ThighRight": 0.1,
+        "ShinRight": -0.14,
+        "BootRight": 0.05
+      },
+      "position_applied": {},
+      "expected_result": "Legs flex lightly while pelvis remains stable and boots stay coherent.",
+      "status": "needs_visual_review",
+      "observed_limitation": "This is isolated flexion, not a full locomotion cycle."
+    },
+    {
+      "test_name": "test_combined_pose",
+      "parts_involved": [
+        "head",
+        "neck",
+        "torso_base",
+        "vest",
+        "backpack",
+        "upper_arm_left",
+        "upper_arm_right",
+        "forearm_left",
+        "forearm_right",
+        "thigh_left",
+        "thigh_right",
+        "shin_left",
+        "shin_right",
+        "pelvis"
+      ],
+      "pivots_used": [
+        "head base",
+        "upper torso center",
+        "backpack attachment",
+        "shoulders",
+        "elbows",
+        "pelvis center",
+        "hips",
+        "knees"
+      ],
+      "rotation_applied": {
+        "Pelvis": 0.01,
+        "TorsoBase": 0.035,
+        "Backpack": -0.015,
+        "Neck": -0.015,
+        "Head": -0.06,
+        "UpperArmLeft": 0.1,
+        "ForearmLeft": -0.08,
+        "UpperArmRight": -0.1,
+        "ForearmRight": 0.07,
+        "ThighLeft": -0.06,
+        "ShinLeft": 0.08,
+        "ThighRight": 0.05,
+        "ShinRight": -0.07
+      },
+      "position_applied": {},
+      "expected_result": "Combined pose demonstrates small coordinated movement without becoming a production animation.",
+      "status": "needs_visual_review",
+      "observed_limitation": "Combined pose should be reviewed live to judge silhouette stability."
+    }
+  ],
+  "scope_confirmation": {
+    "player_scene_changed": false,
+    "player_scripts_changed": false,
+    "idle_sprites_changed": false,
+    "locomotion_cycle_created": false,
+    "production_animation_created": false,
+    "game_systems_changed": false,
+    "human_validation_required": true
+  },
+  "remaining_limitations": [
+    "All states are technical lab tests and require human visual validation.",
+    "Torso/backpack overlap and pelvis bridge should be checked live in Godot.",
+    "Patch and chevron are symbolic details at 128x128 scale.",
+    "No Player integration is allowed from this feature."
+  ]
+}
