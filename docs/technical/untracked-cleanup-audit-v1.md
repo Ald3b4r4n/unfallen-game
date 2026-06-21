@@ -191,3 +191,32 @@ Resumo do diff rastreado:
 ## Recomendação Final
 
 Não realizar limpeza automática. Próxima etapa recomendada: gate humano para decidir, por grupo, quais arquivos serão mantidos localmente, arquivados em feature própria, ignorados futuramente, removidos futuramente ou versionados em commits pequenos e explícitos.
+
+## Atualizacao 2026-06-21 - Feature 011 Archive Walk Prototypes V1
+
+A feature `011-archive-walk-prototypes-v1` tratou os grupos anteriormente classificados como `archive_later`:
+
+| Grupo | Quantidade feature 010 | Quantidade encontrada feature 011 | Quantidade arquivada | Destino | Status |
+|---|---:|---:|---:|---|---|
+| `walk_candidates` | 66 | 66 | 66 | `docs/archive/walk-prototypes-v1/files/` | Arquivado como historico |
+| `walk_prototypes` | 8 | 8 | 8 | `docs/archive/walk-prototypes-v1/files/` | Arquivado como historico |
+| `preview_assets` | 3 | 3 | 3 | `docs/archive/walk-prototypes-v1/files/` | Arquivado como historico |
+
+Confirmacoes da feature 011:
+
+- Os arquivos arquivados sao prototipos historicos/rejeitados.
+- Os arquivos arquivados nao sao walk cycle oficial.
+- Os arquivos arquivados nao sao animacao oficial.
+- Os arquivos arquivados nao sao assets finais.
+- Os arquivos arquivados nao devem ser integrados ao Player.
+- `.import` continua fora do arquivamento.
+- `.uid` continua fora do arquivamento.
+- `old_specs` continuam pendentes.
+- `manifest_files` fora do escopo continuam pendentes.
+- Player, rig oficial, scripts, sprites idle aprovados e `.gitignore` nao foram alterados.
+
+Documentos criados pela feature 011:
+
+- `docs/archive/walk-prototypes-v1/README.md`
+- `docs/archive/walk-prototypes-v1/manifest.md`
+- `docs/technical/walk-prototypes-archive-v1.md`

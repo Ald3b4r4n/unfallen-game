@@ -358,3 +358,25 @@ Este inventário é documental. Nenhuma recomendação abaixo executa remoção,
 | assets/characters/antonio_rafael/sprites/walk_prototype_v5/left/antonio_rafael_walk_left_06.png | walk_prototypes | png | high | archive_later | Protótipo de walk antigo; não é asset oficial e deve ser arquivado/revisado em feature própria. | pendente |
 | assets/characters/antonio_rafael/sprites/walk_prototype_v5/left/antonio_rafael_walk_left_07.png | walk_prototypes | png | high | archive_later | Protótipo de walk antigo; não é asset oficial e deve ser arquivado/revisado em feature própria. | pendente |
 | assets/characters/antonio_rafael/sprites/walk_prototype_v5/left/antonio_rafael_walk_left_08.png | walk_prototypes | png | high | archive_later | Protótipo de walk antigo; não é asset oficial e deve ser arquivado/revisado em feature própria. | pendente |
+
+## Atualizacao 2026-06-21 - Feature 011 Archive Walk Prototypes V1
+
+Os grupos abaixo foram tratados pela feature `011-archive-walk-prototypes-v1` e movidos para arquivo historico com arvore relativa preservada:
+
+| Grupo | Quantidade | Destino | Recomendacao anterior | Status atual |
+|---|---:|---|---|---|
+| `walk_candidates` | 66 | `docs/archive/walk-prototypes-v1/files/` | `archive_later` | Arquivado como historico |
+| `walk_prototypes` | 8 | `docs/archive/walk-prototypes-v1/files/` | `archive_later` | Arquivado como historico |
+| `preview_assets` | 3 | `docs/archive/walk-prototypes-v1/files/` | `archive_later` | Arquivado como historico |
+
+Itens que continuam fora do escopo e pendentes de decisao futura:
+
+- `.import`: nao movidos, nao versionados em massa.
+- `.uid`: nao movidos, nao versionados em massa.
+- `old_specs`: pendentes de revisao separada.
+- `manifest_files`: pendentes se nao fizerem parte direta do arquivo historico.
+- assets oficiais do rig: sem alteracao.
+- sprites idle aprovados: sem alteracao.
+- Player/cenas/scripts oficiais: sem alteracao.
+
+Consultar o manifesto detalhado em `docs/archive/walk-prototypes-v1/manifest.md` para a lista completa dos 77 PNGs arquivados.
