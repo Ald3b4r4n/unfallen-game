@@ -72,3 +72,19 @@ Documentos de referencia:
 
 - `docs/technical/official-rig-imports-review-v1.md`
 - `docs/technical/official-rig-imports-review-manifest-v1.md`
+
+## Atualizacao 2026-06-23 - Review Rig Articulation Preview Import V1
+
+A feature `015-review-rig-articulation-preview-import-v1` revisou um `.import` adicional ligado ao preview tecnico da Rig Articulation Test V1.
+
+Regra pratica adicionada:
+
+- Imports de preview tecnico validado podem ser candidatos a agrupamento futuro com imports oficiais do rig, mas somente com paths explicitos, commit separado e gate humano.
+- Um `.import` de preview tecnico nao prova existencia de caminhada articulada oficial, walk cycle oficial ou animacao oficial.
+- Nao alterar `.gitignore` para esconder `.import` globalmente enquanto o projeto usa politica seletiva para imports oficiais.
+- Nao misturar imports de rig com `.uid`, Player, cenas, scripts, sprites idle ou gameplay no mesmo escopo sem aprovacao explicita.
+
+Documentos de referencia:
+
+- `docs/technical/rig-articulation-preview-import-review-v1.md`
+- `docs/technical/rig-articulation-preview-import-review-manifest-v1.md`

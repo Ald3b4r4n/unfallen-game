@@ -311,3 +311,30 @@ Documentos criados pela feature 014:
 
 - `docs/technical/official-rig-imports-review-v1.md`
 - `docs/technical/official-rig-imports-review-manifest-v1.md`
+
+## Atualizacao 2026-06-23 - Feature 015 Review Rig Articulation Preview Import V1
+
+A feature `015-review-rig-articulation-preview-import-v1` tratou documentalmente o candidato adicional de rig preview registrado na feature 014.
+
+| Grupo | Quantidade antes | Acao feature 015 | Status |
+|---|---:|---|---|
+| Candidato adicional de rig preview | 1 | Revisao documental individual | Recomendado `join_official_rig_imports` com gate humano futuro |
+| `official_asset_imports` | 32 | Nenhuma alteracao | Continuam recomendados `version_later`, pendentes de gate humano |
+| `official_uid_files` | 2 | Nenhuma alteracao | Pendente |
+| `.import` em `docs/archive/` | 77 | Nenhuma alteracao | Fora do escopo |
+
+Confirmacoes da feature 015:
+
+- O candidato `.import` existe e permanece untracked.
+- O PNG de origem existe e e rastreado.
+- Nenhum `.import` foi removido, movido, editado, stageado ou versionado.
+- Nenhum `.uid` foi removido, movido, editado, stageado ou versionado.
+- `.gitignore` nao foi alterado.
+- Player, cena de rig, scripts, sprites idle aprovados e assets oficiais nao foram alterados.
+- O preview e evidencia visual de teste tecnico do rig, nao walk cycle oficial.
+- Ainda nao existe caminhada articulada oficial no projeto.
+
+Documentos criados pela feature 015:
+
+- `docs/technical/rig-articulation-preview-import-review-v1.md`
+- `docs/technical/rig-articulation-preview-import-review-manifest-v1.md`

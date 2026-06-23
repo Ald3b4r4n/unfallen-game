@@ -469,3 +469,36 @@ Documentos de referencia:
 
 - `docs/technical/official-rig-imports-review-v1.md`
 - `docs/technical/official-rig-imports-review-manifest-v1.md`
+
+## Atualizacao 2026-06-23 - Feature 015 Review Rig Articulation Preview Import V1
+
+O candidato adicional `rig_articulation_test_v1_preview` foi revisado pela feature `015-review-rig-articulation-preview-import-v1`.
+
+Resumo atualizado:
+
+| Grupo | Quantidade | Resultado feature 015 | Status atual |
+|---|---:|---|---|
+| `rig_articulation_preview_import` | 1 | PNG de origem existe e e rastreado | Recomendado `join_official_rig_imports`, pendente de gate humano |
+| `official_asset_imports` | 32 | Nenhuma alteracao | Continuam pendentes de acao futura |
+| `official_uid_files` | 2 | Nenhuma alteracao | Pendente |
+| `.import` em `docs/archive/` | 77 | Nenhuma alteracao | Fora do escopo |
+
+Item revisado:
+
+| Path | Grupo | Tipo | Risco | Recomendacao | Observacao | Decisao |
+|---|---|---|---|---|---|---|
+| `assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png.import` | `rig_articulation_preview_import` | `.import` | critical | `join_official_rig_imports` | Import do preview tecnico da Rig Articulation Test V1; nao e walk cycle oficial nem animacao oficial. | pendente de gate humano |
+
+Politica aplicada nesta atualizacao:
+
+- Nada foi movido.
+- Nada foi apagado.
+- Nada foi stageado.
+- `.gitignore` nao foi alterado.
+- `.import` e `.uid` continuam sem acao executada.
+- Ainda nao existe caminhada articulada oficial, walk cycle oficial, animacao oficial ou gameplay criado por esta revisao.
+
+Documentos de referencia:
+
+- `docs/technical/rig-articulation-preview-import-review-v1.md`
+- `docs/technical/rig-articulation-preview-import-review-manifest-v1.md`

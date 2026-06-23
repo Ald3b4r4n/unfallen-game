@@ -74,3 +74,13 @@ Este manifesto nao aprova walk cycle, nao aprova animacao oficial, nao integra n
 ## Gate
 
 Todos os 32 imports revisados receberam recomendacao documental `version_later`, mas nenhum foi stageado, versionado, movido, removido ou alterado. A decisao final permanece pendente de validacao humana.
+
+## Atualizacao 2026-06-23 - Feature 015
+
+O item adicional fora do snapshot de 32 foi revisado em feature propria:
+
+| Import path | Source PNG | Source exists | Source tracked | Risk | Status | Recommendation | Notes |
+|---|---|---|---|---|---|---|---|
+| `assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png.import` | `assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png` | yes | yes | critical | `articulation_preview_import_join_official_rig_imports` | `join_official_rig_imports` | Revisado pela feature 015 como import de preview tecnico da Rig Articulation Test V1; recomendado para agrupamento futuro com imports oficiais do rig, somente com gate humano. |
+
+Esta atualizacao nao altera a decisao historica da feature 014 nem executa versionamento. Nenhum `.import`, `.uid`, `.gitignore`, Player, cena, script, sprite idle ou asset oficial foi alterado.

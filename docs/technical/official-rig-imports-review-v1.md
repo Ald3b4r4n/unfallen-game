@@ -177,3 +177,35 @@ Recomendacao futura: se o projeto decidir criar politica de ignore para imports 
 Status recomendado: **APROVAR PARCIALMENTE** como revisao documental dos official rig imports.
 
 Proxima etapa recomendada: apos validacao humana, preparar um commit controlado apenas com documentos da feature 014 e artefatos Spec Kit. Qualquer commit futuro dos 32 `.import` deve ser uma feature separada ou gate explicito, com caminhos exatos e sem `git add .`.
+
+## Atualizacao 2026-06-23 - Feature 015 Review Rig Articulation Preview Import V1
+
+A feature `015-review-rig-articulation-preview-import-v1` revisou o candidato adicional que havia ficado fora do snapshot dos 32 official rig imports:
+
+```txt
+assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png.import
+```
+
+Resultado da revisao:
+
+| Campo | Valor |
+|---|---|
+| PNG de origem | `assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png` |
+| PNG de origem existe | yes |
+| PNG de origem rastreado | yes |
+| `.import` rastreado | no, untracked |
+| Relacao | preview tecnico da Rig Articulation Test V1 |
+| Risco | critical |
+| Status | `articulation_preview_import_join_official_rig_imports` |
+| Recomendacao | `join_official_rig_imports` com gate humano futuro |
+
+Esta atualizacao nao altera a contagem historica de 32 itens avaliados pela feature 014. Ela apenas registra que o candidato adicional agora possui revisao propria e pode ser considerado complemento futuro dos official rig imports, mediante aprovacao humana e path explicito.
+
+Confirmacoes preservadas:
+
+- O item nao foi stageado, versionado, movido, removido ou editado.
+- `.gitignore` permanece inalterado.
+- Nenhum `.uid` foi alterado.
+- Player, cena de rig, scripts, sprites idle aprovados e assets oficiais nao foram alterados.
+- O preview nao e walk cycle oficial.
+- Ainda nao existe caminhada articulada oficial no projeto.

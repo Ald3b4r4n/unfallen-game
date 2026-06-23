@@ -254,3 +254,39 @@ Documentos da feature 014:
 
 - `docs/technical/official-rig-imports-review-v1.md`
 - `docs/technical/official-rig-imports-review-manifest-v1.md`
+
+## Atualizacao 2026-06-23 - Feature 015 Review Rig Articulation Preview Import V1
+
+A feature `015-review-rig-articulation-preview-import-v1` revisou documentalmente o candidato adicional registrado pela feature 014:
+
+```txt
+assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png.import
+```
+
+Resultado:
+
+| Item | Resultado |
+|---|---|
+| Candidato adicional | 1 `.import` |
+| PNG de origem | existe e e rastreado |
+| Status | `articulation_preview_import_join_official_rig_imports` |
+| Risco | critical |
+| Recomendacao | `join_official_rig_imports` com gate humano futuro |
+
+Confirmacoes:
+
+- Nenhum `.import` foi removido, movido, editado, stageado ou versionado.
+- Nenhum `.uid` foi removido, movido, editado, stageado ou versionado.
+- `.gitignore` nao foi alterado.
+- Player, cena de rig, scripts, sprites idle aprovados e assets oficiais nao foram alterados.
+- O preview e evidencia visual de teste tecnico do rig, nao walk cycle oficial.
+- Ainda nao existe caminhada articulada oficial no projeto.
+- Nenhuma animacao oficial foi criada.
+- Nenhum gameplay foi criado.
+
+Decisao sugerida para `.gitignore`: manter inalterado. Nao criar regra global para `.import`; qualquer inclusao futura deste item deve usar path explicito e gate humano.
+
+Documentos da feature 015:
+
+- `docs/technical/rig-articulation-preview-import-review-v1.md`
+- `docs/technical/rig-articulation-preview-import-review-manifest-v1.md`
