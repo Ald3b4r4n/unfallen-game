@@ -199,3 +199,28 @@ Recomendacao para feature futura:
 Status recomendado: **APROVAR PARCIALMENTE** como politica documental.
 
 Proxima etapa recomendada: criar uma feature separada para decidir a aplicacao da politica, começando por um commit controlado dos `.uid` de `scripts/rig/` e/ou dos `.import` oficiais do rig, ou por uma feature de remocao segura dos `.import` stale de prototipos. Nenhuma dessas acoes deve acontecer sem novo gate humano.
+
+## Atualizacao 2026-06-21 - Feature 013 Remove Stale Prototype Imports V1
+
+A feature `013-remove-stale-prototype-imports-v1` aplicou a politica definida aqui somente ao grupo `prototype_imports`.
+
+Resultado:
+
+| Grupo | Quantidade feature 012 | Quantidade avaliada feature 013 | Quantidade removida | Status |
+|---|---:|---:|---:|---|
+| `prototype_imports` | 77 | 77 | 77 | Removido como `.import` obsoleto de prototipo |
+| `official_asset_imports` | 32 | 0 | 0 | Mantido para revisao humana futura |
+| `official_uid_files` | 2 | 0 | 0 | Mantido para revisao humana futura |
+
+Confirmacoes:
+
+- Apenas `.import` de prototipos antigos/rejeitados foi removido.
+- Nenhum `.uid` foi removido.
+- Nenhum `.import` de asset oficial foi removido.
+- `.import` dentro de `docs/archive/walk-prototypes-v1/files/` ficou fora desta remocao.
+- Base Idle Oficial V1, rig validado, Player, cenas, scripts e `.gitignore` nao foram alterados.
+
+Documentos da feature 013:
+
+- `docs/technical/stale-prototype-imports-removal-v1.md`
+- `docs/technical/stale-prototype-imports-removal-manifest-v1.md`

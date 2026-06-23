@@ -422,3 +422,20 @@ Politica aplicada nesta atualizacao:
 Documento de referencia:
 
 - `docs/technical/godot-import-uid-policy-v1.md`
+
+## Atualizacao 2026-06-21 - Feature 013 Remove Stale Prototype Imports V1
+
+O grupo `prototype_imports` da feature 012 foi tratado pela feature `013-remove-stale-prototype-imports-v1`.
+
+| Grupo 012 | Quantidade antes | Acao feature 013 | Quantidade restante esperada | Status |
+|---|---:|---|---:|---|
+| `prototype_imports` | 77 | Remocao por lista explicita e manifesto | 0 | Tratado |
+| `official_asset_imports` | 32 | Nenhuma alteracao | 32 | Pendente |
+| `official_uid_files` | 2 | Nenhuma alteracao | 2 | Pendente |
+
+Observacoes:
+
+- O manifesto completo da remocao esta em `docs/technical/stale-prototype-imports-removal-manifest-v1.md`.
+- Os PNGs historicos continuam preservados em `docs/archive/walk-prototypes-v1/files/`.
+- `.import` gerados localmente para o arquivo historico em `docs/archive/` nao foram removidos nesta feature.
+- `.uid`, imports oficiais do rig, Player, cenas, scripts, sprites idle aprovados e `.gitignore` ficaram fora do escopo.

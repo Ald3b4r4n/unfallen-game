@@ -39,3 +39,19 @@ Documento de referencia:
 - `docs/technical/godot-import-uid-policy-v1.md`
 
 Esta atualizacao nao altera `.gitignore`, nao move arquivos, nao apaga arquivos e nao autoriza commit/push automatico.
+
+## Atualizacao 2026-06-21 - Remove Stale Prototype Imports V1
+
+A feature `013-remove-stale-prototype-imports-v1` aplicou uma limpeza segura apenas a `.import` obsoleto de prototipos rejeitados.
+
+Regra pratica adicionada:
+
+- Remocao de `.import` stale deve acontecer somente por lista explicita, com manifesto, contagem esperada e validacao de caminhos sensiveis.
+- Nunca remover `.import` por diretorio inteiro ou glob amplo quando houver assets oficiais no mesmo projeto.
+- `.uid` deve continuar fora de limpezas de `.import` e precisa de decisao propria.
+- Imports oficiais do rig, Base Idle Oficial V1, Player, cenas, scripts e `.gitignore` devem ser validados como intocados antes do gate humano.
+
+Documentos de referencia:
+
+- `docs/technical/stale-prototype-imports-removal-v1.md`
+- `docs/technical/stale-prototype-imports-removal-manifest-v1.md`

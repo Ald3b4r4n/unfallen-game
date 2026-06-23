@@ -258,3 +258,31 @@ Confirmacoes da feature 012:
 Documento criado pela feature 012:
 
 - `docs/technical/godot-import-uid-policy-v1.md`
+
+## Atualizacao 2026-06-21 - Feature 013 Remove Stale Prototype Imports V1
+
+A feature `013-remove-stale-prototype-imports-v1` tratou somente o grupo `prototype_imports` identificado pela feature 012.
+
+| Grupo | Quantidade anterior | Resultado feature 013 | Status |
+|---|---:|---|---|
+| `prototype_imports` | 77 | 77 `.import` removidos por lista explicita | Tratado |
+| `official_asset_imports` | 32 | Nenhuma alteracao | Pendente |
+| `official_uid_files` | 2 | Nenhuma alteracao | Pendente |
+| `archive_imports` | 0 na feature 012 | Copias geradas localmente pelo Godot em `docs/archive/` ficaram fora | Fora do escopo |
+| `old_specs` | Pendente | Nenhuma alteracao | Pendente |
+| `manifest_files` | Pendente | Nenhuma alteracao | Pendente |
+
+Confirmacoes da feature 013:
+
+- A remocao foi limitada a `.import` obsoleto ligado a prototipos de walk rejeitados.
+- Nenhum `.uid` foi removido.
+- Nenhum asset oficial foi removido.
+- Player, cena de rig, scripts, sprites idle aprovados, rig oficial e `.gitignore` nao foram alterados.
+- Nao houve gameplay, walk cycle oficial ou animacao oficial.
+- Nao houve commit.
+- Nao houve push.
+
+Documentos criados pela feature 013:
+
+- `docs/technical/stale-prototype-imports-removal-v1.md`
+- `docs/technical/stale-prototype-imports-removal-manifest-v1.md`
