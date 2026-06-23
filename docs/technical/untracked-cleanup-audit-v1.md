@@ -286,3 +286,28 @@ Documentos criados pela feature 013:
 
 - `docs/technical/stale-prototype-imports-removal-v1.md`
 - `docs/technical/stale-prototype-imports-removal-manifest-v1.md`
+
+## Atualizacao 2026-06-23 - Feature 014 Review Official Rig Imports V1
+
+A feature `014-review-official-rig-imports-v1` tratou documentalmente o grupo `official_asset_imports` identificado pela feature 012.
+
+| Grupo 012 | Quantidade antes | Acao feature 014 | Status |
+|---|---:|---|---|
+| `official_asset_imports` | 32 | Revisao documental por arquivo | Recomendado `version_later` com gate humano futuro |
+| Candidato adicional de rig preview | 1 | Registrado fora do snapshot 012 | `separate_feature` / `needs_human_review` |
+| `official_uid_files` | 2 | Nenhuma alteracao | Pendente |
+| `.import` em `docs/archive/` | 77 | Nenhuma alteracao | Fora do escopo |
+
+Confirmacoes da feature 014:
+
+- Nenhum `.import` foi apagado, movido, editado, stageado ou versionado.
+- Nenhum `.uid` foi apagado, movido, editado, stageado ou versionado.
+- `.gitignore` nao foi alterado.
+- Player, cena de rig, scripts, sprites idle aprovados e assets oficiais nao foram alterados.
+- Ainda nao existe caminhada articulada oficial no projeto.
+- Nenhum walk cycle, animacao oficial ou gameplay foi criado.
+
+Documentos criados pela feature 014:
+
+- `docs/technical/official-rig-imports-review-v1.md`
+- `docs/technical/official-rig-imports-review-manifest-v1.md`

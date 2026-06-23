@@ -439,3 +439,33 @@ Observacoes:
 - Os PNGs historicos continuam preservados em `docs/archive/walk-prototypes-v1/files/`.
 - `.import` gerados localmente para o arquivo historico em `docs/archive/` nao foram removidos nesta feature.
 - `.uid`, imports oficiais do rig, Player, cenas, scripts, sprites idle aprovados e `.gitignore` ficaram fora do escopo.
+
+## Atualizacao 2026-06-23 - Feature 014 Review Official Rig Imports V1
+
+O grupo `official_asset_imports` foi revisado documentalmente pela feature `014-review-official-rig-imports-v1`.
+
+Resumo atualizado:
+
+| Grupo | Quantidade | Resultado feature 014 | Status atual |
+|---|---:|---|---|
+| `official_asset_imports` | 32 | Todos avaliados com origem PNG existente | Recomendado `version_later`, pendente de gate humano para acao |
+| `rig_part_import` | 22 | Classificado e revisado | Dentro dos 32 |
+| `rig_backup_related_import` | 6 | Classificado e revisado | Dentro dos 32 |
+| `rig_preview_import` | 3 | Classificado e revisado | Dentro dos 32 |
+| `rig_manifest_related_import` | 1 | Classificado e revisado | Dentro dos 32 |
+| Candidato adicional `rig_articulation_test_v1_preview` | 1 | Encontrado fora do snapshot 012 | `separate_feature` / `needs_human_review` |
+| `official_uid_files` | 2 | Nao tratado | Pendente |
+
+Politica aplicada nesta atualizacao:
+
+- Nada foi movido.
+- Nada foi apagado.
+- Nada foi stageado.
+- `.gitignore` nao foi alterado.
+- `.import` e `.uid` continuam sem acao executada.
+- Ainda nao existe caminhada articulada oficial, walk cycle oficial, animacao oficial ou gameplay criado por esta revisao.
+
+Documentos de referencia:
+
+- `docs/technical/official-rig-imports-review-v1.md`
+- `docs/technical/official-rig-imports-review-manifest-v1.md`

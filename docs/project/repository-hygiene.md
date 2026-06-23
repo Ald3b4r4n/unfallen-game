@@ -55,3 +55,20 @@ Documentos de referencia:
 
 - `docs/technical/stale-prototype-imports-removal-v1.md`
 - `docs/technical/stale-prototype-imports-removal-manifest-v1.md`
+
+## Atualizacao 2026-06-23 - Review Official Rig Imports V1
+
+A feature `014-review-official-rig-imports-v1` revisou os `32 official_asset_imports` do rig tecnico validado sem mover, apagar, stagear ou versionar `.import`.
+
+Regra pratica adicionada:
+
+- Imports oficiais do rig podem ser candidatos a `version_later`, mas somente em commit futuro separado, com paths explicitos e gate humano.
+- Nao usar regra global em `.gitignore` para esconder `.import` enquanto o projeto versiona imports oficiais selecionados.
+- `.uid` deve continuar em decisao separada.
+- Imports de preview/arquivo historico/prototipo nao devem ser misturados com imports oficiais do rig.
+- Nenhum `.import` prova existencia de caminhada articulada oficial, walk cycle oficial ou animacao oficial.
+
+Documentos de referencia:
+
+- `docs/technical/official-rig-imports-review-v1.md`
+- `docs/technical/official-rig-imports-review-manifest-v1.md`

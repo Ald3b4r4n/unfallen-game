@@ -224,3 +224,33 @@ Documentos da feature 013:
 
 - `docs/technical/stale-prototype-imports-removal-v1.md`
 - `docs/technical/stale-prototype-imports-removal-manifest-v1.md`
+
+## Atualizacao 2026-06-23 - Feature 014 Review Official Rig Imports V1
+
+A feature `014-review-official-rig-imports-v1` revisou documentalmente os `32 official_asset_imports` ligados ao rig tecnico validado do SGT Antonio Rafael.
+
+Resultado:
+
+| Grupo | Quantidade | Status | Recomendacao |
+|---|---:|---|---|
+| `official_asset_imports` | 32 | revisado | `version_later` com gate humano futuro |
+| Candidato adicional de rig preview | 1 | fora do snapshot 012 | `separate_feature` / `needs_human_review` |
+| `official_uid_files` | 2 | nao tratado | feature separada |
+
+Confirmacoes:
+
+- Nenhum `.import` foi removido, movido, editado, stageado ou versionado.
+- Nenhum `.uid` foi removido, movido, editado, stageado ou versionado.
+- `.gitignore` nao foi alterado.
+- Player, cena de rig, scripts, sprites idle aprovados e assets oficiais nao foram alterados.
+- Ainda nao existe caminhada articulada oficial no projeto.
+- Nenhum walk cycle foi criado.
+- Nenhuma animacao oficial foi criada.
+- Nenhum gameplay foi criado.
+
+Decisao sugerida para `.gitignore`: manter inalterado. Nao criar regra global para `.import`; qualquer versionamento futuro deve ser seletivo, com caminhos explicitos e novo gate humano.
+
+Documentos da feature 014:
+
+- `docs/technical/official-rig-imports-review-v1.md`
+- `docs/technical/official-rig-imports-review-manifest-v1.md`
