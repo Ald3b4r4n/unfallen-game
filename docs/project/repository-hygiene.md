@@ -88,3 +88,22 @@ Documentos de referencia:
 
 - `docs/technical/rig-articulation-preview-import-review-v1.md`
 - `docs/technical/rig-articulation-preview-import-review-manifest-v1.md`
+
+## Atualizacao 2026-06-24 - Rig Imports Versioning and Articulated Walk Lab Prep V1
+
+A feature `016-rig-imports-versioning-and-articulated-walk-lab-prep-v1` consolidou o versionamento dos imports oficiais do rig.
+
+Regras praticas reforcadas:
+
+- `.import` oficial pode ser stageado somente por path explicito individual.
+- Nao usar glob para `.import`.
+- Nao stagear diretorio inteiro de `assets/`.
+- Nao misturar `.import` oficial com `.uid`.
+- Nao alterar `.gitignore` para resolver casos individuais de import.
+- Nao confundir import de preview tecnico com walk cycle oficial.
+- A proxima etapa recomendada e laboratorio experimental separado, sem integracao inicial ao Player.
+
+Documentos de referencia:
+
+- `docs/technical/official-rig-imports-versioning-v1.md`
+- `docs/technical/articulated-walk-lab-prep-v1.md`

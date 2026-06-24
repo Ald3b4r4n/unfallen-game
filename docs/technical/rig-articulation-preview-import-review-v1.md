@@ -231,3 +231,22 @@ Nao criar regra global para `.import`, porque o repositorio ja versiona imports 
 Status recomendado: **APROVAR PARCIALMENTE** como revisao documental do import adicional de preview de articulacao.
 
 Proxima acao recomendada: commit controlado apenas dos documentos da feature 015 e artefatos Spec Kit, se aprovado humanamente. Qualquer versionamento futuro do `.import` deve ocorrer em etapa separada ou gate explicito, com path literal.
+
+## Atualizacao 2026-06-24 - Feature 016
+
+A feature `016-rig-imports-versioning-and-articulated-walk-lab-prep-v1` revalidou o candidato:
+
+```txt
+assets/characters/antonio_rafael/rig/previews/antonio_rafael_rig_articulation_test_v1_preview.png.import
+```
+
+Resultado:
+
+- PNG de origem existe.
+- PNG de origem e rastreado.
+- O `.import` aponta para o PNG esperado.
+- O item permanece evidencia tecnica de laboratorio, nao walk cycle oficial.
+- O item foi consolidado junto aos imports oficiais do rig para stage explicito por path individual.
+- Nenhum `.uid`, `.gitignore`, Player, cena, script, sprite idle ou PNG/asset oficial foi alterado.
+
+Ainda nao existe caminhada articulada oficial no projeto.

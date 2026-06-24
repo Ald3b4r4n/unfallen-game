@@ -502,3 +502,21 @@ Documentos de referencia:
 
 - `docs/technical/rig-articulation-preview-import-review-v1.md`
 - `docs/technical/rig-articulation-preview-import-review-manifest-v1.md`
+
+## Atualizacao 2026-06-24 - Feature 016
+
+| Grupo | Quantidade | Status apos feature 016 | Observacao |
+|---|---:|---|---|
+| `official_asset_imports` | 32 | tratado | Revalidado e stageado por paths explicitos individuais. |
+| `articulation_preview_import` | 1 | tratado | Revalidado e stageado junto aos imports oficiais do rig. |
+| `godot_uid_files` | 2 | pendente | `.uid` continua fora do escopo. |
+| `archive_imports` | 77 | fora do escopo | Imports historicos em `docs/archive/walk-prototypes-v1/files/` nao foram stageados. |
+| `old_specs` | 21 | pendente | Continuam para revisao separada. |
+| `manifest_files` | 1 | pendente | Continua fora do escopo. |
+
+Confirmacoes:
+
+- Nenhum `.uid` foi stageado.
+- `.gitignore` nao foi alterado.
+- Nenhum Player, cena, script, sprite idle ou PNG/asset oficial foi alterado.
+- Ainda nao existe caminhada articulada oficial no projeto.

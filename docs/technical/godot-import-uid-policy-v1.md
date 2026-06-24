@@ -290,3 +290,30 @@ Documentos da feature 015:
 
 - `docs/technical/rig-articulation-preview-import-review-v1.md`
 - `docs/technical/rig-articulation-preview-import-review-manifest-v1.md`
+
+## Atualizacao 2026-06-24 - Feature 016 Rig Imports Versioning and Articulated Walk Lab Prep V1
+
+A feature `016-rig-imports-versioning-and-articulated-walk-lab-prep-v1` aplicou a politica seletiva de `.import` aos imports oficiais do rig tecnico validado.
+
+Resultado:
+
+| Grupo | Quantidade | Status | Decisao |
+|---|---:|---|---|
+| `official_asset_imports` | 32 | revalidado | stage explicito por path individual |
+| `articulation_preview_import` | 1 | revalidado | stage explicito por path individual |
+| `.uid` | 0 | fora do escopo | nao stageado |
+
+Confirmacoes:
+
+- Nenhum `.uid` foi versionado ou stageado.
+- `.gitignore` nao foi alterado.
+- Nenhum PNG/asset oficial foi alterado.
+- Player, cenas e scripts nao foram alterados.
+- Nao foi usado `git add .`, `git add -A`, `git commit -am` ou `git clean`.
+- Ainda nao existe caminhada articulada oficial no projeto.
+- A proxima etapa recomendada e `017-articulated-walk-lab-v1`.
+
+Documentos da feature 016:
+
+- `docs/technical/official-rig-imports-versioning-v1.md`
+- `docs/technical/articulated-walk-lab-prep-v1.md`

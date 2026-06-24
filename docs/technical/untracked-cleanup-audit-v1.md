@@ -338,3 +338,18 @@ Documentos criados pela feature 015:
 
 - `docs/technical/rig-articulation-preview-import-review-v1.md`
 - `docs/technical/rig-articulation-preview-import-review-manifest-v1.md`
+
+## Atualizacao 2026-06-24 - Feature 016
+
+A feature `016-rig-imports-versioning-and-articulated-walk-lab-prep-v1` tratou os official rig imports que permaneciam pendentes das features 014 e 015.
+
+Resultado registrado:
+
+- `official_asset_imports`: 32 itens revalidados e stageados explicitamente por paths individuais.
+- `articulation_preview_import`: 1 item revalidado e stageado explicitamente por path individual.
+- `.uid`: continua fora do escopo e sem stage.
+- `.gitignore`: nao alterado.
+- `docs/archive/walk-prototypes-v1/files/*.import`: continuam fora do escopo.
+- `old_specs` e manifest antigo fora do escopo: continuam pendentes.
+
+Esta atualizacao nao altera Player, cenas, scripts, sprites idle, PNGs/assets oficiais, gameplay, walk cycle ou animacao oficial.

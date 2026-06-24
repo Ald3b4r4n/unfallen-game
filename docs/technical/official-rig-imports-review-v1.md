@@ -209,3 +209,18 @@ Confirmacoes preservadas:
 - Player, cena de rig, scripts, sprites idle aprovados e assets oficiais nao foram alterados.
 - O preview nao e walk cycle oficial.
 - Ainda nao existe caminhada articulada oficial no projeto.
+
+## Atualizacao 2026-06-24 - Feature 016
+
+A feature `016-rig-imports-versioning-and-articulated-walk-lab-prep-v1` consolidou a recomendacao `version_later` dos 32 imports oficiais revisados por esta feature.
+
+Resultado:
+
+- 32 official rig imports revalidados.
+- 32 official rig imports aprovados para stage explicito por paths individuais.
+- O import adicional do preview de articulacao, revisado na feature 015, foi tratado como complemento separado dentro da contagem total de 33.
+- Nenhum `.uid` foi stageado.
+- `.gitignore` permaneceu inalterado.
+- Player, cenas, scripts, sprites idle e PNGs/assets oficiais nao foram alterados.
+
+Esta atualizacao nao transforma os imports em walk cycle oficial, animacao oficial ou gameplay.
