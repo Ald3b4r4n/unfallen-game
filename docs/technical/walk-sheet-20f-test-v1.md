@@ -233,3 +233,6 @@ Recomendacao:
 ```txt
 validar visualmente no Godot e, se aprovado parcialmente, usar como referencia tecnica de movimento para uma futura feature de laboratorio controlado.
 ```
+## Continuidade pela Feature 018
+
+Este teste right-facing foi normalizado em `res://assets/characters/antonio_rafael/walk_lab/normalized/right/`. Os frames 21-24 continuam documentados como ponte de loop baseada nos frames 06-09. O uso segue experimental.

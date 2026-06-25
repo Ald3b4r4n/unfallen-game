@@ -61,6 +61,8 @@ res://assets/characters/antonio_rafael/walk_lab/exports/
 res://assets/characters/antonio_rafael/walk_lab/previews/
 res://assets/characters/antonio_rafael/walk_lab/frames/
 res://assets/characters/antonio_rafael/walk_lab/frames/front_right/
+res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/
+res://assets/characters/antonio_rafael/walk_lab/frames/left_20f/
 ```
 
 `walk_lab` e uma area experimental ativa. Ela nao e:
@@ -92,6 +94,8 @@ res://assets/characters/antonio_rafael/walk_lab/prompts/front_right_walk_codex_i
 res://assets/characters/antonio_rafael/walk_lab/source/front_right_anchor_codex_image_attempt_v1.png
 res://assets/characters/antonio_rafael/walk_lab/source/front_right_walk_codex_image_attempt_v1.png
 res://assets/characters/antonio_rafael/walk_lab/source/front_right_walk_codex_image_attempt_v2.png
+res://assets/characters/antonio_rafael/walk_lab/source/walking_left_to_right_20f.png
+res://assets/characters/antonio_rafael/walk_lab/source/walking_right_to_left_20f.png
 ```
 
 ### Preview
@@ -99,6 +103,8 @@ res://assets/characters/antonio_rafael/walk_lab/source/front_right_walk_codex_im
 ```txt
 res://assets/characters/antonio_rafael/walk_lab/previews/front_right_walk_codex_image_attempt_v1_preview.png
 res://assets/characters/antonio_rafael/walk_lab/previews/front_right_walk_codex_image_attempt_v2_preview.png
+res://assets/characters/antonio_rafael/walk_lab/previews/walking_left_to_right_20f_contact_sheet.png
+res://assets/characters/antonio_rafael/walk_lab/previews/walking_right_to_left_20f_contact_sheet.png
 ```
 
 ### Frames experimentais
@@ -116,6 +122,8 @@ res://assets/characters/antonio_rafael/walk_lab/frames/front_right_v2/frame_05.p
 res://assets/characters/antonio_rafael/walk_lab/frames/front_right_v2/frame_06.png
 res://assets/characters/antonio_rafael/walk_lab/frames/front_right_v2/frame_07.png
 res://assets/characters/antonio_rafael/walk_lab/frames/front_right_v2/frame_08.png
+res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_01.png ... frame_24.png
+res://assets/characters/antonio_rafael/walk_lab/frames/left_20f/frame_01.png ... frame_24.png
 ```
 
 ## Nomeacao
@@ -133,6 +141,12 @@ frame_04.png
 front_right_walk_codex_image_attempt_v2.png
 front_right_walk_codex_image_attempt_v2_preview.png
 frames/front_right_v2/frame_01.png ... frame_08.png
+walking_left_to_right_20f.png
+walking_right_to_left_20f.png
+walking_right_20f_spriteframes.tres
+walking_left_20f_spriteframes.tres
+WalkSheet20FrameTest.tscn
+WalkSheetLeft20FrameTest.tscn
 ```
 
 ## Diferenca Entre Experimental E Oficial
@@ -249,3 +263,6 @@ A V2 melhora a progressao visual ao usar 8 frames e mostrar alternancia mais leg
 - Nenhum walk cycle oficial foi criado.
 - Nenhuma animacao oficial foi criada.
 - Nenhum gameplay foi criado.
+## Etapa 018 — Normalizacao lateral
+
+A etapa 018 adiciona uma normalizacao lateral comparativa e nao destrutiva para os ciclos `right-facing` e `left-facing`. A etapa cria material experimental de laboratorio, previews e cena isolada, mas nao integra nada ao Player e nao cria animacao oficial.

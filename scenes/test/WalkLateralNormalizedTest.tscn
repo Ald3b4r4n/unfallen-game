@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="SpriteFrames" path="res://assets/characters/antonio_rafael/walk_lab/animations/walking_right_24f_normalized_spriteframes.tres" id="1_right_frames"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/antonio_rafael/walk_lab/animations/walking_left_24f_normalized_spriteframes.tres" id="2_left_frames"]
+[ext_resource type="Script" path="res://scripts/test/walk_lateral_normalized_test_controller.gd" id="3_controller"]
+
+[node name="WalkLateralNormalizedTest" type="Node2D"]
+script = ExtResource("3_controller")
+
+[node name="RightPanel" type="Node2D" parent="."]
+position = Vector2(320, 350)
+
+[node name="WalkRightNormalized" type="AnimatedSprite2D" parent="RightPanel"]
+texture_filter = 1
+scale = Vector2(0.42, 0.42)
+sprite_frames = ExtResource("1_right_frames")
+animation = &"walk_right_24f_normalized"
+autoplay = "walk_right_24f_normalized"
+
+[node name="LeftPanel" type="Node2D" parent="."]
+position = Vector2(760, 350)
+
+[node name="WalkLeftNormalized" type="AnimatedSprite2D" parent="LeftPanel"]
+texture_filter = 1
+scale = Vector2(0.42, 0.42)
+sprite_frames = ExtResource("2_left_frames")
+animation = &"walk_left_24f_normalized"
+autoplay = "walk_left_24f_normalized"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 820.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 22
+text = "Walk Lateral Normalized Test - experimental lab"
+
+[node name="RightFrameLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 58.0
+offset_right = 420.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 16
+text = "Right-facing normalized: Frame 01/24"
+
+[node name="LeftFrameLabel" type="Label" parent="CanvasLayer"]
+offset_left = 460.0
+offset_top = 58.0
+offset_right = 860.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 16
+text = "Left-facing normalized: Frame 01/24"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 92.0
+offset_right = 900.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 14
+text = "Experimental walk lab only | 12 FPS | autoplay | no Player integration"

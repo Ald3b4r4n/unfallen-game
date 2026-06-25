@@ -282,6 +282,46 @@ res://scenes/test/WalkSheet20FrameTest.tscn
 
 Esse material nao substitui a Base Idle Oficial V1, nao e walk cycle oficial e nao foi integrado ao Player. Ele serve apenas como comparacao tecnica de movimento porque a caminhada apresenta progressao mais clara que as tentativas V1/V2 geradas diretamente no Codex Image Walk Lab.
 
+## Teste Tecnico Externo Left-Facing 24F
+
+Foi criado um teste tecnico isolado usando uma spritesheet externa complementar:
+
+```txt
+C:\Users\Antonio Rafael\OneDrive\Desktop\spritesheets\walking right to left.png
+```
+
+Arquivo copiado:
+
+```txt
+res://assets/characters/antonio_rafael/walk_lab/source/walking_right_to_left_20f.png
+```
+
+A sheet foi detectada como uma grade `5x5` com uma celula vazia, totalizando 24 frames visiveis em direcao `right_to_left` / `left-facing`.
+
+Cena experimental isolada:
+
+```txt
+res://scenes/test/WalkSheetLeft20FrameTest.tscn
+```
+
+Esse material complementa o teste `right-facing` anterior. Diferente do teste anterior, que fechou o loop com 20 frames extraidos mais 4 copias, este teste usa 24 frames reais da propria spritesheet.
+
+Status:
+
+```txt
+technical_test_created
+```
+
+Uso proibido:
+
+```txt
+walk oficial
+animacao oficial
+Player runtime
+gameplay
+substituicao da Base Idle Oficial V1
+```
+
 ## Decisao Humana
 
 ```txt
@@ -315,3 +355,6 @@ Sugestoes para proxima rodada:
 - Nenhum walk cycle oficial foi criado.
 - Nenhuma animacao oficial foi criada.
 - Nenhum gameplay foi criado.
+## Feature 018 — Walk Cycle Lateral Normalization V1
+
+A feature 018 normalizou, em pasta separada, os testes laterais `right_20f` e `left_20f` para comparacao tecnica. O resultado permanece experimental, nao e walk oficial e nao foi integrado ao Player.

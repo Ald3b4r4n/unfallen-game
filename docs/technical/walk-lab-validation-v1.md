@@ -232,6 +232,45 @@ Status:
 technical_test_created
 ```
 
+## Teste Tecnico Externo Left-Facing 24F
+
+Foi criado um teste isolado com spritesheet externa `right_to_left` / `left-facing`:
+
+```txt
+res://assets/characters/antonio_rafael/walk_lab/source/walking_right_to_left_20f.png
+res://assets/characters/antonio_rafael/walk_lab/frames/left_20f/frame_01.png ... frame_24.png
+res://assets/characters/antonio_rafael/walk_lab/previews/walking_right_to_left_20f_contact_sheet.png
+res://assets/characters/antonio_rafael/walk_lab/animations/walking_left_20f_spriteframes.tres
+res://scenes/test/WalkSheetLeft20FrameTest.tscn
+```
+
+Resultado tecnico:
+
+```txt
+24 frames reais
+500x526 px
+PNG RGBA
+5 colunas x 5 linhas, com uma celula vazia
+animacao walk_left_20f
+12 FPS
+loop true
+```
+
+Avaliacao estatica:
+
+- a caminhada tem direcao `left-facing` clara;
+- a sequencia usa 24 frames originais, sem frames extras copiados;
+- a alternancia de pernas e bracos e perceptivel;
+- o fundo magenta foi preservado;
+- a cena de teste e isolada e nao depende do Player;
+- ainda falta validacao visual ao vivo no Godot.
+
+Status:
+
+```txt
+technical_test_created
+```
+
 ## Classificacao Atual
 
 ```txt
@@ -271,3 +310,6 @@ avaliar V2 como candidate_for_human_review
 pedir nova rodada de prompt V3
 reprovar a V2
 ```
+## Walk Cycle Lateral Normalization V1
+
+Os conjuntos laterais `right_20f` e `left_20f` foram normalizados em `res://assets/characters/antonio_rafael/walk_lab/normalized/` para revisao humana. O lado right-facing mantem a limitacao de ponte nos frames 21-24; o lado left-facing usa 24 frames reais. Nenhum material foi promovido a walk oficial.
