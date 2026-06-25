@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="SpriteFrames" path="res://assets/characters/antonio_rafael/walk_lab/animations/walking_right_20f_spriteframes.tres" id="1_frames"]
+[ext_resource type="Script" path="res://scripts/test/walk_sheet_20_frame_test_controller.gd" id="2_controller"]
+
+[node name="WalkSheet20FrameTest" type="Node2D"]
+script = ExtResource("2_controller")
+
+[node name="WalkRight20F" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(320, 330)
+scale = Vector2(0.42, 0.42)
+sprite_frames = ExtResource("1_frames")
+animation = &"walk_right_20f"
+frame = 0
+
+[node name="FrameGallery" type="Node2D" parent="."]
+position = Vector2(680, 135)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FrameLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 260.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 20
+text = "Frame 01/24"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 52.0
+offset_right = 360.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 16
+text = "Mode: inspect | Speed: 6 fps"
+
+[node name="ControlsLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 92.0
+offset_right = 780.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 14
+text = "Tab: inspect/move | Space: play/pause | Left/Right or A/D: frame or move | R: reset | Up/Down: speed"

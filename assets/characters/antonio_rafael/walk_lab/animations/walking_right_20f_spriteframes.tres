@@ -1,0 +1,131 @@
+[gd_resource type="SpriteFrames" load_steps=25 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_01.png" id="1_frame_01"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_02.png" id="2_frame_02"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_03.png" id="3_frame_03"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_04.png" id="4_frame_04"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_05.png" id="5_frame_05"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_06.png" id="6_frame_06"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_07.png" id="7_frame_07"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_08.png" id="8_frame_08"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_09.png" id="9_frame_09"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_10.png" id="10_frame_10"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_11.png" id="11_frame_11"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_12.png" id="12_frame_12"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_13.png" id="13_frame_13"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_14.png" id="14_frame_14"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_15.png" id="15_frame_15"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_16.png" id="16_frame_16"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_17.png" id="17_frame_17"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_18.png" id="18_frame_18"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_19.png" id="19_frame_19"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_20.png" id="20_frame_20"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_21.png" id="21_frame_21"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_22.png" id="22_frame_22"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_23.png" id="23_frame_23"]
+[ext_resource type="Texture2D" path="res://assets/characters/antonio_rafael/walk_lab/frames/right_20f/frame_24.png" id="24_frame_24"]
+
+[resource]
+animations = [{
+"frames": [
+{
+"duration": 1.0,
+"texture": ExtResource("1_frame_01")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("2_frame_02")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("3_frame_03")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("4_frame_04")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("5_frame_05")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("6_frame_06")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("7_frame_07")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("8_frame_08")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("9_frame_09")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("10_frame_10")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("11_frame_11")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("12_frame_12")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("13_frame_13")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("14_frame_14")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("15_frame_15")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("16_frame_16")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("17_frame_17")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("18_frame_18")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("19_frame_19")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("20_frame_20")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("21_frame_21")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("22_frame_22")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("23_frame_23")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("24_frame_24")
+}
+],
+"loop": true,
+"name": &"walk_right_20f",
+"speed": 12.0
+}]
